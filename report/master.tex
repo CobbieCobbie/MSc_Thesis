@@ -1,0 +1,113 @@
+\documentclass[a4paper,12pt,headsepline]{scrartcl}
+
+%\part{title}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{caption,subcaption}
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{proof}
+\geometry{left=3.5cm, right=2cm, top=2.5cm, bottom=2cm}
+\usepackage{hyperref}
+%\usepackage[hyphens,obeyspaces,spaces]{url}
+\usepackage{fancybox}
+\usepackage{amssymb,amsmath,amsthm}
+\usepackage{gensymb}
+\usepackage[linesnumbered,ruled,vlined,norelsize]{algorithm2e}
+%\usepackage[bookmarksnumbered,pdftitle={\titleDocument},hyperfootnotes=false]{hyperref} 
+\usepackage{color}
+\usepackage{float}
+
+%test
+\usepackage[backend=bibtex]{biblatex}
+\usepackage{filecontents}
+
+\addbibresource{ref.bib}
+
+\restylefloat{figure}
+
+% Makros
+\newenvironment{sketch}{\begin{proof}[Proof (Sketch)]}{\end{proof}}
+\newtheorem{theorem}{Theorem}
+\newtheorem{assumption}{Assumption}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newcommand{\comment}[1]
+{
+  \begin{quotation}
+    \textcolor{blue}{\underline{Edit:} #1}
+  \end{quotation}
+}
+\newcommand{\TODO}[1]
+{
+  \begin{quotation}
+    \textcolor{red}{\underline{TODO:} #1}
+  \end{quotation}
+}
+\newcommand{\mygraphics}[3][2]{
+\begin{figure}[h]
+	\centering
+	\includegraphics[page=#1]{#2}
+	\caption{#3}
+\end{figure}
+}
+
+% Zeichen 
+\newcommand{\Rho}{\ensuremath{\mathcal{O}}}
+\newcommand{\ec}{\texttt{ec}}
+\newcommand{\NP}{\call{NP}}
+\newcommand{\call}[1]{\ensuremath{\mathcal{#1}}}
+
+% neue Kopfzeilen mit fancypaket
+\usepackage{fancyhdr} %Paket laden
+\pagestyle{fancy} %eigener Seitenstil
+\fancyhf{} %alle Kopf- und Fußzeilenfelder bereinigen
+\fancyhead[L]{\nouppercase{\leftmark}} %Kopfzeile links
+\fancyhead[C]{} %zentrierte Kopfzeile
+\fancyhead[R]{\thepage} %Kopfzeile rechts
+\renewcommand{\headrulewidth}{0.4pt} %obere Trennlinie
+%\fancyfoot[C]{\thepage} %Seitennummer
+%\renewcommand{\footrulewidth}{0.4pt} %untere Trennlinie
+
+\frenchspacing
+\makeindex
+
+% Pseudocode für Java
+\usepackage{listings}
+\lstset{numbers=left, numberstyle=\tiny, numbersep=5pt, keywordstyle=\color{black}\bfseries, stringstyle=\ttfamily,showstringspaces=false,basicstyle=\footnotesize,captionpos=b}
+\lstset{language=java}
+
+% Disable single lines at the start of a paragraph (Schusterjungen)
+\clubpenalty = 10000
+% Disable single lines at the end of a paragraph (Hurenkinder)
+\widowpenalty = 10000
+\displaywidowpenalty = 10000
+
+\begin{document}
+%\newpage
+%\thispagestyle{empty} % erzeugt Seite ohne Kopf- / Fusszeile
+%\section*{ }
+%Seitennummerierung römisch
+\pagenumbering{roman} 
+\include{include/deckblatt}
+\include{include/abstract_ger}
+\include{include/abstract}
+\include{include/Erklaerung}
+\tableofcontents%neue Seitennummerierung, arabisch, reset
+\newpage
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\include{include/introduction}
+\include{include/preliminaries}
+\include{include/Kandinsky}
+\include{include/Saving}
+\include{include/Related}
+\include{include/Example}
+\include{include/open_problems}
+\include{include/acknowledgements}
+%\include{include/thebibliography}
+\printbibliography
+\end{document}

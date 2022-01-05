@@ -1,0 +1,351 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.12.26)  27 DEC 2017 11:33
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**deckblatt.tex
+(./deckblatt.tex
+LaTeX2e <2017-04-15>
+Babel <3.12> and hyphenation patterns for 14 language(s) loaded.
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.33 \begin{center}
+                   
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 33--33
+[] 
+ []
+
+! Undefined control sequence.
+l.34 \Large
+           {Fachhochschule <Name>}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no F in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no < in font nullfont!
+Missing character: There is no N in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no > in font nullfont!
+! Undefined control sequence.
+<recently read> \Large 
+                       
+l.35 \Large
+           {- Campus <Name> -}\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no - in font nullfont!
+Missing character: There is no C in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no < in font nullfont!
+Missing character: There is no N in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no > in font nullfont!
+Missing character: There is no - in font nullfont!
+
+Overfull \hbox (20.0pt too wide) in paragraph at lines 39--39
+[] 
+ []
+
+! Undefined control sequence.
+l.40 \Large
+           {Fakult√§t f√ºr <Fachrichtung>}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no F in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no k in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no √ in font nullfont!
+Missing character: There is no § in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no √ in font nullfont!
+Missing character: There is no º in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no < in font nullfont!
+Missing character: There is no F in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no u in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no g in font nullfont!
+Missing character: There is no > in font nullfont!
+! Undefined control sequence.
+<argument> {~\subjectDocument 
+                              ~-~Schwerpunkt <Schwerpunktfach>}
+l.55 ...Document~-~Schwerpunkt <Schwerpunktfach>}}
+                                                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
+Overfull \hbox (8.9444pt too wide) in paragraph at lines 55--56
+   \OT1/cmr/bx/n/10 - 
+ []
+
+
+Overfull \hbox (29.38873pt too wide) in paragraph at lines 55--56
+ \OT1/cmr/bx/n/10 Schw- 
+ []
+
+
+Overfull \hbox (13.84023pt too wide) in paragraph at lines 55--56
+ \OT1/cmr/bx/n/10 er- 
+ []
+
+
+Overfull \hbox (29.70818pt too wide) in paragraph at lines 55--56
+ \OT1/cmr/bx/n/10 punkt 
+ []
+
+
+Overfull \hbox (32.88872pt too wide) in paragraph at lines 55--56
+ \OT1/cmr/bx/n/10 <Schw- 
+ []
+
+
+Overfull \hbox (13.84023pt too wide) in paragraph at lines 55--56
+ \OT1/cmr/bx/n/10 er- 
+ []
+
+
+Overfull \hbox (29.06929pt too wide) in paragraph at lines 55--56
+ \OT1/cmr/bx/n/10 punk- 
+ []
+
+
+Overfull \hbox (8.30551pt too wide) in paragraph at lines 55--56
+ \OT1/cmr/bx/n/10 t- 
+ []
+
+
+Overfull \hbox (25.71512pt too wide) in paragraph at lines 55--56
+ \OT1/cmr/bx/n/10 fach> 
+ []
+
+
+Overfull \hbox (16.23604pt too wide) in paragraph at lines 67--67
+ \OT1/cmr/bx/n/10 zur 
+ []
+
+
+Overfull \hbox (16.12492pt too wide) in paragraph at lines 67--67
+ \OT1/cmr/bx/n/10 Er- 
+ []
+
+
+Overfull \hbox (19.00682pt too wide) in paragraph at lines 67--67
+ \OT1/cmr/bx/n/10 lan- 
+ []
+
+
+Overfull \hbox (24.27765pt too wide) in paragraph at lines 67--67
+ \OT1/cmr/bx/n/10 gung 
+ []
+
+
+Overfull \hbox (16.19574pt too wide) in paragraph at lines 67--67
+ \OT1/cmr/bx/n/10 des 
+ []
+
+
+Overfull \hbox (49.41774pt too wide) in paragraph at lines 67--67
+ \OT1/cmr/bx/n/10 akademis- 
+ []
+
+
+Overfull \hbox (22.84016pt too wide) in paragraph at lines 67--67
+ \OT1/cmr/bx/n/10 chen 
+ []
+
+
+Overfull \hbox (35.56367pt too wide) in paragraph at lines 67--67
+ \OT1/cmr/bx/n/10 Grades 
+ []
+
+
+Overfull \hbox (43.90254pt too wide) in paragraph at lines 67--68
+ []\OT1/cmr/bx/n/10 Bachelor 
+ []
+
+
+Overfull \hbox (5.74997pt too wide) in paragraph at lines 67--68
+ \OT1/cmr/bx/n/10 / 
+ []
+
+
+Overfull \hbox (24.87622pt too wide) in paragraph at lines 67--68
+ \OT1/cmr/bx/n/10 Mas- 
+ []
+
+
+Overfull \hbox (14.47911pt too wide) in paragraph at lines 67--68
+ \OT1/cmr/bx/n/10 ter 
+ []
+
+
+Overfull \hbox (9.26384pt too wide) in paragraph at lines 67--68
+ \OT1/cmr/bx/n/10 of 
+ []
+
+
+Overfull \hbox (18.52768pt too wide) in paragraph at lines 67--68
+ \OT1/cmr/bx/n/10 Sci- 
+ []
+
+
+Overfull \hbox (22.04156pt too wide) in paragraph at lines 67--68
+ \OT1/cmr/bx/n/10 ence 
+ []
+
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 78.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5> on input line 78.
+Missing character: There is no < in font nullfont!
+Missing character: There is no T in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no A in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no b in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no > in font nullfont!
+Missing character: There is no N in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no < in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no @ in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no l in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no > in font nullfont!
+Missing character: There is no M in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no N in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no 3 in font nullfont!
+Missing character: There is no 4 in font nullfont!
+Missing character: There is no 5 in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no . in font nullfont!
+! Undefined control sequence.
+l.84 \textbf{Version vom:} & & \today
+                                      &\\
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Missing character: There is no P in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no D in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no X in font nullfont!
+Missing character: There is no P in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no D in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no Y in font nullfont!
+
+Overfull \hbox (71.15942pt too wide) in paragraph at lines 78--89
+[]  
+ []
+
+)
+! Emergency stop.
+<*> deckblatt.tex
+                 
+*** (job aborted, no legal \end found)
+
+ 
+Here is how much of TeX's memory you used:
+ 14 strings out of 494765
+ 236 string characters out of 6175893
+ 50968 words of memory out of 5000000
+ 3450 multiletter control sequences out of 15000+600000
+ 4116 words of font info for 16 fonts, out of 8000000 for 9000
+ 81 hyphenation exceptions out of 8191
+ 19i,7n,14p,110b,197s stack positions out of 5000i,500n,10000p,200000b,80000s
+!  ==> Fatal error occurred, no output PDF file produced!

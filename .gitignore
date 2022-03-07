@@ -1,7 +1,8 @@
 _old/*
+papers/*
 
-# official TeX gitignore from github: 
-#
+# official TeX gitignore from github:
+ #
 # https://github.com/github/gitignore/blob/main/TeX.gitignore
 
 *.aux

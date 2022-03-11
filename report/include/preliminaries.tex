@@ -1,4 +1,7 @@
 \section{Preliminaries}
+
+% TODO What is this section about?
+
 \subsection{Definitions And Terminology}
 %A graph is a 2-tuple consisting of a vertex set and an edge set. The visualization, however, has to be drawn in some kind of way. Investigating the drawing of a graph needs to include several constraints, for example, \emph{how} we want the drawing and \emph{where} we want to draw on. These constraints can be described mathematically.\\
 A \emph{graph} $G=(V,E)$ is a tuple consisting of two sets - the set of vertices and the set of edges. An \emph{edge} $e = (v,w), v,w \in V$ is a tuple and describes a connectivity relation between two vertices.
@@ -32,14 +35,14 @@ A multigraph $G^*$ is the \emph{dual graph of $G$} if and only if there exists a
 
 \subsection{Graph Drawing Models And Representations}
 % Grid
-An $n \times n$ \emph{grid} is a graph consisting of $n$ rows and $n$ columns of vertices. The vertex in the $i$-th row and $j$-th column is denoted as $(i,j)$ and is called a \emph{grid point}. All vertices in a grid have exactly four neighbours, except for the boundary vertices \cite[P. 760]{DBLP:cormen_intro_to_algorithms}.
+An $n \times n$ \emph{grid} is a graph consisting of $n$ rows and $n$ columns of vertices. The vertex in the $i$-th row and $j$-th column is denoted as $(i,j)$ and is called a \emph{grid point}. All vertices in a grid have exactly four neighbours, except for the boundary vertices \cite[P. 760]{DBLP:cormen_intro_to_algorithms}. One \emph{unit length} values the distance between two adjacent vertices on the grid and is denoted as \UL.
 % Drawing
 A \emph{drawing} $\Gamma$ of a graph $G$ is a function, where each vertex is mapped on a unique point $\Gamma(v)$ in the plane and each edge is mapped on an open Jordan curve $\Gamma(e)$ ending in its vertices \cite[P. 225]{Duncan_planar_polyline_drawings}. In this context, a graph will be drawn on an underlying grid.
 % Embedding
 An \emph{embedding} of $G$ is the collection of counter-clockwise circular orderings of edges around each vertex of $V$, denoted as a sequence of edges.\\
 % Straight-line drawing
 In a \emph{straight-line drawing}, verticees are points on the grid and edges are straight-line segments.\\
-% Poly line drawing
+% Polyline drawing
 In a \emph{polyline drawing}, vertices are points on the grid, edges are sequences of contiguous straight-line segments. The transition point between two edge segments is called a \emph{bend}. Like vertices, bends are placed on points on the underlying grid.\\
 % Box
 A \emph{box} is an axis-parallel rectangle, overlapping vertical and horizontal grid lines. The \emph{width} of a box is one unit smaller than the number of vertical grid lines that are overlapped by it. The \emph{height} of a box is one unit smaller than the number of horizontal grid lines that are overlapped by it.
@@ -53,6 +56,8 @@ A drawing whose minimum enclosing box has width $w$ and height $h$ is called a $
 The \emph{euclidian distance} between two grid points $(x_1,y_1)$ and $(x_2,y_2)$ is defined as $\sqrt{(x_2-x_1)^2 + (y_2-y_1)^2}$.
 % Edge length
 The \emph{length of a line segment} is defined as the euclidian distance between the end points. The \emph{length of a polyline} is defined as the sum of the individual line segment lengths.
+
+
 % ratio???? here?
 
 \subsection{The Relationship Between Drawing Models}

@@ -1,14 +1,12 @@
 \section{$k$-ary Trees}
 % TODO What is this section about?
-
+When analyzing a general problem of graph drawings, considering trees may come in handy due to their assessable properties. The first graph class considered for minimizing the ratio in a drawing is therefore the class of $k$-ary trees. This section describes a drawing algorithm for a $k$-ary tree $T$, guaranteeing a nearly optimal euclidian ratio in the resulting drawing $\Gamma_T$. The total area of $\Gamma_T$ will depend on the height of $T$.\\
 % properties of complete k-ary trees
-
-% k is a constant
-
+Since any $k$-ary tree is acyclic per definition, $T$ is connected, but not biconnected and the treewidth of $T$ equals 1. Having $n$ vertices, $T$ inherits exactly $n-1$ edges. The small bags in a tree decomposition and the low amount of edges makes $k$-ary trees accessible for a straightforward solution for a given problem.\\
 % context for outerplanar graphs
-
+When working on other graph classes, it may be possible to find a feasible solution in a reduction to an instance of a tree. In fact, this effect will occur in the subsequent section of this thesis.
+\subsection{The Drawing Algorithm}
 % The height 
-
 \begin{lemma}The \emph{height $h$} of a complete $k$-ary tree $T$ is in $\mathcal{O}(\log n)$.
 \end{lemma}
 \begin{proof}
@@ -27,51 +25,59 @@
 \end{theorem}
 \begin{proof}
 	The following drawing will be constructed from top to bottom, meaning that the $y$-coordinates of the children of any vertex $v$ are smaller than the $y$ coordinate of $v$.\\
-	Let $r := k^h$. For a vertex $v$ in height $i$, consider $k$ equidistant columns with $x$-coordinates between $x(v) - k^{h-i}$ and $x(v) + k^{h-i}$. These are integer coordinates since the distance between two columns next to each other equals $2\cdot \frac{k^{h-i}}{k}$. Draw a circle around $v$ with radius $r$. Choose the grid points $v_i$ on the column closest to the resulting intersections with the constraint that $y(v_i) \leq y(v)$ and connect $v$ with its $k$ children with a straight-line.
+	Let $r := k^h$. For a vertex $v$ in height $i$, consider $k$ equidistant columns with $x$-coordinates between $x(v) - (k-1)\cdot  k^{h-h'-1}$ and $x(v) + (k-1)\cdot  k^{h-h'-1}$. These are integer coordinates since the distance between two columns next to each other equals $2\cdot \frac{k^{h-i}}{k}$. Draw a circle around $v$ with radius $r$. Choose the grid points $v_i$ on the column closest to the resulting intersections with the constraint that $y(v_i) \leq y(v)$ and connect $v$ with its $k$ children with a straight-line.
 	% TODO Illustration of circle with columns
-	\\
+\begin{figure}[H]
+	\centering
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[page=1,width=0.8\linewidth]{graphics/k-ary_tree_algorithm_construction.pdf}
+		\end{subfigure}
+	\caption{Illustration of drawing algorithm at a vertex $v$ with height $h$}\label{im:k-ary_trees_algorithm_illustration}
+\end{figure}
 	The distance between two neighbouring columns in height $i$ suffices for the remaining drawing since it holds for the remaining heights:
 	\begin{align}
 		\underbrace{2\cdot \sum_{j=i}^{h-1} k^{h-j-1}}_{\text{drawn from both columns}} &= 2\cdot\sum_{z = 0}^{h-i-1}h^z\\
 		&= 2\cdot\frac{k^{h-i}-1}{k-1} < 2\cdot k^{h-i}
 	\end{align}
-	The following algorithm sums up the approach described above.\\
-	\begin{algorithm}[H]
-		\KwIn{complete $k$-ary tree $T$,$k$}
-		\KwOut{Planar drawing of $T$ with nearly optimal ratio}
-		\caption{Drawing algorithm for $k$-ary trees}
-		$h \gets $ \text{height of $T$}\\
-		$r \gets k^h$\\
-		Draw $root(T)$ on any grid point\\
-		\texttt{Draw}$(root(T),r,h)$
-	\end{algorithm}
-	\begin{algorithm}[H]
-		\KwIn{Already drawn vertex $v$, radius and height $r,h \in \mathbb{N}$}
-		\KwOut{Coordinates of all the children of $v$}
-		\caption{\texttt{Draw}$(v,r,h)$}
-		\If{$v$ leaf}{\Return}
-		\Else{
-			$h' \gets \texttt{height}(v)$\\
-			$d \gets 2\cdot k^{h-h'-1}$\\
-			$C \gets v.\texttt{DrawCircle}(r)$\\
-			\tcc{Draw circle with radius $r$ around $v$}
-			\For{$i \in [1..k]$}{
-				$x(v_i) \gets x(v) - k^{h-h'} + (i-1)\cdot d$\\
-				\tcc{$x$-coordinate of $i$-th child of $v$}
-				$X \gets \texttt{Column}(x(v_i))$\\
-				\tcc{Identify the column at position $x(v_i)$}
-				$s \gets \texttt{Intersection}(I,X)$\\
-				\tcc{Calculate the intersection of the circle $C$ and the column $X$}
-				$y(v_i) \gets round(y(s))$\\
-				\texttt{DrawStraightLine}$(v,v_i)$\\
-				\texttt{Draw}$(v_i,r,h)$
-			}
-		}		
-	\end{algorithm}
 	The height of the drawing is bound by $h\cdot r = h\cdot k^h \in \mathcal{O}(n\cdot \log n)$. 
 	The width is bound by $2\cdot\sum_{i = 0}^{h} k^i = 2\cdot \frac{k^{i+1}-1}{k-1} \in \mathcal{O}(n)$, resulting in $\mathcal{O}(n^2\log n)$ area.\\ 
 	Since the algorithm works from top to bottom and for height $i$, the area for every subtree is disjointedly reserved, the resulting drawing is planar. Furthermore, all straight-line edges inherit a length of approximately $k^h$, no bends were used and the ratio is bound by $1+\varepsilon, 0\leq \varepsilon<1$.
-	
 \end{proof}
+\bigskip
+The following algorithm sums up the approach described above.\\
+\begin{algorithm}[H]
+	\KwIn{complete $k$-ary tree $T$,$k$}
+	\KwOut{Planar drawing of $T$ with nearly optimal ratio}
+	\caption{Drawing algorithm for $k$-ary trees}
+	$h \gets $ \text{height of $T$}\\
+	$r \gets k^h$\\
+	Draw $root(T)$ on any grid point\\
+	\texttt{Draw}$(root(T),r,h)$
+\end{algorithm}
+\begin{algorithm}[H]
+	\KwIn{Already drawn vertex $v$, radius and height $r,h \in \mathbb{N}$}
+	\KwOut{Coordinates of all the children of $v$}
+	\caption{\texttt{Draw}$(v,r,h)$}
+	\If{$v$ leaf}{\Return}
+	\Else{
+		$h' \gets \texttt{height}(v)$\\
+		$d \gets 2\cdot k^{h-h'-1}$\\
+		$C \gets v.\texttt{DrawCircle}(r)$\\
+		\tcc{Draw circle with radius $r$ around $v$}
+		\For{$i \in [1..k]$}{
+			$x(v_i) \gets x(v) - \frac{(k-1)\cdot d}{2} + (i-1)\cdot d$\\
+			\tcc{$x$-coordinate of $i$-th child of $v$}
+			$X \gets \texttt{Column}(x(v_i))$\\
+			\tcc{Identify the column at position $x(v_i)$}
+			$s \gets \texttt{Intersection}(I,X)$\\
+			\tcc{Calculate the intersection of the circle $C$ and the column $X$}
+			$y(v_i) \gets round(y(s))$\\
+			\texttt{DrawStraightLine}$(v,v_i)$\\
+			\texttt{Draw}$(v_i,r,h)$
+		}
+	}		
+\end{algorithm}
 
+\subsection{Example Drawings}
 % TODO Example drawings

@@ -14,7 +14,7 @@ When working on other graph classes, it may be possible to find a feasible solut
 		n = \sum_{i=0}^{h}k^i &= \frac{k^{h+1}-1}{k-1}\\
 		\Leftrightarrow h &= \log_k((k-1)n+1)-1\\
 		&= \frac{\log((k-1)n+1)}{\log k}-1\\
-		\Rightarrow h &\in O(\log n)
+		\underbrace{\Rightarrow}_{k \text{ constant}}h &\in O(\log n)
 	\end{align}
 \end{proof}
 
@@ -41,7 +41,7 @@ When working on other graph classes, it may be possible to find a feasible solut
 		&= 2\cdot\frac{k^{h-i}-1}{k-1} < 2\cdot k^{h-i}
 	\end{align}
 	The height of the drawing is bound by $h\cdot r = h\cdot k^h \in \mathcal{O}(n\cdot \log n)$. 
-	The width is bound by $2\cdot\sum_{i = 0}^{h} k^i = 2\cdot \frac{k^{i+1}-1}{k-1} \in \mathcal{O}(n)$, resulting in $\mathcal{O}(n^2\log n)$ area.\\ 
+	The width is bound by $2\cdot\sum_{i = 0}^{h} k^i = 2\cdot \frac{k^{h+1}-1}{k-1} \in \mathcal{O}(n)$, resulting in $\mathcal{O}(n^2\log n)$ area.\\ 
 	Since the algorithm works from top to bottom and for height $i$, the area for every subtree is disjointedly reserved, the resulting drawing is planar. Furthermore, all straight-line edges inherit a length of approximately $k^h$, no bends were used and the ratio is bound by $1+\varepsilon, 0\leq \varepsilon<1$.
 \end{proof}
 \bigskip
@@ -81,3 +81,19 @@ The following algorithm sums up the approach described above.\\
 
 \subsection{Example Drawings}
 % TODO Example drawings
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=1,width=0.8\linewidth]{graphics/k-ary_tree_example_drawings.pdf}
+	\end{subfigure}
+	\caption{Tertiary tree with height 3}\label{im:3-ary_tree}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=2,width=0.8\linewidth]{graphics/k-ary_tree_example_drawings.pdf}
+	\end{subfigure}
+	\caption{5-ary tree with height 2}\label{im:4-ary_tree}
+\end{figure}

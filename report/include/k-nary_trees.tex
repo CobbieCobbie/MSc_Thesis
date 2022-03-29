@@ -1,4 +1,4 @@
-\section{$k$-ary Trees}
+\section{$k$-ary Trees}\label{s:k-ary_trees}
 % TODO What is this section about?
 When analyzing a general problem of graph drawings, considering trees may come in handy due to their assessable properties. The first graph class considered for minimizing the ratio in a drawing is therefore the class of $k$-ary trees. This section describes a drawing algorithm for a $k$-ary tree $T$, guaranteeing a nearly optimal euclidian ratio in the resulting drawing $\Gamma_T$. The total area of $\Gamma_T$ will depend on the height of $T$.\\
 % properties of complete k-ary trees
@@ -7,7 +7,7 @@ Since any $k$-ary tree is acyclic per definition, $T$ is connected, but not bico
 When working on other graph classes, it may be possible to find a feasible solution in a reduction to an instance of a tree. In fact, this effect will occur in the subsequent section of this thesis.
 \subsection{The Drawing Algorithm}
 % The height 
-\begin{lemma}The \emph{height $h$} of a complete $k$-ary tree $T$ is in $\mathcal{O}(\log n)$.
+\begin{lemma}The \emph{height $h$} of a complete $k$-ary tree $T$ is in $\mathcal{O}(\log n)$.\label{l:k-ary-tree_log_height}
 \end{lemma}
 \begin{proof}
 	\begin{align}
@@ -49,7 +49,7 @@ The following algorithm sums up the approach described above.\\
 \begin{algorithm}[H]
 	\KwIn{complete $k$-ary tree $T$,$k$}
 	\KwOut{Planar drawing of $T$ with nearly optimal ratio}
-	\caption{Drawing algorithm for $k$-ary trees}
+	\caption{Drawing algorithm for $k$-ary trees}\label{al:k-ary_trees}
 	$h \gets $ \text{height of $T$}\\
 	$r \gets k^h$\\
 	Draw $root(T)$ on any grid point\\
@@ -58,7 +58,7 @@ The following algorithm sums up the approach described above.\\
 \begin{algorithm}[H]
 	\KwIn{Already drawn vertex $v$, radius and height $r,h \in \mathbb{N}$}
 	\KwOut{Coordinates of all the children of $v$}
-	\caption{\texttt{Draw}$(v,r,h)$}
+	\caption{\texttt{Draw\_$k$-ary\_Children}$(v,r,h)$}
 	\If{$v$ leaf}{\Return}
 	\Else{
 		$h' \gets \texttt{height}(v)$\\
@@ -74,7 +74,7 @@ The following algorithm sums up the approach described above.\\
 			\tcc{Calculate the intersection of the circle $C$ and the column $X$}
 			$y(v_i) \gets round(y(s))$\\
 			\texttt{DrawStraightLine}$(v,v_i)$\\
-			\texttt{Draw}$(v_i,r,h)$
+			\texttt{Draw\_$k$-ary\_Children}$(v_i,r,h)$
 		}
 	}		
 \end{algorithm}

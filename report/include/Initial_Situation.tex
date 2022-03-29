@@ -1,3 +1,70 @@
 \section{Initial Situation}
 
-% TODO What is this section about?
+\subsection{Formalization Of The Problem}
+\subsubsection{The edge-length ratio}
+Let $\Gamma_G$ be a given planar polyline drawing. The length of an edge is defined as the sum of $k+1$ line segments, induced by $k$ bends. $l_{\max}$ is the length of the longest edge in $\Gamma_G$, $l_{\min}$ is the minimal Euclidian distance between two adjacent vertices in $\Gamma_G$. Then, the edge-length ratio $r$ of $\Gamma_G$ is defined as:
+\begin{align}
+	r_{\Gamma_G} = \frac{l_{\max}}{l_{\min}} 
+\end{align}
+It trivially holds, that $r\geq1$, since the length of every polyline with at least one bend between two vertices is naturally longer than the Euclidian distance between those. $r$ is said to be \emph{optimal }if $r=1$. Then, all the edges in a drawing are straight-lines and of the same length.
+\subsubsection{Upper bound of the ratio}
+There exist multiple straight-line drawing algorithms which produce a drawing for a planar graph in area $\mathcal{O}(n)\times\mathcal{O}(n)$.
+% TODO cite some algorithms
+The area consumption of a straight-line drawing directly induces the bounds for the ratio. Let $k\times k$ be the area consumption of a bounding square $\Gamma_G$ is drawn on, $k\in \mathcal{O}(n)$. The maximal length of a straight-line is then bound by $\sqrt{2}k$, from one corner of the grid to the diagonal opposing one, while $l_{\min}$ might value 1 \UL. The ratio therefore values $\sqrt{2}k \in \mathcal{O}(n)$ in the worst case.\\
+This automatically gives an upper bound for any poly-line drawing $\Omega_G$ since a straight-line drawing can be seen as a polyline drawing with zero bends. Including bends in a straight-line drawing enables the possibility to reposition vertices in order to maximize the Euclidian distances.
+
+% TODO NP-Hardness
+
+\subsubsection{\NP-hardness}
+
+% 2-trees state of the art
+
+\subsection{On the edge-length ratio of 2-trees}
+
+The class of $2$-trees is of particular interest in this thesis due to their balance in restricted properties on the one hand, and having non-trivial approaches and results for general problems on the other hand. This effect is pointed out by previous results regarding the edge-length ratio.\\
+$2$-trees are biconnected, but not triconnected. This property implies a high amount of possible embeddings for a given $2$-tree $G$, since parallel subgraphs can be permuted and flipped. Therefore, finding drawings with an optimization regarding a specific problem require combinatorial and algorithmic approches.\\
+It was proven that the ratio of straight-line drawings of 2-trees is unbounded, meaning, that for a given constant $r$, there exists a sufficiently large 2-tree $G$ with $r_G > r$ over all its straight-line drawings. One result states that the ratio lies in the gap between the lower bound $\Omega(\log n)$ and the upper bound $\mathcal{O}(n^{0.695})$ \cite[P. 2]{edge-length-ratio-2tree}.
+
+% symposium challenge
+
+\subsection{The Symposium Challenge}
+
+% TODO intro neu schreiben
+
+%There has been recent attention to the edge-length ratio of a planar drawing, which describes the ratio between the \emph{length of the longest edge} and the \emph{Euclidian distance between two adjacent vertices} in a drawing. 
+%\newline This year, the main topic addresses an optimization problem, namely the minimization of the edge-length ratio of polyline drawings of planar, undirected graphs on a fixed grid. For a polyline edge, the edge-length is the sum of the line segment lengths.
+\bigbreak The input consists of a JSON file with the following entries:
+\begin{description}
+	\item[nodes] Every node has an unique ID value between 0 and the amount of nodes - 1, a value for the $x$ and $y$ coordinate each, delimited by the width and height
+	\item[edges] Every edge has an ID for source and destination each and an optional list of bend points, specified in $x$ and $y$ coordinate
+	\item[width (optional)] The maximum $x$-coordinate of the grid. If unspecified, the width is set to 1,000,000.
+	\item[height (optional)] The maximum $y$ coordinate of the grid. If unspecified, the height is set to 1,000,000.
+	\item[bends] The maximum number of bends allowed per edge
+\end{description}
+The results of the optimization are also JSON files. The planarity of the graph shall be preserved and the ratio minimized by relocation of the nodes.\\
+For teams participating with their own tools, an embedding might not be given with the input. For participants working manually, an embedding is already given beforehand.
+
+% TODO neues beispiel
+
+% \subsubsection{A small example - a triangle}
+
+%This example will illustrate the issue of finding a drawing with an optimal edge-length ratio. Consider $K_3$, the complete graph with three vertices. $K_3$ has got one outerface and one inner face, in shape of a triangle. In order to find a drawing of $K_3$ with an optimal ratio, we will see that one bend per edge is mandatory.\\
+%A triangle with straight-lines as edges with length $l$ will have a height of $\frac{\sqrt{3}}{2}l$ in order to be optimal regarding the ratio. Unfortunately, $\sqrt{3}$ is not a rational number. There do not exist two integers in order to express $\sqrt{3}$ as a fraction. As a consequence, there does not exist any combination of coordinates on a grid in order to draw the $K_3$ without any bends and an optimal ratio.
+%\begin{figure}[H]
+%	\centering
+%	\begin{subfigure}{0.6\linewidth}
+%		\centering
+%		\includegraphics[width=0.7\textwidth,page=1]{drawings/small_example.pdf}
+%	\end{subfigure}
+%	\caption{There is no grid point for an optimal drawing without any bends}
+%\end{figure}
+%But, when introducing one bend per edge, there exists a drawing with an optimal ratio. 
+%\begin{figure}[H]
+%	\centering
+%	\begin{subfigure}{0.6\linewidth}
+%		\centering
+%		\includegraphics[width=0.7\textwidth,page=2]{drawings/small_example.pdf}
+%	\end{subfigure}
+%	\caption{With one bend, $K_3$ admits an optimal drawing}
+%\end{figure}
+%Allowing bends will help minimizing the ratio of a drawing. 

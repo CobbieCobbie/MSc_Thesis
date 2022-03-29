@@ -1,2 +1,98 @@
 \section{Series-Parallel Graphs}
+
+This thesis addresses approaches of ratio minimization for drawings of series parallel graphs. 
+
+\subsection{Outerplanar Graphs}
+
+At first, the attention is drawn to \emph{outerplanar graphs} as they are a subclass of SP graphs. There will be two polyline drawing algorithms presented for this class of SP graphs. One resulting drawing algorithm for outerplanar graphs is suited to be extended for $2$-trees, since every maximal SP graph contains a maximal outerplanar graph as a subgraph.
+
+\subsubsection{Properties Of Outerplanar Graphs}
+\begin{lemma}
+	A maximal outerplanar graph $G$ inherits triangles as inner faces, except for the outerface.
+\end{lemma}
+\begin{lemma}\label{l:outerplanar-dual-tree-degree-3}
+	The weak dual graph $G^*$ of a maximal outerplanar graph $G$ is a simple tree with maximum degree 3 for any vertex.
+\end{lemma}
+\begin{proof}
+	The weak dual graph $G^*$ is connected since $G$ is maximal outerplanar. Suppose, that $G^*$ contains a cycle $\mathcal{C}$. Then, there exists a vertex in $G$ which is enclosed from the outerface by faces according to $\mathcal{C}$ in $G^*$ and $G$ is not outerplanar. This implies that $G^*$ must be acyclic and considering the connectedness, $G^*$ is a tree. Since any face $f$ is a triangle, the degree of $v_f$ in $G^*$ values at most three. The simplicity is derived from the maximal outerplanarity property. If there were multiple edges between vertex $v_f$ and $v_{f'}$ in $G^*$, then there would be at least one vertex in $G$ which does not lie on the outerface.
+\end{proof}
+\begin{lemma}
+	Let $G$ be a maximal outerplanar graph with $n$ vertices and $G^*$ the dual graph excluding the outerface, a rooted tree with degree up to three for every vertex $v_f$. Then, the height of $G^*$ ranges between $\Omega(\log n)$ and $\mathcal{O}(n)$.
+\end{lemma}
+\begin{proof}
+	Since $G$ is a planar graph, it contains $\mathcal{O}(n)$ faces. The rooted tree $G^*$ inherits the following property:
+	\begin{enumerate}
+		\item The root has at most three children
+		\item The subtrees rooted at the children of the root are binary
+	\end{enumerate}
+	Placing $\mathcal{O}(n)$ vertices in three binary trees connected to a root vertex results in a height of at least $\Omega(\log n)$ due to the $k$-ary tree height property from Lemma \ref{l:k-ary-tree_log_height}. In the worst case, the dual graph will be a chain of vertices, therefore a rooted tree with height $\mathcal{O}(n)$.
+\end{proof}
+\begin{lemma}
+	A maximal outerplanar graph $G$ can be extended to a maximal outerplanar supergraph $G'$.\label{l:outerplanar-supergraph}
+\end{lemma}
+\begin{proof}
+	A new vertex can be added to $G$ by adding a new vertex $v_f$ in the dual graph $G^*$ so that the degree of $G^*$ is still at most 3. The newly created face $f$ must lie on the outerface and must be a triangle. Otherwise, the outerplanarity property is destroyed.
+\end{proof}
+
+% One Bend, maximal complete outerplanar graph
+When $G^*$ inherits a height of $\mathcal{O}(\log n)$, a new problem emerges. When starting drawing the root of $G^*$, new vertices are added in all directions, enclosing more and more area along the iterative drawing. This results in short euclidian distances relative to the longest edge, increasing the ratio.\\
+In the worst case, $G^*$ inherits the following properties:
+\begin{enumerate}
+	\item The root vertex has exactly three children
+	\item Every other inner node has exactly two children. In other words, the subtrees adjacent to the root vertex are complete binary trees of height $h-1$
+\end{enumerate}
+A maximal outerplanar graph with its weak dual graph $G^*$ fulfilling these properties will be referred as \emph{complete}.
+
+\subsubsection{Drawing A Complete Maximal Outerplanar Graph With One Bend}
+
+A given maximal outerplanar graph can be drawn by using a drawing algorithm for its weak dual graph. In section \ref{s:k-ary_trees}, the $k$-ary tree drawing algorithm produces a straight-line drawing in $\mathcal{O}(n^2 \log n)$ area. The drawing algorithm \ref{al:k-ary_trees} can be used with a minor modification to draw the weak dual graph of any complete maximal outerplanar graph $G$, since $G^*$ is a subtree of a $3$-ary tree with the same height.\\
+
+\begin{algorithm}[H]
+	\KwIn{A complete maximal outerplanar graph $G$}
+	\KwOut{$\Gamma_G$ with one bend}
+	\caption{Drawing algorithm for complete maximal outerplanar graphs}
+	$G^* \gets$ weak dual graph of $G$ with minimal height\\
+	$h \gets$ \texttt{height($G^*$)}\\
+	\texttt{root} $\gets$ $G^*$.\texttt{root}\\
+	\texttt{Draw(root)}\\
+	\texttt{Draw\_$3$-ary\_Children(\texttt{root},$3^h$,1)}\\
+	\For{\texttt{$v \in$ root.children}}{
+		\texttt{Draw\_$2$-ary\_Children($v$,$2^{h-1}$,$h-1$)}
+	}
+	\For{$v\in {G^*}$}{
+		$x(v) \gets 3\cdot x(v)$
+	}
+	\tcc{$G^*$ is drawn and stretched by a factor of 3. Now, draw $G$ by starting with a triangle around the root and for every other node of $G^*$, place bend points and new vertex point}
+	\texttt{DrawVertex($x$(root), $y$(root)y$+h\cdot 3^h$)}\\
+	% TODO left right triangle
+	\texttt{DrawVertex($x$(root) , $y$(root) )}\\
+	\texttt{DrawVertex($x$(root) , $y$(root) )}\\
+	\For{$h' \in [1..h]$}{
+		\For{$v\in G^*$ with height $h'$}{
+			\texttt{DrawBendPoint($x$(v)$-1$, $y$(v))}\\
+			\texttt{DrawBendPoint($x$(v)$+1$, $y$(v))}\\
+			\texttt{DrawVertex($x$(v), $y$(v)$-1$)}
+		}
+	
+	}	
+\end{algorithm}
+
+% TODO illustration of the approach
+
+\subsubsection{Analysis}
+
+\subsection{Series Parallel Graphs}
+
+\subsubsection{Properties Of Series Parallel Graphs}
+
+\subsubsection{Drawing An Outerplanar Graph With Two Bends}
+
+\subsubsection{Analysis}
+
+\subsubsection{Drawing A $2$-Tree With Two Bends}
+
+\subsubsection{Analysis}
+
 % TODO What is this section about?
+
+% TODO sei vorsichtig bezüglich multigraph / simple graph, wenn es um die zeichnung laut SPQR tree geht. Erst, definieren, was bei Q, dann bei S, dann bei P, dann bei R. 

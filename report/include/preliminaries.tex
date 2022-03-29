@@ -1,10 +1,8 @@
 \section{Preliminaries}
 
-% TODO What is this section about?
-
 \subsection{Definitions And Terminology}
 %A graph is a 2-tuple consisting of a vertex set and an edge set. The visualization, however, has to be drawn in some kind of way. Investigating the drawing of a graph needs to include several constraints, for example, \emph{how} we want the drawing and \emph{where} we want to draw on. These constraints can be described mathematically.\\
-A \emph{graph} $G=(V,E)$ is a tuple consisting of two sets - the set of vertices and the set of edges. An \emph{edge} $e = (v,w), v,w \in V$ is a tuple and describes a connectivity relation between two vertices.
+A \emph{graph} $G=(V,E)$ is a tuple consisting of two sets - the set of vertices $V=V(G)$ and the set of edges $E=E(G)$. An \emph{edge} $e = (v,w), v,w \in V$ is a tuple and describes a connectivity relation between two vertices.
 % subgraph
 If $V'\subseteq V, E'\subseteq E$, then $G' = (V',E')$ is a \emph{subgraph} of $G$.
 % degree
@@ -18,7 +16,7 @@ An undirected graph is \emph{connected} if every vertex is reachable from all th
 % biconnected
 A graph is \emph{biconnected} if the removal of any vertex still leaves the graph connected \cite[P. 224]{Duncan_planar_polyline_drawings}.\\
 % simple / multigraph
-A graph is \emph{simple} if and only if it does contain neighter multiple edges nor self loops. On the other hand, if a graph contains multiple edges or self loops, it is called a \emph{multigraph} \cite[P. 1172]{DBLP:cormen_intro_to_algorithms}.\\
+A graph is \emph{simple} if it does contain neighter multiple edges nor self loops. On the other hand, if a graph contains multiple edges or self loops, it is called a \emph{multigraph} \cite[P. 1172]{DBLP:cormen_intro_to_algorithms}. Unless otherwise mentioned, a graph is presumed to be simple.\\
 % Planarity
 A graph is \emph{planar} if and only if there exists a crossing-free representation in the plane \cite[Page 100]{DBLP:cormen_intro_to_algorithms}.
 % Face
@@ -30,6 +28,7 @@ A multigraph $G^*$ is the \emph{dual graph of $G$} if and only if there exists a
 	\item For every edge $e$ of $G$, the corresponding vertices of the faces in $G^*$ incident to $e$ get an edge 
 	\item If $e$ is incident to only one face, a loop is attached to the corresponding vertex in $G^*$
 \end{enumerate}\cite[P. 103]{Diestel_GraphTheory}
+The \emph{weak dual graph} of $G$ is the dual graph of $G$ without considering the outer face.
 
 % Graph Drawings
 
@@ -57,10 +56,10 @@ The \emph{euclidian distance} between two grid points $(x_1,y_1)$ and $(x_2,y_2)
 % Edge length
 The \emph{length of a line segment} is defined as the euclidian distance between the end points. The \emph{length of a polyline} is defined as the sum of the individual line segment lengths.
 
-
-% ratio???? here?
-
 \subsection{The Relationship Between Drawing Models}
+
+% TODO write the relationship between drawing models
+% TODO include a figure
 
 \subsection{Graph Classes}
 \subsubsection{Tree}
@@ -95,14 +94,25 @@ A \emph{2-terminal series-parallel graph} with terminals $s,t$ is a recursively 
 	\item If $G_i, i = 1,2$, is a 2-terminal series-parallel graph with terminals $s_i,t_i$, then in the serial composition $t_1$ is identified with $s_2$ to obtain a 2-terminal series-parallel graph with $s_1,t_2$ as terminals
 	\item If $G_i, i=1,...,k$, is a 2-terminal series-parallel graph with terminals $s_i,t_i$, then in a parallel composition we identify all $s_i$ into one terminal $s$ and all $t_i$ into the other terminal $t$ and the result is a 2-terminal series-parallel graph with terminals $s,t$.
 \end{enumerate}
-A \emph{series-parallel graph}, SP-graph in short, is a graph for which every biconnected component is a 2-terminal series-parallel graph. A SP-graph is \emph{maximal} if no edge can be added so while maintaining a SP-graph. \cite[P. 143ff]{Biedl_SP}\\
+A \emph{series-parallel graph}, \emph{SP-graph} in short, is a graph for which every biconnected component is a 2-terminal series-parallel graph. A SP-graph is \emph{maximal} if no edge can be further added while maintaining a SP-graph. \cite[P. 143ff]{Biedl_SP}\\
 % 2-tree
-A \emph{2-tree} is a recursively defined graph with at least three vertices. If $n = 3$, then the 2-tree is the complete graph $K_3$. If $n>3$, start with a $K_3$ and every vertex added is adjacent to exactly two adjacent neighbours. The class of 2-trees correspond to the class of maximal SP-graphs \cite[Page 2]{straight-line_2-trees}.
+A \emph{$k$-tree} is a recursively defined graph with at least $k+1$ vertices. If $n = k+1$, then the $k$-tree is the complete graph $K_{k+1}$. If $n>{k+1}$, start with a $K_{k+1}$ and every vertex added is adjacent to exactly $k$ adjacent neighbours. For a $2$-tree, it holds that $k=2$. The class of 2-trees correspond to the class of maximal SP-graphs \cite[Page 2]{straight-line_2-trees}.
 \subsection{Tools}
 % SPQR Tree
 \subsubsection{SPQR Tree}
+A \emph{cut vertex} in a graph $G$ is a vertex whose removal disconnects $G$. A \emph{separation pair} in $G$ is a pair of vertices whose removal disconnects $G$. A \emph{biconnected component} of $G$ is a maximal (in terms of vertices and edges) biconnected subgraph of $G$. If $G$ contains vertices $s,t$, then $G$ is \emph{$st$-biconnectable} if $G \cup \{s,t\}$ is biconnected. A \emph{split pair} of $G$ is either a separation pair or a pair of adjacent vertices of $G$. A \emph{maximal split component} of $G$ in regard to a split pair $\{u,v\}$ is either an edge $(u,v)$ or a maximal subgraph $G'$ of $G$ such that $G'$ contains $u$ and $v$ and $\{u,v\}$ is not a split pair of $G'$. A vertex $w$ aside from $u$ and $v$ belongs to exactly one maximal split component. a \emph{split component} of $\{u,v\}$ is defined as the union of any number of maximal split components of $\{u,v\}$. A split pair $\{u,v\}$ is \emph{maximal}, if there is no split pair $\{w,z\}$ in $G$ such that $\{u,v\}$ is contained in a split component of $\{w,z\}$.\\
+The \emph{SPQR-Tree} $\mathcal{T}$ of $G$ is a recursively defined composition of $G$ with respect to its split pairs. $\mathcal{T}$ is a rooted tree with four types of nodes: $S,P,Q$ and $R$. Any node $\mu$ of $\mathcal{T}$ is related to a planar $uv$-biconnectible multigraph, the so-called \emph{skeleton} of $\mu$, denoted as $sk(\mu)$. $\mathcal{T}$ is recursively defined - Let $(s,t)$ be an edge of $G$, called the \emph{reference edge}. $\mathcal{T}$ is initialized with a $Q$ node $\phi$ as root, representing the edge $(s,t)$. The skeleton of $\phi$ consists of two parallel edges $(s,t)$. One is a \emph{real }edge, one is a \emph{virtual }edge.\\
+After the initialization of $\mathcal{T}$ with an arbitrary reference edge, consider a node $\psi$ of $\mathcal{T}$, $G_\psi=\left(V(G),E(G)\setminus\left\{(s,t)\right\}\right)$ and a pair of vertices $\{u,v\}$ of $G_\psi$, called the \emph{poles} of $\psi$.
 
-% Tree decomposition / treewidth
+\begin{description}
+	% TODO draw the sleketons with description per case
+	\item[Trivial case] If $G_\psi$ consists of a single edge $(u,v)$, then $\psi$ is a $Q$-node.
+	\item[Series case] If $G_\psi$ is not a single edge and not biconnected, then $\psi$ is a $S$-node with at least one cut vertex between the path between $u$ and $v$.
+	\item[Parallel case] If $G_\psi$ is not a single edge, but biconnected with $\{u,v\}$ as a split pair of $G_\psi$, then $\psi$ is a $P$-node.
+	\item[Rigid case] If $G_\psi$ is not a single edge, biconnected with $\{u,v\}$ not being a split pair of $G_\psi$, then $\psi$ is a $R$-node.
+\end{description}
+\cite[P. 7-8]{SPQR-Tree}
+% Tree decomposition / treewidth 
 \subsubsection{Tree decomposition}
 Let $G$ be a graph, $T$ a tree, and let $\mathcal{W} = \left(W_t\right)_{t\in T}$ be a family of vertex sets $W_t \subseteq V_G$ indexed by the vertices $t$ of $W$. The pair $(TW)$ is called a \emph{tree decomposition} of $G$ if it satisfies the following three conditions:
 \begin{enumerate}
@@ -116,4 +126,3 @@ The \emph{width} of a tree decomposition is defined as
 	tw(T,W) = \max\{ |W_t|,t\in V_T \} -1
 \end{align}
 The \emph{treewidth} of a graph is the least width of any tree decomposition of $G$ \cite[P. 321]{Diestel_GraphTheory}.
-

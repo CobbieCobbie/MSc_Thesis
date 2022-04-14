@@ -47,13 +47,14 @@ When working on other graph classes, it may be possible to find a feasible solut
 \bigskip
 The following algorithm sums up the approach described above.\\
 \begin{algorithm}[H]
-	\KwIn{complete $k$-ary tree $T$,$k$}
-	\KwOut{Planar drawing of $T$ with nearly optimal ratio}
-	\caption{Drawing algorithm for $k$-ary trees}\label{al:k-ary_trees}
+	\KwIn{complete $k$-ary tree $T$, $h$}
+	\KwOut{Straight-line drawing of $T$ with nearly optimal ratio}
+	\caption{Draw\_$k$-ary\_tree($h$)}\label{al:k-ary_trees}
 	$h \gets $ \text{height of $T$}\\
 	$r \gets k^h$\\
 	Draw $root(T)$ on any grid point\\
-	\texttt{Draw}$(root(T),r,h)$
+	\texttt{Draw\_$k$-ary\_Children}$(root(T),r,h)$
+	\Return $\Gamma$
 \end{algorithm}
 \begin{algorithm}[H]
 	\KwIn{Already drawn vertex $v$, radius and height $r,h \in \mathbb{N}$}
@@ -63,18 +64,18 @@ The following algorithm sums up the approach described above.\\
 	\Else{
 		$h' \gets \texttt{height}(v)$\\
 		$d \gets 2\cdot k^{h-h'-1}$\\
-		$C \gets v.\texttt{DrawCircle}(r)$\\
+		$C \gets \Gamma.\texttt{DrawCircle}(r,v)$\\
 		\tcc{Draw circle with radius $r$ around $v$}
 		\For{$i \in [1..k]$}{
 			$x(v_i) \gets x(v) - \frac{(k-1)\cdot d}{2} + (i-1)\cdot d$\\
 			\tcc{$x$-coordinate of $i$-th child of $v$}
-			$X \gets \texttt{Column}(x(v_i))$\\
+			$X \gets \Gamma.\texttt{Column}(x(v_i))$\\
 			\tcc{Identify the column at position $x(v_i)$}
-			$s \gets \texttt{Intersection}(I,X)$\\
+			$s \gets \Gamma.\texttt{Intersection}(I,X)$\\
 			\tcc{Calculate the intersection of the circle $C$ and the column $X$}
 			$y(v_i) \gets round(y(s))$\\
-			\texttt{DrawStraightLine}$(v,v_i)$\\
-			\texttt{Draw\_$k$-ary\_Children}$(v_i,r,h)$
+			$\Gamma.$\texttt{DrawStraightLine}$(v,v_i)$\\
+			$\Gamma.$\texttt{Draw\_$k$-ary\_Children}$(v_i,r,h)$
 		}
 	}		
 \end{algorithm}

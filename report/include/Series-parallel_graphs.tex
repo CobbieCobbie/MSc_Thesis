@@ -1,10 +1,17 @@
 \section{Series-Parallel Graphs}
 
-This thesis addresses approaches of ratio minimization for drawings of series parallel graphs. 
+This thesis addresses approaches of ratio minimization for drawings of series parallel graphs. \\
+Properties:
+\begin{itemize}
+	\item Biconnected only, there is no $R$ node in any SPQR tree
+	\item Suitable class of interest for fundamental research
+	\item \NP-hardness of drawing existance problem for given edge lengths
+	\item \NP-hardness of uniform edge length drawing existance problem
+\end{itemize}
 
 \subsection{Outerplanar Graphs}
 
-At first, the attention is drawn to \emph{outerplanar graphs} as they are a subclass of SP graphs. There will be two polyline drawing algorithms presented for this class of SP graphs. One resulting drawing algorithm for outerplanar graphs is suited to be extended for $2$-trees, since every maximal SP graph contains a maximal outerplanar graph as a subgraph.
+At first, the attention is drawn to \emph{outerplanar graphs} as they are a subclass of SP graphs. There will be two polyline drawing algorithms presented for this class of SP graphs. The first drawing algorithm will take advantage of the already existing drawing algorithm \ref{al:k-ary_trees} for $k$-ary trees, since the weak dual graph of a maximal outerplanar graph inheits a tree structure. The second drawing algorithm for outerplanar graphs will be suited to be extended for $2$-trees, since every maximal SP graph contains a maximal outerplanar graph as a subgraph.
 
 \subsubsection{Properties Of Outerplanar Graphs}
 \begin{lemma}
@@ -35,22 +42,27 @@ At first, the attention is drawn to \emph{outerplanar graphs} as they are a subc
 \end{proof}
 
 % One Bend, maximal complete outerplanar graph
-When $G^*$ inherits a height of $\mathcal{O}(\log n)$, a new problem emerges. When starting drawing the root of $G^*$, new vertices are added in all directions, enclosing more and more area along the iterative drawing. This results in short euclidian distances relative to the longest edge, increasing the ratio.\\
-In the worst case, $G^*$ inherits the following properties:
+When $G^*$ inherits a height of $\mathcal{O}(\log n)$, a new problem emerges. When starting drawing the root of $G^*$, new vertices are added in all directions, enclosing more and more area along the iterative drawing. 
+
+Figure bla illustrates this problem. 
+% TODO Figure of area problem
+This results in short euclidian distances relative to the longest edge, increasing the ratio.\\
+\begin{definition}
+A maximal outerplanar graph is called \emph{complete} if its weak dual graph $G^*$ fulfills these properties:
 \begin{enumerate}
 	\item The root vertex has exactly three children
 	\item Every other inner node has exactly two children. In other words, the subtrees adjacent to the root vertex are complete binary trees of height $h-1$
 \end{enumerate}
-A maximal outerplanar graph with its weak dual graph $G^*$ fulfilling these properties will be referred as \emph{complete}.
+\end{definition}
 
-\subsubsection{Drawing A Complete Maximal Outerplanar Graph With One Bend}
+\subsubsection{Drawing A Complete Outerplanar Graph With One Bend}
 
-A given maximal outerplanar graph can be drawn by using a drawing algorithm for its weak dual graph. In section \ref{s:k-ary_trees}, the $k$-ary tree drawing algorithm produces a straight-line drawing in $\mathcal{O}(n^2 \log n)$ area. The drawing algorithm \ref{al:k-ary_trees} can be used with a minor modification to draw the weak dual graph of any complete maximal outerplanar graph $G$, since $G^*$ is a subtree of a $3$-ary tree with the same height.\\
+A given maximal outerplanar graph can be drawn by using a drawing algorithm for its weak dual graph. In section \ref{s:k-ary_trees}, the $k$-ary tree drawing algorithm produces a straight-line drawing in $\mathcal{O}(n^2 \log n)$ area with a ratio of $1+\varepsilon,\varepsilon>0$. The drawing algorithm \ref{al:k-ary_trees} can be used with a minor modification to draw the weak dual graph of any complete maximal outerplanar graph $G$, since $G^*$ is a subtree of a $3$-ary tree with the same height.\\
 
 \begin{algorithm}[H]
 	\KwIn{A complete maximal outerplanar graph $G$}
-	\KwOut{$\Gamma_G$ with one bend}
-	\caption{Drawing algorithm for complete maximal outerplanar graphs}
+	\KwOut{Straight-line drawing $\Gamma_{G^*}$ with nearly optimal ratio}
+	\caption{\texttt{DrawOuterWeakDual($G$)}}\label{al:drawouterweakdual}
 	$G^* \gets$ weak dual graph of $G$ with minimal height\\
 	$h \gets$ \texttt{height($G^*$)}\\
 	\texttt{root} $\gets$ $G^*$.\texttt{root}\\
@@ -59,27 +71,79 @@ A given maximal outerplanar graph can be drawn by using a drawing algorithm for 
 	\For{\texttt{$v \in$ root.children}}{
 		\texttt{Draw\_$2$-ary\_Children($v$,$2^{h-1}$,$h-1$)}
 	}
-	\For{$v\in {G^*}$}{
-		$x(v) \gets 3\cdot x(v)$
+	\Return $\Gamma$
+\end{algorithm}
+
+Algorithm \ref{al:drawouterweakdual} produces a nearly optimal straight-line drawing for the weak dual graph of a complete outerplanar graph $G$. The resulting drawing $\Gamma_{G^*}$ provides assistance to draw the complete outerplanar graph $G$. Every vertex of $\Gamma_{G^*}$ serves as an anchor point for the drawing of its corresponding face in $G$.\\
+Starting at the root of $G^*$, a triangle is drawn around the root in a way, that each edge of $G^*$ from the root to its three children crosses exactly one edge of the corresponding triangle face in $G$. The vertices for the triangle are placed as follows. The first vertex lies above the already drawn root with an euclidian distance to the root sufficiently high in order to preserve planarity for the remaining drawing. The other two vertices are placed inbetween the two triangles defined by the root, its $\{\text{left, right}\}$ and middle children.\\
+In order to guarantee a valid vertex and bend placement at every inner node $v^*$, the drawing is stretched horizontally by a factor of three.\\
+Then, the drawing algorithm iterates over the height of $G^*$. For every vertex $v^*$ of height $i\in \{1,...,h\}$ in $G^*$, two bend points are placed 1 \UL left and right from $\Gamma_{G^*}(v^*)$, and the new vertex $v$ is placed 1 \UL below from $\Gamma_{G^*}(v^*)$.\\
+$v^*$ is adjacent to an edge $e^*$ defined in $G^*$ that is crossing exactly one edge $e = (v_1,v_2)$ of $G$. This crossing corresponds to the vertices defining the new face, $\{v, v_1, v_2\}$. Since $G^*$ consists of three complete binary subtrees connected to the root, using the bends to draw the new face will preserve planarity since the coordinate of every inner node inherits its unique $x$ value by construction of algorithm \ref{al:k-ary_trees}. This drawing approach is summarized in the following algorithm.\\
+\begin{algorithm}[H]
+	\KwIn{Complete outerplanar graph $G$}
+	\KwOut{Polyline drawing $\Gamma_G$ with one bend per edge and ratio $\mathcal{O}(\log n)$}
+	\caption{\texttt{DrawCompleteOuterplanar($G$)}}\label{al:complete_outerplanar}
+	$\Gamma \gets $ \texttt{DrawOuterWeakDual($G$)}\\
+	$h \gets$ \texttt{height($G^*$)}\\
+	\For{$v^* \in G^*$}{
+		$x(v^*) \gets 3\cdot x(v^*)$
 	}
-	\tcc{$G^*$ is drawn and stretched by a factor of 3. Now, draw $G$ by starting with a triangle around the root and for every other node of $G^*$, place bend points and new vertex point}
-	\texttt{DrawVertex($x$(root), $y$(root)y$+h\cdot 3^h$)}\\
-	% TODO left right triangle
-	\texttt{DrawVertex($x$(root) , $y$(root) )}\\
-	\texttt{DrawVertex($x$(root) , $y$(root) )}\\
-	\For{$h' \in [1..h]$}{
-		\For{$v\in G^*$ with height $h'$}{
-			\texttt{DrawBendPoint($x$(v)$-1$, $y$(v))}\\
-			\texttt{DrawBendPoint($x$(v)$+1$, $y$(v))}\\
-			\texttt{DrawVertex($x$(v), $y$(v)$-1$)}
-		}
+	\tcc{Draw the triangle face around the root of ${G^*}$}
+	$root \gets$ $\Gamma(G^*.\texttt{root})$\\
+	$l \gets$ $\Gamma(G^*.\texttt{root.leftChild})$\\
+	$m \gets$ $\Gamma(G^*.\texttt{root.middleChild})$\\
+	$r \gets$ $\Gamma(G^*.\texttt{root.rightChild})$\\
+	$v_1 \gets$ $\Gamma$.\texttt{PlaceVertex($x(root),y(root)+h\cdot 3^h$)}\\
+	$v_2 \gets$ $\Gamma$.\texttt{PlaceVertex($\frac{x(root)+x(l)+x(m)}{3},\frac{y(root)+y(l)+y(m)}{3}$)}\\
+	$v_3 \gets$ $\Gamma$.\texttt{PlaceVertex($\frac{x(root)+x(m)+x(r)}{3},\frac{y(root)+y(m)+y(r )}{3}$)}\\
+	$\Gamma$.\texttt{DrawLineSegment($v_1,v_2$)}\\
+	$\Gamma$.\texttt{DrawLineSegment($v_1,v_3$)}\\
+	$\Gamma$.\texttt{DrawLineSegment($v_3,v_2$)}\\
 	
-	}	
+	\tcc{Iterate over the height to draw the remaining vertices of $G$}
+	\For{$i \in [1..h]$}{
+		\For{$v^* \in G^*$ with height $i$}{
+			$b_l \gets$ $\Gamma$.\texttt{PlaceBendPoint($x(v^*) - 1,y(v^*)$)}\\
+			$b_r \gets$ $\Gamma$.\texttt{PlaceBendPoint($x(v^*) + 1,y(v^*)$)}\\
+			$v \gets$ $\Gamma$.\texttt{PlaceVertex($x(v^*),y(v^*)-1$)}\\
+			$e^* \gets (v^*,\texttt{parent}(v^*))$\\
+			$e \gets (v_1, v_2)$ edge intersecting $e^*$
+			\tcp{w.l.o.g. $v_1$ ordered left of $v_2$}
+			$\Gamma.$\texttt{DrawLineSegment($v,b_l$)}\\
+			$\Gamma.$\texttt{DrawLineSegment($b_l,v_1$)}\\
+			$\Gamma.$\texttt{DrawLineSegment($v,b_r$)}\\
+			$\Gamma.$\texttt{DrawLineSegment($b_r,v_2$)}
+		}
+	}
+	$\Gamma$\texttt{.delete($G^*$)}\\
+	\Return $\Gamma$
 \end{algorithm}
 
 % TODO illustration of the approach
 
-\subsubsection{Analysis}
+\subsubsection{Analysis Of Algorithm \ref{al:complete_outerplanar}}
+
+\begin{lemma}
+	Every complete outerplanar graph $G$ admits a polyline drawing $\Gamma_G$ on $\mathcal{O}(n^2 \log n)$ area with one bend per edge. The drawing is constructed in linear time and the ratio lies in $\mathcal{O}(\log n)$.
+\end{lemma}
+
+\begin{proof}
+The triangle around the root of $G^*$ consists of a vertex $v_1$ placed atop of the root vertex with distance $h\cdot r^h$ and two vertices $v_2,v_3$ placed at the centroids of the triangles defined by $\{\texttt{root,root.leftChild,root.middleChild}\}$ and $\{\texttt{root,root.middleChild,root.rightChild}\}$. By construction it holds, that $v_2$ and $v_3$ partition three binary subtrees rooted at the children of the root of $G^*$ by their $x$ coordinate. The placement of the vertices $v_1,v_2$ and $v_3$ guarantee exactly one intersection between an edge of $G$ and an edge of $G^*$ in $\Gamma$.\\
+After stretching the drawing horizontally by a factor of three, there exist free grid points next to every vertex of $G^*$ which guarantees a grid point placement left and right of any vertex $v^*$. During the iteration over the height starting at height 1, every intersection between an edge of $G^*$ and $G$ refer to vertices on the outerface and a new face of $G$ is attached on the outerface, preserving the outerplanarity of the drawing.\\
+Since $v_1$ is placed with a distance of $h\cdot r^h$ atop of the root of $G^*$ and $v_2$ and $v_3$ partition the $x$ coordinate of the binary subtrees rooted at the children of the root of $G^*$, planarity is preserved.\\
+The total height of the drawing is doubled and the width is tripled compared to a drawing of a $3$-ary tree, therefore the area consumption lies still in $\mathcal{O}(n^2 \log n)$.\\
+The construction of $G^*$ with minimal height lies in $\mathcal{O}(n)$ since there are $\mathcal{O}(n)$ faces for any maximal outerplanar graph. Drawing $G^*$ and $G$ lies in $\mathcal{O}(n)$. The runtime of this algorithm is therefore in linear time.\\
+The minimal euclidian distance values at least $2^h$ by construction of algorithm \ref{al:k-ary_trees} and lies in $\mathcal{O}(n)$. The length of the longest polyline spans the whole height of the drawing and lies in $\mathcal{O}(n \log n)$. The ratio lies therefore in $\mathcal{O}(\log n)$.
+\end{proof}
+\subsubsection{Example Drawing}
+
+% TODO example drawing of complete outerplanar graph
+
+
+
+
+\subsubsection{Suitable For 2-trees?}
+No.
 
 \subsection{Series Parallel Graphs}
 

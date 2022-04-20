@@ -1,12 +1,15 @@
-\section{Series-Parallel Graphs}
+\section{Series-Parallel Graphs}\label{section:SP-graphs}
 
-This thesis addresses approaches of ratio minimization for drawings of series parallel graphs. \\
-Properties:
+This thesis addresses two main approaches of ratio minimization for drawings of series parallel graphs. Maximal series parallel graphs refers to the class of 2-trees % TODO 2-tree<>max SP graph
+and are a suitable class of interest for fundamental research since any 2-tree is biconnected, but not triconnected and inherits a constant treewidth. Furthermore, any maximal outerplanar graph is a 2-tree, therefore the class of maximal outerplanar graphs is a strict subclass of the 2-trees.\\
+At first, the approaches will address the maximal outerplanar graphs. After the analysis regarding the properties of the resulting drawings it will be discussed whether the approach will be suitable to be extended for 2-trees.
+
+% TODO properties
 \begin{itemize}
 	\item Biconnected only, there is no $R$ node in any SPQR tree
 	\item Suitable class of interest for fundamental research
-	\item \NP-hardness of drawing existance problem for given edge lengths
-	\item \NP-hardness of uniform edge length drawing existance problem
+	\item Maximal SP graphs are 2-trees
+	\item maximal outerplanar graphs are a subclass of 2-trees
 \end{itemize}
 
 \subsection{Outerplanar Graphs}
@@ -34,6 +37,11 @@ At first, the attention is drawn to \emph{outerplanar graphs} as they are a subc
 	\end{enumerate}
 	Placing $\mathcal{O}(n)$ vertices in three binary trees connected to a root vertex results in a height of at least $\Omega(\log n)$ due to the $k$-ary tree height property from Lemma \ref{l:k-ary-tree_log_height}. In the worst case, the dual graph will be a chain of vertices, therefore a rooted tree with height $\mathcal{O}(n)$.
 \end{proof}
+
+\begin{observation}
+	% TODO linear height with subtrees of constant height
+\end{observation}
+
 \begin{lemma}
 	A maximal outerplanar graph $G$ can be extended to a maximal outerplanar supergraph $G'$.\label{l:outerplanar-supergraph}
 \end{lemma}
@@ -48,7 +56,7 @@ Figure bla illustrates this problem.
 % TODO Figure of area problem
 This results in short euclidian distances relative to the longest edge, increasing the ratio.\\
 \begin{definition}
-A maximal outerplanar graph is called \emph{complete} if its weak dual graph $G^*$ fulfills these properties:
+	A maximal outerplanar graph is called \emph{complete} if its weak dual graph $G^*$ fulfills these properties:
 \begin{enumerate}
 	\item The root vertex has exactly three children
 	\item Every other inner node has exactly two children. In other words, the subtrees adjacent to the root vertex are complete binary trees of height $h-1$
@@ -78,7 +86,9 @@ Algorithm \ref{al:drawouterweakdual} produces a nearly optimal straight-line dra
 Starting at the root of $G^*$, a triangle is drawn around the root in a way, that each edge of $G^*$ from the root to its three children crosses exactly one edge of the corresponding triangle face in $G$. The vertices for the triangle are placed as follows. The first vertex lies above the already drawn root with an euclidian distance to the root sufficiently high in order to preserve planarity for the remaining drawing. The other two vertices are placed inbetween the two triangles defined by the root, its $\{\text{left, right}\}$ and middle children.\\
 In order to guarantee a valid vertex and bend placement at every inner node $v^*$, the drawing is stretched horizontally by a factor of three.\\
 Then, the drawing algorithm iterates over the height of $G^*$. For every vertex $v^*$ of height $i\in \{1,...,h\}$ in $G^*$, two bend points are placed 1 \UL left and right from $\Gamma_{G^*}(v^*)$, and the new vertex $v$ is placed 1 \UL below from $\Gamma_{G^*}(v^*)$.\\
-$v^*$ is adjacent to an edge $e^*$ defined in $G^*$ that is crossing exactly one edge $e = (v_1,v_2)$ of $G$. This crossing corresponds to the vertices defining the new face, $\{v, v_1, v_2\}$. Since $G^*$ consists of three complete binary subtrees connected to the root, using the bends to draw the new face will preserve planarity since the coordinate of every inner node inherits its unique $x$ value by construction of algorithm \ref{al:k-ary_trees}. This drawing approach is summarized in the following algorithm.\\
+$v^*$ is adjacent to an edge $e^*$ defined in $G^*$ that is crossing exactly one edge $e = (v_1,v_2)$ of $G$. This crossing corresponds to the vertices defining the new face, $\{v, v_1, v_2\}$. Since $G^*$ consists of three complete binary subtrees connected to the root, using the bends to draw the new face will preserve planarity since the coordinate of every inner node inherits its unique $x$ value by construction of algorithm \ref{al:k-ary_trees}. 
+% TODO illustration of the approach
+This drawing approach is summarized in the following algorithm.\\
 \begin{algorithm}[H]
 	\KwIn{Complete outerplanar graph $G$}
 	\KwOut{Polyline drawing $\Gamma_G$ with one bend per edge and ratio $\mathcal{O}(\log n)$}
@@ -119,12 +129,11 @@ $v^*$ is adjacent to an edge $e^*$ defined in $G^*$ that is crossing exactly one
 	\Return $\Gamma$
 \end{algorithm}
 
-% TODO illustration of the approach
 
 \subsubsection{Analysis Of Algorithm \ref{al:complete_outerplanar}}
 
 \begin{lemma}
-	Every complete outerplanar graph $G$ admits a polyline drawing $\Gamma_G$ on $\mathcal{O}(n^2 \log n)$ area with one bend per edge. The drawing is constructed in linear time and the ratio lies in $\mathcal{O}(\log n)$.
+	Every complete outerplanar graph $G$ admits a polyline drawing $\Gamma_G$ on $\mathcal{O}(n^2 \log n)$ area with one bend per edge. The drawing is constructed in linear time and the ratio lies in $\mathcal{O}(h)$, whereas $h$ describes the height of $G^*$.
 \end{lemma}
 
 \begin{proof}
@@ -133,19 +142,25 @@ After stretching the drawing horizontally by a factor of three, there exist free
 Since $v_1$ is placed with a distance of $h\cdot r^h$ atop of the root of $G^*$ and $v_2$ and $v_3$ partition the $x$ coordinate of the binary subtrees rooted at the children of the root of $G^*$, planarity is preserved.\\
 The total height of the drawing is doubled and the width is tripled compared to a drawing of a $3$-ary tree, therefore the area consumption lies still in $\mathcal{O}(n^2 \log n)$.\\
 The construction of $G^*$ with minimal height lies in $\mathcal{O}(n)$ since there are $\mathcal{O}(n)$ faces for any maximal outerplanar graph. Drawing $G^*$ and $G$ lies in $\mathcal{O}(n)$. The runtime of this algorithm is therefore in linear time.\\
-The minimal euclidian distance values at least $2^h$ by construction of algorithm \ref{al:k-ary_trees} and lies in $\mathcal{O}(n)$. The length of the longest polyline spans the whole height of the drawing and lies in $\mathcal{O}(n \log n)$. The ratio lies therefore in $\mathcal{O}(\log n)$.
+The minimal euclidian distance values at least $2^h$ by construction of algorithm \ref{al:k-ary_trees} and lies in $\mathcal{O}(n)$. The length of the longest polyline spans the whole height of the drawing and lies in $\mathcal{O}(n \log n)$. The ratio lies therefore in $\mathcal{O}(h)$ with $h$ describing the height of $G^*$.
 \end{proof}
 \subsubsection{Example Drawing}
 
 % TODO example drawing of complete outerplanar graph
 
-
-
-
-\subsubsection{Suitable For 2-trees?}
-No.
+\subsubsection{Limitations}
+\begin{itemize}
+	\item Not suitable for 2-trees, weak dual graph not simple anymore
+	\item Approach draws dense maximal outerplanar graphs with a good ratio but draws loose maximal outerplanar graphs with a bad ratio, $\mathcal{O})(n)$ in the worst case.
+\end{itemize}
 
 \subsection{Series Parallel Graphs}
+
+\begin{itemize}
+	\item A layering in a drawing algorithm will guarantee a minimal euclidian distance between two adjacent vertices by defining a minimal distance between two layers
+	\item weak dual graph is not sufficient for 2-trees since it is not simple anymore
+	\item Usage of tree decomposition of a given 2-tree, then creating the SQPR tree and then draw it
+\end{itemize}
 
 \subsubsection{Properties Of Series Parallel Graphs}
 
@@ -153,9 +168,13 @@ No.
 
 \subsubsection{Analysis}
 
+\subsubsection{Example drawing}
+
 \subsubsection{Drawing A $2$-Tree With Two Bends}
 
 \subsubsection{Analysis}
+
+\subsubsection{Example drawing}
 
 % TODO What is this section about?
 

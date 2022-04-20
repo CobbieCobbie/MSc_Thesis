@@ -5,6 +5,8 @@ Thoughts:
 	\item General graph drawing introduction
 	\item Graph Drawing Symposium introduction
 	\item why is maximizing distances between vertices of interest?
+	\item \NP-hardness of drawing existance problem for given edge lengths
+	\item \NP-hardness of uniform edge length drawing existance problem
 	\item Figures of readability
 	\item Thesis structure
 \end{enumerate}
@@ -40,11 +42,11 @@ In 2022, the 30th International Symposium of Graph Drawing and Network Visualiza
 % 3. What is this Thesis about
 
 This thesis contains the examination of maximization of the \emph{Euclidian distance} between two adjacent vertices in small area drawings of certain graph classes.
-In Section 1, the preliminaries and terminology are defined. 
-In Section 2, the general problem considering the edge length ratio is formalized. Furthermore, the potential for ratio improvement is illustrated by allowing polyline edges. 
-Section 3 describes a drawing algorithm for the graph class of \emph{$k$-ary trees} which guarantees a satisfying edge length ratio.
-Section 4 contains drawing algorithms for the graph class of \emph{series parallel graphs}. The subclass of \emph{outerplanar} graphs and \emph{$2$-trees} are of particular interest. Those drawings will improve the worst case ratio behaviour described in Section 2.
-Section 5 
+In Section \ref{section:preliminaries}, the preliminaries and terminology are defined. 
+In Section \ref{section:initial_situation}, the general problem considering the edge length ratio is formalized. Furthermore, the potential for ratio improvement is illustrated by allowing polyline edges. 
+Section \ref{s:k-ary_trees} describes a drawing algorithm for the graph class of \emph{$k$-ary trees} which guarantees a satisfying edge length ratio.
+Section \ref{section:SP-graphs} contains drawing algorithms for the graph class of \emph{series parallel graphs}. The subclass of \emph{outerplanar} graphs and \emph{$2$-trees} are of particular interest. Those drawings will improve the worst case ratio behaviour described in Section \ref{section:initial_situation}.
+In section \ref{section:related_work}, work related to the content of this thesis will be presented and section \ref{section:future_work} describes future work.
 
 % Research Project
 

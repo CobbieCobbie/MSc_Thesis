@@ -1,16 +1,8 @@
 \section{Series-Parallel Graphs}\label{section:SP-graphs}
 
-This thesis addresses two main approaches of ratio minimization for drawings of series parallel graphs. Maximal series parallel graphs refers to the class of 2-trees % TODO 2-tree<>max SP graph
+This thesis addresses two main approaches of ratio minimization for drawings of series parallel graphs. Maximal series parallel graphs refers to the class of 2-trees % TODO cite 2-tree<>max SP graph
 and are a suitable class of interest for fundamental research since any 2-tree is biconnected, but not triconnected and inherits a constant treewidth. Furthermore, any maximal outerplanar graph is a 2-tree, therefore the class of maximal outerplanar graphs is a strict subclass of the 2-trees.\\
-At first, the approaches will address the maximal outerplanar graphs. After the analysis regarding the properties of the resulting drawings it will be discussed whether the approach will be suitable to be extended for 2-trees.
-
-% TODO properties
-\begin{itemize}
-	\item Biconnected only, there is no $R$ node in any SPQR tree
-	\item Suitable class of interest for fundamental research
-	\item Maximal SP graphs are 2-trees
-	\item maximal outerplanar graphs are a subclass of 2-trees
-\end{itemize}
+At first, the approaches will address the maximal outerplanar graphs. After the analysis regarding the properties of the resulting drawings it will be discussed whether the approach will be suitable to be extended for 2-trees. 
 
 \subsection{Outerplanar Graphs}
 
@@ -35,7 +27,7 @@ At first, the attention is drawn to \emph{outerplanar graphs} as they are a subc
 		\item The root has at most three children
 		\item The subtrees rooted at the children of the root are binary
 	\end{enumerate}
-	Placing $\mathcal{O}(n)$ vertices in three binary trees connected to a root vertex results in a height of at least $\Omega(\log n)$ due to the $k$-ary tree height property from Lemma \ref{l:k-ary-tree_log_height}. In the worst case, the dual graph will be a chain of vertices, therefore a rooted tree with height $\mathcal{O}(n)$.
+	Placing $\mathcal{O}(n)$ vertices in three binary trees connected to a root vertex results in a height of at least $\Omega(\log n)$ due to the $k$-ary tree height property from Lemma \ref{l:k-ary-tree_log_height}. In the worst case, $G^*$ will be a chain of vertices, therefore a rooted tree with height $\mathcal{O}(n)$.
 \end{proof}
 
 \begin{observation}
@@ -46,12 +38,14 @@ At first, the attention is drawn to \emph{outerplanar graphs} as they are a subc
 	A maximal outerplanar graph $G$ can be extended to a maximal outerplanar supergraph $G'$.\label{l:outerplanar-supergraph}
 \end{lemma}
 \begin{proof}
-	A new vertex can be added to $G$ by adding a new vertex $v_f$ in the dual graph $G^*$ so that the degree of $G^*$ is still at most 3. The newly created face $f$ must lie on the outerface and must be a triangle. Otherwise, the outerplanarity property is destroyed.
+	The vertex insertion works analougously to the recursive definition of a 2-tree. A new vertex can be added to $G$ by adding a new vertex $v_f$ in the dual graph $G^*$ so that the degree of $G^*$ is still at most 3. The newly created face $f$ must lie on the outerface and must be a triangle. Otherwise, the outerplanarity property is destroyed. 
 \end{proof}
 
 % One Bend, maximal complete outerplanar graph
 When $G^*$ inherits a height of $\mathcal{O}(\log n)$, a new problem emerges. When starting drawing the root of $G^*$, new vertices are added in all directions, enclosing more and more area along the iterative drawing. 
-
+\begin{observation}
+	
+\end{observation}
 Figure bla illustrates this problem. 
 % TODO Figure of area problem
 This results in short euclidian distances relative to the longest edge, increasing the ratio.\\
@@ -133,7 +127,7 @@ This drawing approach is summarized in the following algorithm.\\
 \subsubsection{Analysis Of Algorithm \ref{al:complete_outerplanar}}
 
 \begin{lemma}
-	Every complete outerplanar graph $G$ admits a polyline drawing $\Gamma_G$ on $\mathcal{O}(n^2 \log n)$ area with one bend per edge. The drawing is constructed in linear time and the ratio lies in $\mathcal{O}(h)$, whereas $h$ describes the height of $G^*$.
+	Every complete outerplanar graph $G$ admits a polyline drawing $\Gamma_G$ on $\mathcal{O}(n^2 \log n)$ area with one bend per edge. The drawing is constructed in linear time and the ratio lies in $\mathcal{O}(h)$, whereas $h$ describes the height of the weak dual graph $G^*$.
 \end{lemma}
 
 \begin{proof}
@@ -149,10 +143,11 @@ The minimal euclidian distance values at least $2^h$ by construction of algorith
 % TODO example drawing of complete outerplanar graph
 
 \subsubsection{Limitations}
-\begin{itemize}
-	\item Not suitable for 2-trees, weak dual graph not simple anymore
-	\item Approach draws dense maximal outerplanar graphs with a good ratio but draws loose maximal outerplanar graphs with a bad ratio, $\mathcal{O})(n)$ in the worst case.
-\end{itemize}
+
+As addressed by Observation % TODO ref
+, this algorithm works fine for dense weak dual graphs of $G$ since then, the height of $G^*$ is bound by $\mathcal{O}(\log^2 n)$. On the other hand, when $G$ is a loose maximal outerplanar graph, a height of $G^*$ might be of linear size and therefore, the drawing algorithm is not improving the ratio contrary to a straight-line drawing. In addition, the drawing algorithm will only work for simple weak dual graphs. The weak dual graph of a 2-tree is a multigraph, as illustrated by the following small figure:
+% TODO figure
+
 
 \subsection{Series Parallel Graphs}
 
@@ -175,7 +170,5 @@ The minimal euclidian distance values at least $2^h$ by construction of algorith
 \subsubsection{Analysis}
 
 \subsubsection{Example drawing}
-
-% TODO What is this section about?
 
 % TODO sei vorsichtig bezüglich multigraph / simple graph, wenn es um die zeichnung laut SPQR tree geht. Erst, definieren, was bei Q, dann bei S, dann bei P, dann bei R. 

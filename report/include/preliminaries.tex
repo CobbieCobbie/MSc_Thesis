@@ -114,7 +114,7 @@ After the initialization of $\mathcal{T}$ with an arbitrary reference edge, cons
 \cite[P. 7-8]{SPQR-Tree}
 % Tree decomposition / treewidth 
 \subsubsection{Tree decomposition}
-Let $G$ be a graph, $T$ a tree, and let $\mathcal{W} = \left(W_t\right)_{t\in T}$ be a family of vertex sets $W_t \subseteq V_G$ indexed by the vertices $t$ of $W$. The pair $(TW)$ is called a \emph{tree decomposition} of $G$ if it satisfies the following three conditions:
+Let $G$ be a graph, $T$ a tree, and let $\mathcal{W} = \left(W_t\right)_{t\in T}$ be a family of vertex sets $W_t \subseteq V_G$ indexed by the vertices $t$ of $W$. The pair $\mathcal{T}=(T,W)$ is called a \emph{tree decomposition} of $G$ if it satisfies the following three conditions:
 \begin{enumerate}
 	\item $V_G = \bigcup_{t\in T}W_t$
 	\item For every edge $e\in E_G$ there exists a $t\in T$ such that both ends of $e$ lie in $W_t$
@@ -123,6 +123,6 @@ Let $G$ be a graph, $T$ a tree, and let $\mathcal{W} = \left(W_t\right)_{t\in T}
 \cite[P. 319]{Diestel_GraphTheory}
 The \emph{width} of a tree decomposition is defined as 
 \begin{align}
-	tw(T,W) = \max\{ |W_t|,t\in V_T \} -1
+	tw(\mathcal{T}) = \max\{ |W_t|,t\in V_T \} -1
 \end{align}
 The \emph{treewidth} of a graph is the least width of any tree decomposition of $G$ \cite[P. 321]{Diestel_GraphTheory}.

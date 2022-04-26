@@ -145,19 +145,23 @@ The minimal euclidian distance values at least $2^h$ by construction of algorith
 \subsubsection{Limitations}
 
 As addressed by Observation % TODO ref
-, this algorithm works fine for dense weak dual graphs of $G$ since then, the height of $G^*$ is bound by $\mathcal{O}(\log^2 n)$. On the other hand, when $G$ is a loose maximal outerplanar graph, a height of $G^*$ might be of linear size and therefore, the drawing algorithm is not improving the ratio contrary to a straight-line drawing. In addition, the drawing algorithm will only work for simple weak dual graphs. The weak dual graph of a 2-tree is a multigraph, as illustrated by the following small figure:
+, this algorithm works fine for dense weak dual graphs of $G$ since then, the height of $G^*$ is bound by $\mathcal{O}(\log^2 n)$. On the other hand, when $G$ is a loose maximal outerplanar graph, a height of $G^*$ might be of linear size and therefore, the drawing algorithm is not improving the ratio contrary to a straight-line drawing. In addition, the drawing algorithm will only work for simple weak dual graphs. The weak dual graph of a 2-tree is a multigraph, as illustrated by the following small figure:\\
 % TODO figure
-
+\\
+The approach of drawing the weak dual graph at first followed by the outerplanar graph serves as an idea for a \emph{layered drawing}. The resulting drawings are valid layerings since the vertices of $G$ added on a fixed height of $G^*$ are not adjacent. The layering handles dense outerplanar graphs pretty well since a complete outerplanar graph is drawable with a ratio of $\mathcal{O}(\log n)$. 
 
 \subsection{Series Parallel Graphs}
 
-\begin{itemize}
-	\item A layering in a drawing algorithm will guarantee a minimal euclidian distance between two adjacent vertices by defining a minimal distance between two layers
-	\item weak dual graph is not sufficient for 2-trees since it is not simple anymore
-	\item Usage of tree decomposition of a given 2-tree, then creating the SQPR tree and then draw it
-\end{itemize}
+As already observed, a layered drawing algorithm might guarantee a reasonable ratio by defining a minimal distance between two layers and therefore between two adjacent vertices. Since the weak dual graph is not suitable for 2-trees, the \emph{tree decomposition} of an SP-graph will serve as a guidance tool for the sequence of vertices drawn by a layering algorithm. The drawing algorithm will use the \emph{SPQR tree} derived from a tree decomposition.
 
-\subsubsection{Properties Of Series Parallel Graphs}
+\subsubsection{Properties Of Maximal Series Parallel Graphs}
+
+\begin{lemma}
+	A 2-tree inherits a treewidth of 2.
+\end{lemma}
+\begin{proof}
+	 The $K_3$ consists of three vertices and represents one vertex in $\mathcal{T}$
+\end{proof}
 
 \subsubsection{Drawing An Outerplanar Graph With Two Bends}
 

@@ -112,21 +112,42 @@ Let $T$ be a chain of vertices with the degree of the root valuing 1, describing
 In order to overcome this issue of exponential area, a partitioning of any given $k$-tree $T$ into complete subtree components will prove being helpful. In fact, partitioning a binary tree will be helpful in further aspects of this thesis.
 % TODO figure partition
 \begin{definition}
-	A \emph{partition} $T_i$ of $T$ is a family of trees with the following properties:
+	A \emph{partition} $P=(T_i, E)$ of $T$ is defined with the following properties:
 	\begin{itemize}
 		\item $\bigcup_{i} V(T_i) = V(T)$
 		\item $\bigcup_{i} E(T_i) \subseteq E(T)$
+		\item $(T_i,T_j)\in E \Leftrightarrow T_i, T_j$ are adjacent
+		\item $P$ is a $k$-ary tree
 	\end{itemize}
 	A partition $T_i$ is \emph{minimal} if for every other partition $T'_j$ of $T$ it holds that $i\leq j$.
 \end{definition}
 Let $T$ be a $k$-ary tree with $n$ vertices. Then, for a partition $T_i$, the following holds:
-\begin{itemize}
-	\item The amount of partitions of size $\mathcal{O}(1)$ lies in $\mathcal{O}(n)$
+\begin{enumerate}
+	\item The amount of partitions of size $\mathcal{O}(1)$ is bound by $\mathcal{O}(n)$
 	\item The amount of partitions of size $\mathcal{O}(\log n)$ is bound by $\mathcal{O}\left(\frac{n}{\log n}\right)$
 	\item The amount of partitions of size $\mathcal{O}(\sqrt{n})$ is bound by $\mathcal{O}(\sqrt{n})$
 	\item The amount of partitions of size $\mathcal{O}(n)$ is bound by a constant
-\end{itemize}
+\end{enumerate}
+Also, any constant combination of partitions are possible, for example, let $|V(G)| = 2n$. One chain of $n$ vertices appended to a complete $k$-ary tree with $n$ vertices results in a legitimate $k$-ary tree, leading to a height of $\mathcal{O}(n)$. 
+\begin{lemma}
+	The height of $G$ is determined by the minimal partition $P$ of $G$ in the following way:
+	\begin{enumerate}
+		\item If $P$ consists of $\mathcal{O}(n)$ many partitions of constant size, the height of $G$ lies between $\Omega(\log n)$ and $\mathcal{O}(n)$
+		\item If $P$ consists of $\mathcal{O}\left(\frac{n}{\log n}\right)$ partitions of size $\mathcal{O}(\log n)$, then the height of $G$ lies between $\Omega\left(\log\left(\frac{n}{\log n}\right)\cdot \log \log n \right)$ and $\mathcal{O}\left( n\right)$
+		\item If $P$ consists of $\mathcal{O}(\sqrt{n})$ partitions of size $\mathcal{O}(\sqrt{n})$, then the height of $G$ lies between $\Omega(\log^2 n)$ and $\mathcal{O}(\sqrt{n}\log n)$
+		\item if $P$ consists of a constant amount of partitions of size $\mathcal{O}(n)$, then the height is bound by $\mathcal{O}(\log n)$.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	\begin{enumerate}
+		\item A complete $k$-ary tree of constant size inherits a constant height. $P$ is a tree with $\mathcal{O}(n)$ height. Substituting every vertex of $P$ with complete $k$-ary trees of constant height results in a height of $\mathcal{O}(n)$
+		\item A complete $k$-ary tree with $\mathcal{O}(\log n)$ vertices inherits a height of $\mathcal{O}(\log \log n)$. The height of $P$, $h_P$ lies between $\Omega\left(\log\left(\frac{n}{\log n}\right)\right)$ and $\mathcal{O}\left(\frac{n}{\log n}\right)$. Therefore, the height of $G$ lies between $\Omega\left(\log\left(\frac{n}{\log n}\right)\cdot \log \log n \right)$ and $\mathcal{O}\left(\frac{n}{\log n}\cdot \log \log n\right)$
+		\item If $P$ is a complete $k$-ary tree and every vertex of $P$ represents a complete $k$-ary tree of height $\mathcal{O}(\log n)$, the resulting total height of $G$ is at least $\Omega(\log^2 n)$. If $P$ is a chain of vertices of height $\mathcal{O}(\sqrt{n})$, the total height is at most $\mathcal{O}(\sqrt{n} \log n)$. 
+		\item A constant multiple of $\log n$ height for a vertex in $P$ results in a total height of $\mathcal{O}(\log n)$ for $G$.
+	\end{enumerate}
+\end{proof}
   
+% TODO create an algorithm for any $k$-ary tree
 
 \begin{theorem}
 	Every $k$-ary tree with height $h$ admits a planar straight-line drawing with a nearly optimal ratio, apart from a rounding error, on area $\mathcal{O}(n^2\log n)$.

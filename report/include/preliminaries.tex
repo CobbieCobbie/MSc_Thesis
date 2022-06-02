@@ -28,7 +28,8 @@ A multigraph $G^*$ is the \emph{dual graph of $G$} if and only if there exists a
 	\item For every edge $e$ of $G$, the corresponding vertices of the faces in $G^*$ incident to $e$ get an edge 
 	\item If $e$ is incident to only one face, a loop is attached to the corresponding vertex in $G^*$
 \end{enumerate}\cite[P. 103]{Diestel_GraphTheory}
-The \emph{weak dual graph} of $G$ is the dual graph of $G$ without considering the outer face.
+The \emph{weak dual graph} of $G$ is the dual graph of $G$ without considering the outer face.\\
+The \emph{depth-first search, DFS} in short, is a strategy to explore edges out of the most recently discovered vertex $v$ that still has unexplored edges leaving it. Once of all $v$'s edges have been explored, the DFS backtracks in order to explore edges leaving the vertex from which $v$ was discovered. The DFS terminates when all the reachable vertices from the original source vertex were discovered \cite[P.603]{DBLP:cormen_intro_to_algorithms}.
 
 % Graph Drawings
 
@@ -58,8 +59,30 @@ The \emph{length of a line segment} is defined as the euclidian distance between
 
 \subsection{The Relationship Between Drawing Models}
 
-% TODO write the relationship between drawing models
-% TODO include a figure
+Box drawings, straight-line and polyline drawings are the drawings of interest in this thesis. They stand in relation to each other in the following way:\\
+A straight-line drawing is a polyline drawing with no bends by definition. Every sequence of line segments is of length 1.\\
+A box drawing can be transferred to a polyline drawing with asymptotically the same area consumption. For this to happen, add empty grid lines until every segment of every edge has length at least 2. This will at most double the width and height. For any vertex, replace the box by an arbitrary grid point inside the box and reroute the incident edges to that vertex locally. Every box introduces a bend per edge, resulting in a polyline drawing with two bends and the asymptotically same area bound.
+\cite[P. 145]{Biedl_SP}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.7\textwidth}
+		\centering
+		\includegraphics[page=1,width=0.5\linewidth]{graphics/preliminaries_drawing_models.pdf}
+		\caption{}\label{im:drawing_models_a}
+	\end{subfigure}
+\begin{subfigure}{0.4\textwidth}
+	\centering
+	\includegraphics[page=2,width=\linewidth]{graphics/preliminaries_drawing_models.pdf}
+	\caption{}\label{im:drawing_models_b}
+\end{subfigure}
+\begin{subfigure}{0.4\textwidth}
+	\centering
+	\includegraphics[page=3,width=\linewidth]{graphics/preliminaries_drawing_models.pdf}
+	\caption{}\label{im:drawing_models_c}
+\end{subfigure}
+	\caption{\ref{im:drawing_models_a} is a straight-line drawing of a maximal outerplanar graph $G$, \ref{im:drawing_models_b} is a box drawing of $G$ and \ref{im:drawing_models_c} is a polyline drawing derived from \ref{im:drawing_models_b}}\label{im:drawing_models}
+\end{figure}
 
 \subsection{Graph Classes}
 \subsubsection{Tree}
@@ -105,10 +128,9 @@ The \emph{SPQR-Tree} $\mathcal{T}$ of $G$ is a recursively defined composition o
 After the initialization of $\mathcal{T}$ with an arbitrary reference edge, consider a node $\psi$ of $\mathcal{T}$, $G_\psi=\left(V(G),E(G)\setminus\left\{(s,t)\right\}\right)$ and a pair of vertices $\{u,v\}$ of $G_\psi$, called the \emph{poles} of $\psi$.
 
 \begin{description}
-	% TODO draw the sleketons with description per case
-	\item[Trivial case] If $G_\psi$ consists of a single edge $(u,v)$, then $\psi$ is a $Q$-node.
-	\item[Series case] If $G_\psi$ is not a single edge and not biconnected, then $\psi$ is a $S$-node with at least one cut vertex between the path between $u$ and $v$.
-	\item[Parallel case] If $G_\psi$ is not a single edge, but biconnected with $\{u,v\}$ as a split pair of $G_\psi$, then $\psi$ is a $P$-node.
+	\item[Trivial case] If $G_\psi$ consists of a single edge $(u,v)$, then $\psi$ is a $Q$-node. In this thesis, this case will be denoted as $Q(u,v)$.
+	\item[Series case] If $G_\psi$ is not a single edge and not biconnected, then $\psi$ is a $S$-node with at least one cut vertex $c$ between the path between $u$ and $v$. In this thesis, this case will be denoted as $S(u,c,v)$.
+	\item[Parallel case] If $G_\psi$ is not a single edge, but biconnected with $\{u,v\}$ as a split pair of $G_\psi$, then $\psi$ is a $P$-node. In this thesis, this case will be denoted as $P(u,v)$.
 	\item[Rigid case] If $G_\psi$ is not a single edge, biconnected with $\{u,v\}$ not being a split pair of $G_\psi$, then $\psi$ is a $R$-node.
 \end{description}
 \cite[P. 7-8]{SPQR-Tree}

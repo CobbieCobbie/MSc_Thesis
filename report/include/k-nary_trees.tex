@@ -27,12 +27,11 @@ When working on other graph classes, it may be possible to find an approach by r
 \begin{proof}
 	The following drawing will be constructed from top to bottom, meaning that the $y$-coordinates of the children of any vertex $v$ are smaller than the $y$ coordinate of $v$.\\
 	Let $r := k^h$. For a vertex $v$ in height $i$, consider $k$ equidistant columns with $x$-coordinates between $x(v) - (k-1)\cdot  k^{h-h'-1}$ and $x(v) + (k-1)\cdot  k^{h-h'-1}$. These are integer coordinates since the distance between two columns next to each other equals $2\cdot \frac{k^{h-i}}{k}$. Draw a circle around $v$ with radius $r$. Choose the grid points $v_i$ on the column closest to the resulting intersections with the constraint that $y(v_i) \leq y(v)$ and connect $v$ with its $k$ children with a straight-line.
-	% TODO Illustration of circle with columns
 \begin{figure}[H]
 	\centering
 		\begin{subfigure}{\textwidth}
 			\centering
-			\includegraphics[page=1,width=0.8\linewidth]{graphics/k-ary_tree_algorithm_construction.pdf}
+			\includegraphics[page=1,width=0.6\linewidth]{graphics/k-ary_tree_algorithm_construction.pdf}
 		\end{subfigure}
 	\caption{Illustration of drawing algorithm at a vertex $v$ with height $h$}\label{im:k-ary_trees_algorithm_illustration}
 \end{figure}
@@ -46,7 +45,7 @@ When working on other graph classes, it may be possible to find an approach by r
 	Since the algorithm works from top to bottom and for height $i$, the area for every subtree is disjointedly reserved, the resulting drawing is planar. Furthermore, all straight-line edges inherit a length of approximately $k^h$, no bends were used and the ratio is bound by $1+\varepsilon, 0\leq \varepsilon<1$.
 \end{proof}
 \bigskip
-The following algorithm sums up the approach described above.\\
+The following drawing algorithm sums up the approach described above.\\
 \begin{algorithm}[H]
 	\KwIn{complete $k$-ary tree $T$, $h$}
 	\KwOut{Straight-line drawing of $T$ with nearly optimal ratio}
@@ -81,14 +80,12 @@ The following algorithm sums up the approach described above.\\
 	}		
 \end{algorithm}
 
-
 \subsection{Example Drawings}
-% TODO Example drawings
 \begin{figure}[H]
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[page=1,width=0.8\linewidth]{graphics/k-ary_tree_example_drawings.pdf}
+		\includegraphics[page=1,width=0.6\linewidth]{graphics/k-ary_tree_example_drawings.pdf}
 	\end{subfigure}
 	\caption{Tertiary tree with height 3}\label{im:3-ary_tree}
 \end{figure}
@@ -96,62 +93,7 @@ The following algorithm sums up the approach described above.\\
 	\centering
 	\begin{subfigure}{\textwidth}
 		\centering
-		\includegraphics[page=2,width=0.8\linewidth]{graphics/k-ary_tree_example_drawings.pdf}
+		\includegraphics[page=2,width=0.6\linewidth]{graphics/k-ary_tree_example_drawings.pdf}
 	\end{subfigure}
 	\caption{5-ary tree with height 2}\label{im:4-ary_tree}
 \end{figure}
-
-
-\subsection{Partitioning A Binary Tree In Complete Binary Subtrees}
-
-Algorithm \ref{al:complete_k-ary_tree} works fine for complete $k$-ary trees. As a next step, the drawing approach is used when drawing any given $k$-ary tree. 
-\begin{lemma}
-	The \emph{height $h$} of any $k$-ary tree is in $\Omega(\log n)$ and $\mathcal{O}(n)$.
-\end{lemma}
-Let $T$ be a chain of vertices with the degree of the root valuing 1, describing the worst case with height $n-1$. One approach would be to extend $T$ to a complete binary supertree $T'$, draw it with algorithm \ref{al:complete_k-ary_tree} and reduce it to $T$ again. This would work in order to produce a nearly optimal drawing on one hand, but, on the other hand, this will explode the area exponentially since with a linear height, the extension from $T$ to $T'$ will insert exponentially many vertices.\\
-In order to overcome this issue of exponential area, a partitioning of any given $k$-tree $T$ into complete subtree components will prove being helpful. In fact, partitioning a binary tree will be helpful in further aspects of this thesis.
-% TODO figure partition
-\begin{definition}
-	A \emph{partition} $P=(T_i, E)$ of $T$ is defined with the following properties:
-	\begin{itemize}
-		\item $\bigcup_{i} V(T_i) = V(T)$
-		\item $\bigcup_{i} E(T_i) \subseteq E(T)$
-		\item $(T_i,T_j)\in E \Leftrightarrow T_i, T_j$ are adjacent
-		\item $P$ is a $k$-ary tree
-	\end{itemize}
-	A partition $T_i$ is \emph{minimal} if for every other partition $T'_j$ of $T$ it holds that $i\leq j$.
-\end{definition}
-Let $T$ be a $k$-ary tree with $n$ vertices. Then, for a partition $T_i$, the following holds:
-\begin{enumerate}
-	\item The amount of partitions of size $\mathcal{O}(1)$ is bound by $\mathcal{O}(n)$
-	\item The amount of partitions of size $\mathcal{O}(\log n)$ is bound by $\mathcal{O}\left(\frac{n}{\log n}\right)$
-	\item The amount of partitions of size $\mathcal{O}(\sqrt{n})$ is bound by $\mathcal{O}(\sqrt{n})$
-	\item The amount of partitions of size $\mathcal{O}(n)$ is bound by a constant
-\end{enumerate}
-Also, any constant combination of partitions are possible, for example, let $|V(G)| = 2n$. One chain of $n$ vertices appended to a complete $k$-ary tree with $n$ vertices results in a legitimate $k$-ary tree, leading to a height of $\mathcal{O}(n)$. 
-\begin{lemma}
-	The height of $G$ is determined by the minimal partition $P$ of $G$ in the following way:
-	\begin{enumerate}
-		\item If $P$ consists of $\mathcal{O}(n)$ many partitions of constant size, the height of $G$ lies between $\Omega(\log n)$ and $\mathcal{O}(n)$
-		\item If $P$ consists of $\mathcal{O}\left(\frac{n}{\log n}\right)$ partitions of size $\mathcal{O}(\log n)$, then the height of $G$ lies between $\Omega\left(\log\left(\frac{n}{\log n}\right)\cdot \log \log n \right)$ and $\mathcal{O}\left( n\right)$
-		\item If $P$ consists of $\mathcal{O}(\sqrt{n})$ partitions of size $\mathcal{O}(\sqrt{n})$, then the height of $G$ lies between $\Omega(\log^2 n)$ and $\mathcal{O}(\sqrt{n}\log n)$
-		\item if $P$ consists of a constant amount of partitions of size $\mathcal{O}(n)$, then the height is bound by $\mathcal{O}(\log n)$.
-	\end{enumerate}
-\end{lemma}
-\begin{proof}
-	\begin{enumerate}
-		\item A complete $k$-ary tree of constant size inherits a constant height. $P$ is a tree with $\mathcal{O}(n)$ height. Substituting every vertex of $P$ with complete $k$-ary trees of constant height results in a height of $\mathcal{O}(n)$
-		\item A complete $k$-ary tree with $\mathcal{O}(\log n)$ vertices inherits a height of $\mathcal{O}(\log \log n)$. The height of $P$, $h_P$ lies between $\Omega\left(\log\left(\frac{n}{\log n}\right)\right)$ and $\mathcal{O}\left(\frac{n}{\log n}\right)$. Therefore, the height of $G$ lies between $\Omega\left(\log\left(\frac{n}{\log n}\right)\cdot \log \log n \right)$ and $\mathcal{O}\left(\frac{n}{\log n}\cdot \log \log n\right)$
-		\item If $P$ is a complete $k$-ary tree and every vertex of $P$ represents a complete $k$-ary tree of height $\mathcal{O}(\log n)$, the resulting total height of $G$ is at least $\Omega(\log^2 n)$. If $P$ is a chain of vertices of height $\mathcal{O}(\sqrt{n})$, the total height is at most $\mathcal{O}(\sqrt{n} \log n)$. 
-		\item A constant multiple of $\log n$ height for a vertex in $P$ results in a total height of $\mathcal{O}(\log n)$ for $G$.
-	\end{enumerate}
-\end{proof}
-  
-% TODO create an algorithm for any $k$-ary tree
-
-\begin{theorem}
-	Every $k$-ary tree with height $h$ admits a planar straight-line drawing with a nearly optimal ratio, apart from a rounding error, on area $\mathcal{O}(n^2\log n)$.
-\end{theorem}
-\begin{proof}
-	Let $T$ be any rooted $k$-ary tree with height $h$. 
-\end{proof}

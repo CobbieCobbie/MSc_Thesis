@@ -1,6 +1,31 @@
 \section{Series-Parallel Graphs}\label{section:SP-graphs}
 
 
+
+\subsection{Properties Of Maximal Series Parallel Graphs}
+
+% 2-tree stuff
+
+\begin{lemma}
+	For every 2-tree $G$, there exists a maximal outerplanar subgraph $G'$ that is larger than every other maximal outerplanar subgraph.
+\end{lemma}
+\begin{proof}
+	Consider the tree decomposition $(T_G,W_G)$ of $G$, $T$ inheriting height $h_T$. Add the root of $T$ to $T'$ and its bag to $W'$. From the root of $T$, pick the three children which root the subtrees with the maximum height up to $h_T$ and their respective bags which share exactly one vertex. Then, recursively pick the two children which root the subtrees with the maximum height and add them to $T'$ with their respective bags to $W'$ which share exactly one vertex. This procedure terminates at the leaves of $T$.\\
+	Every vertex of the resulting $T'$ is of degree maximum 3 and by Lemma \ref{l:outerplanar_tree_decomposition}, the graph $G'$ induced by $T$ is outerplanar. Since, during this procedure, the nodes with the maximum subtrees are chosen and the properties described in Lemma \ref{l:outerplanar_TD_properties} hold, there exists no other maximal outerplanar subgraph of $G$ which is larger. 
+\end{proof}
+
+The tree decomposition of a 2-tree is used to derive an according $SPQR$ tree for the implementation of the drawing algorithm.
+
+\begin{lemma}
+	There exists a function $f$ which derives an $SPQR$-tree $\mathcal{T}$ from a given tree decomposition $(T,W)$.
+\end{lemma}
+\begin{proof}
+	Every vertex of $T$ refers to a triangle in $G$. Start at the root of $T$. Every $Q$ node refers to an edge of $G$ and is connected to either a $P$ or a $S$ node. A triangle consists of one $P$, one $S$ node and three $Q$ nodes. The following figure demonstrates the possible modifications in a $SPQR$-tree when a vertex is added to an existing 2-tree according to its recursive definition.
+	% TODO figure with cases
+	In $(T,W)$, any child $t_c$ of $t_p$ is added to the $SQPR$-tree $\mathcal{T}$ accordingly since $w_c$ and $w_t$ share exactly two vertices $v_1,v_2$.
+	% TODO cases
+\end{proof}
+
 % drawing stuff
 
 \subsection{Drawing Algorithm For Maximal Series Parallel Graphs With Two Bends}

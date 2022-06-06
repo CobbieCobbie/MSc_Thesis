@@ -97,3 +97,27 @@ The following drawing algorithm sums up the approach described above.\\
 	\end{subfigure}
 	\caption{5-ary tree with height 2}\label{im:4-ary_tree}
 \end{figure}
+
+\subsection{Implementation}
+
+The drawing algorithm for complete $k$-ary trees as described in thie section got implemented as a script in \texttt{Python}. The \texttt{networkx} library was used to represent the graph structure. For creating a drawing, the \texttt{matplotlib} library came in handy since it allows explicite coordinate placements of vertices and a fixed aspect ratio of the resulting drawing.\\
+The script consists of a \texttt{main} function and the drawing implementation of algorithm \ref{al:complete_k-ary_tree}. It is possible to set the $k$ and the height when calling the script by command-line arguments. The \texttt{main }function evaluates those command-line arguments and calls the recursive coordinate calculations starting from the root vertex with its coordinate $(0,0)$. All coordinates are rounded to integers in order to produce a straight-line drawing on a grid by default. Afterwards, the map between vertices and their coordinates are forwarded to an instance of the \texttt{matplotlib} plot. The output of the script consists of a straight-line drawing, the length of the shortest and longest edge and the ratio of the drawing.
+\bigskip\\
+For a full documentation of the implementation, the reader is invited to checkout the \texttt{git} repository found on $\text{GitHub}^{\copyright}$\cite{repository}.
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=0.7\linewidth]{graphics/Implementation_6ary_height_3ver2.png}
+	\end{subfigure}
+		\caption{Output drawing of a $6$-ary tree of height 3. $l_{\min}$ values 215.75, $l_{\max}$ values 216.09. The ratio values 1.0015777}
+\end{figure}
+\begin{figure}[H]
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[width=0.7\linewidth]{graphics/Implementation_30ary_height_3ver2.png}
+
+	\end{subfigure}
+		\caption{Output drawing of a 30-ary tree of height 3. $l_{\min}$ values 26999.64, $l_{\max}$ values 27000.45. The ratio values 1.00002984}
+\end{figure}

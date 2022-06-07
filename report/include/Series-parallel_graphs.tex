@@ -1,38 +1,79 @@
 \section{Series-Parallel Graphs}\label{section:SP-graphs}
 
-
-
 \subsection{Properties Of Maximal Series Parallel Graphs}
 
 % 2-tree stuff
 
 \begin{lemma}
-	For every 2-tree $G$, there exists a maximal outerplanar subgraph $G'$ that is larger than every other maximal outerplanar subgraph.
+	The function deriving a $SPQR$ tree from a tree decomposition defined in Lemma \ref{l:tree_decomp_to_SPQR} is applicable to any maximal SP graph $G$.
 \end{lemma}
 \begin{proof}
-	Consider the tree decomposition $(T_G,W_G)$ of $G$, $T$ inheriting height $h_T$. Add the root of $T$ to $T'$ and its bag to $W'$. From the root of $T$, pick the three children which root the subtrees with the maximum height up to $h_T$ and their respective bags which share exactly one vertex. Then, recursively pick the two children which root the subtrees with the maximum height and add them to $T'$ with their respective bags to $W'$ which share exactly one vertex. This procedure terminates at the leaves of $T$.\\
-	Every vertex of the resulting $T'$ is of degree maximum 3 and by Lemma \ref{l:outerplanar_tree_decomposition}, the graph $G'$ induced by $T$ is outerplanar. Since, during this procedure, the nodes with the maximum subtrees are chosen and the properties described in Lemma \ref{l:outerplanar_TD_properties} hold, there exists no other maximal outerplanar subgraph of $G$ which is larger. 
+	Let $G$ be a maximal SP graph with its tree decomposition $(T,W)$. Contrary to a tree decomposition of a maximal outerplanar graph, any node $T$ can have arbitrary many children. Inserting a new vertex described with a vertex in $T$ works analogously to the prior scheme. For a maximal SP graph, the resulting $SPQR$ tree can inherit arbitrary many serial nodes attached to a parallel node.
 \end{proof}
 
-The tree decomposition of a 2-tree is used to derive an according $SPQR$ tree for the implementation of the drawing algorithm.
-
 \begin{lemma}
-	There exists a function $f$ which derives an $SPQR$-tree $\mathcal{T}$ from a given tree decomposition $(T,W)$.
+	For every maximal SP graph $G$, there exists a maximal outerplanar subgraph $G'$ that is larger than every other maximal outerplanar subgraph.
 \end{lemma}
 \begin{proof}
-	Every vertex of $T$ refers to a triangle in $G$. Start at the root of $T$. Every $Q$ node refers to an edge of $G$ and is connected to either a $P$ or a $S$ node. A triangle consists of one $P$, one $S$ node and three $Q$ nodes. The following figure demonstrates the possible modifications in a $SPQR$-tree when a vertex is added to an existing 2-tree according to its recursive definition.
-	% TODO figure with cases
-	In $(T,W)$, any child $t_c$ of $t_p$ is added to the $SQPR$-tree $\mathcal{T}$ accordingly since $w_c$ and $w_t$ share exactly two vertices $v_1,v_2$.
-	% TODO cases
+	Consider the tree decomposition $(T,W)$ of $G$. Add the root of $T$ to $T'$ and its bag to $W'$. From the root of $T$, pick the three children which root the subtrees with the maximum height and their respective bags. Then, recursively pick the two children which root the subtrees with the maximum height and add them to $T'$ with their respective bags to $W'$. This procedure terminates some leaves of $T$.\\
+	Every vertex of the resulting $T'$ is of degree maximum 3 and by Lemma \ref{l:outerplanar_tree_decomposition}, the graph $G'$ induced by $T$ is maximal outerplanar. Since during this procedure, the nodes with the maximum subtrees are chosen and the properties described in Lemma \ref{l:outerplanar_TD_properties} hold, there exists no other maximal outerplanar subgraph of $G$ which is larger. 
+\end{proof}
+
+The tree decomposition of a maximal SP graph is used to derive an according $SPQR$ tree for the implementation of the drawing algorithm.
+
+\begin{lemma}
+	Let $G$ be a maximal SP graph with tree decomposition $(T,W)$ and $G'$ any maximal SP subgraph of $G$ with tree decomposition $(T',W')$. Then, it holds:
+	\begin{enumerate}
+		\item $(T',W') \subseteq (T,W)$
+		\item There exists a vertex in $T\setminus T'$ whose bag shares exactly two vertices of $G$ with the bag of the root of $T'$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	\begin{itemize}
+		\item Since the tree decomposition of a maximal SP graph is unique, any maximal SP subgraph $G'$ of $G$ is represented in $T$ by $T'$.
+		\item Let $t$ be the root of $T'$. Consider the parent of $t$ in $T$. This property holds between those bags by Lemma \ref{l:outerplanar_two_vertices_subtree_TD_2}.
+	\end{itemize}
 \end{proof}
 
 % drawing stuff
 
 \subsection{Drawing Algorithm For Maximal Series Parallel Graphs With Two Bends}
 
-The tree decomposition $(T,W)$ of a $2$-tree $G$ will be evaluated for its largest maximal outerplanar graph with tree decomposition $(T',W')$. $\tilde{T}$ is defined as the difference of $T$ and $T'$ and is a set of subtrees of $T$.\\
+A maximal SP graph $G$ with its tree decomposition $(T,W)$ will be evaluated for its largest maximal outerplanar subgraph $G'$ with tree decomposition $(T',W')$. $\tilde{T}$ describes the difference of $T$ and $T'$ and is a set of subtrees of $T$.\\
 After $(T',W')$ is drawn into a box drawing $B'$, the remaining subtrees in $\tilde{T}$ will be inserted accordingly, resulting in a box drawing $B$ for $G$. Finally, a polyline drawing will be derived from $B$.
 
+\begin{algorithm}[H]
+	\KwIn{Maximal Series Parallel Graph $G$}
+	\KwOut{Polyline Drawing $\Gamma_G$ with two bends per edge}
+	\caption{\texttt{DrawMaximalSPGraph}$(G)$}
+	$(T,W) \gets$ tree decomposition of $G$\\
+	$G' \gets$ largest maximal outerplanar subgraph of $G$\\
+	$(T',W') \gets$ tree decomposition of $G'$\\
+	$\tilde{T} \gets T\setminus T'$\\
+	$\Gamma_{G'} \gets \texttt{DrawMaximalOuterplanar}(G')$\\
+	\For{$t\in \tilde{T}$}{
+		 $p \gets \texttt{parent}(t)\texttt{.root}$\\
+		 $u \gets \Gamma_{G'}\texttt{.upperLayer}(p)$\\
+		 $l \gets \Gamma_{G'}\texttt{.lowerLayer}(p)$\\
+		 $\Gamma_{G'}\texttt{.Insert}(t, u, l)$
+	}
+	\Return $\Gamma_{G'}$
+\end{algorithm}
 
+\subsubsection{Analysis}
+
+\begin{lemma}
+	When the remaining subtrees of $\tilde{t}$ are inserted into a box drawing $\mathcal{B}_{G'}$, the area bounds do not increase asymptotically.
+\end{lemma}
+\begin{proof}
+	Let $G$ be a maximal SP graph with $\mathcal{B}_{G'}$ a box drawing from the largest maximal outerplanar graph of $G$ created by Algorithm \ref{al:maximal_outerplanar_box_two_bends}. For the insertion of $t\in \tilde{t}$ into $\mathcal{B}_{G'}$, consider the subtrees adjacent to the parent $p$ of $t$ in $T$. Since $t$ is not in $T'$, there exists subtree $t'$ of $T'$ adjacent to $p$ which was already drawn.\\
+	If the insertion of a tree $t$ would create more layers than drawing $t'$ in the first place, then there would be a maximal outerplanar subgraph of $G$ containing $t'$ which is contradicting the assumption.
+\end{proof}
+
+% Results
+
+\begin{theorem}
+	Any maximal SP graph admits a polyline drawing in $\mathcal{O}(n^2 \log^2 n)$ area with two bends per edge and a ratio bound by $\mathcal{O}(\log^2 n)$.
+\end{theorem}
 
 \subsubsection{Example drawing}

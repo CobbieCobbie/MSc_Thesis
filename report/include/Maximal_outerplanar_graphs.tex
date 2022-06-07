@@ -305,7 +305,7 @@ Let $t_p$ the parent of $t_1,t_2$ and $t_3$ and $v \in w_p$. Assume, that $v \in
 \begin{proof}
 	Let $G'$ be a maximal outerplanar graph with and $(T',W')$ be its tree decomposition. The height of $T'$ is bound by $\mathcal{O}(n')$. Since the degree of any vertex in $T'$ is at most 3, there are up to three binary trees connected to the root of $T'$. The minimal partitioning of the three binary subtrees $P_i = (\mathcal{T}_i,\mathcal{W}_i)$ of $T'$, $1\leq i \leq 3$, consist of binary tree partitions and $\mathcal{T}_i$ are binary trees.\\
 	Consider a minimal partitioning $\mathcal{P}$ and a path $\tilde{t} = (t_1,...,t_k)$ starting at the root and ending at a leaf of $\mathcal{T}$. When subtrees of minimal heights are prioritized during every step of the DFS of $T$, then it holds that by the time the DFS reached a partition $t_j \in \tilde{t}$, then all the other partitions $t_i, i<j$ have been almost fully explored, leading to a constant amount of locally active vertices.\\
-	In the case of $P$ being a complete binary tree, the priority of the subtree with the smallest height does not take any effect. Considering Lemma \ref{l:partition_binary_tree_lower_upper_bounds}, the largest upper bound for the height of $T$ lies in $\mathcal{O}(\log^2 n)$ when a minimal partitioning $P$ consists of $\sqrt{n'}$ partitions with $\sqrt{n'}$ vertices per partition bag and $\mathcal{T}$ being a complete binary tree. Analoguously to the proof of Lemma \ref{l:complete_maximal_outerplanar_log_n_active}, traversing a path from the root of $T$ to any leaf will set up to $\mathcal{O}(\log^2 n')$ vertices active.
+	In the case of $P$ being a complete binary tree, the priority of the subtree with the smallest height does not take any effect. Considering Lemma \ref{l:partition_binary_tree_lower_upper_bounds}, the largest upper bound for the height of $T$ lies in $\mathcal{O}(\log^2 n)$ when a minimal partitioning $P$ consists of $\sqrt{n'}$ partitions with $\sqrt{n'}$ vertices per partition bag and $\mathcal{T}$ being a complete binary tree. analogously to the proof of Lemma \ref{l:complete_maximal_outerplanar_log_n_active}, traversing a path from the root of $T$ to any leaf will set up to $\mathcal{O}(\log^2 n')$ vertices active.
 \end{proof}
 
 \subsection{Drawing Algorithm For Maximal Outerplanar Graphs With Two Bends}
@@ -469,26 +469,94 @@ Transferring a box drawing to a polyline drawing includes the substitution of $\
 	Let $G'$ be a maximal outerplanar graph with its partitioning $P = (\mathcal{P},\mathcal{W})$. Let $c$ be a constant so that for every partition $p_i \in \mathcal{P}$ it holds that $|w_i|\leq c, w_i \in \mathcal{W}$ and $\mathcal{P}$ be a chain of vertices of height $\mathcal{O}(n)$. Since the size of every partition is bound by $c$, the height of the regarding complete $k$-ary tree is bound by $\mathcal{O}(1)$.\\
 	When $\mathcal{P}$ is a chain of vertices, the drawing algorithm \ref{al:maximal_outerplanar_two_bends} finishes a partition before proceeding to the next element of $\mathcal{P}$ due to the combined strategy of DFS and subtree priority. Since the amount of layers inserted into $\mathcal{B}_{G'}$ are determined by the amount of simultaneously active vertices, $\mathcal{B}$ inherits a constant amount of layers, resulting in a box drawing of $\mathcal{O}(n^2)$ area and a constant ratio.\\
 \end{proof}
+\newpage
+\subsubsection{Example Drawing}
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=1,width=0.7\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+	\end{subfigure}
+	\caption{A straight-line drawing of a maximal outerplanar graph $G'$ with $T'$ out of its tree decomposition}
+\end{figure}
+The drawing algorithm draws the triangle defined vertices $1,2$ and $3$ on three different layers and then explores $T'$ by DFS und prioritizes the subtree of minimal height. In the illustration of $T'$, the magenta enclosure illustrates the progression of the DFS.\\
+In order to illustrate an example drawing properly, the distance between layers $\delta$ is set to 4.
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{0.49\textwidth}
+		\centering
+		\includegraphics[page=2,width=\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+		\caption{Box drawing $\mathcal{B}$ of the triangle $T(1,2,3)$}
+	\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+\centering
+\includegraphics[page=3,width=\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+\caption{Inserting vertex $4$ into $\mathcal{B}$}
+\end{subfigure}
+\end{figure}
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=5,width=0.7\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+	\end{subfigure}
+	\caption{After drawing vertex $5$, the subtree of minimal height is a serialization of vertex $6$ and $7$ and alternates between two layers}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=6,width=0.7\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+	\end{subfigure}
+	\caption{The subtree adjacent to vertices $5$ and $3$ is drawn}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=7,width=0.7\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+	\end{subfigure}
+	\caption{The subtree adjacent to vertices $2$ and $3$ is drawn}\label{im:example_drawing_box_G}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=8,width=0.5\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+	\end{subfigure}
+	\caption{The resulting polyline drawing $\Gamma_{G'}$ derived from $\mathcal{B}_{G'}$, with two bends per edge}\label{im:example_drawing_gamma_G}
+\end{figure}
 \subsubsection{Preserving Outerplanarity}
 
 \begin{theorem}
 	There exists an alternation of Algorithm \ref{al:draw_SPQR} that preserves the outerplanarity property of $\mathcal{G'}$ in a resulting box drawing $\mathcal{B}_{G'}$.
 \end{theorem}
 \begin{proof}
-	Start at the root of $T'$, drawing a triangle on three layers. Without loss of generality, let $v_1$ be on the top layer, $v_2$ on the bottom layer and $v_3$ inbetween, placed left of the edge $(v_1,v_2)$.
-	Since $G'$ is maximal outerplanar, by Lemma \ref{l:outerplanar_TD_properties} the three binary subtrees adjacent to the root of $T'$ address either $(v_1,v_2)$, $(v_1,v_3)$ or $(v_2,v_3)$. If a binary subtree refers to $(v_1,v_3)$, draw to the left inbetween the regarding layers. Analouguously for the binary tree referring to $(v_2,v_3)$. If a binary subtree refers the edge $(v_1,v_2)$, draw to the right. 
+Start at the root of $T'$, drawing a triangle on three layers. Without loss of generality, let $v_1$ be on the top layer, $v_2$ on the bottom layer and $v_3$ inbetween, placed left of the edge $(v_1,v_2)$.
+Since $G'$ is maximal outerplanar, by Lemma \ref{l:outerplanar_TD_properties} the three binary subtrees adjacent to the root of $T'$ address either $(v_1,v_2)$, $(v_1,v_3)$ or $(v_2,v_3)$. If a binary subtree refers to $(v_1,v_3)$, draw to the left inbetween the regarding layers. Analouguously for the binary tree referring to $(v_2,v_3)$. If a binary subtree refers the edge $(v_1,v_2)$, draw to the right. 
 	
-			\begin{figure}[H]
-		\begin{subfigure}{\textwidth}
-			\centering
-			\includegraphics[page=1,width=\linewidth]{graphics/maximal_outerplanar_preserving_outerplanartiy_scheme.pdf}
-		\end{subfigure}
-		\caption{Scheme to draw a complete maximal outerplanar graph with preserving the outerplanarity property}\label{im:maximal_outerplanar_preserving_outerplanartiy_scheme}
-	\end{figure}
-	
+\begin{figure}[H]
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=1,width=\linewidth]{graphics/maximal_outerplanar_preserving_outerplanartiy_scheme.pdf}
+	\end{subfigure}
+	\caption{Scheme to draw a complete maximal outerplanar graph with preserving the outerplanarity property}\label{im:maximal_outerplanar_preserving_outerplanartiy_scheme}
+\end{figure}
 
-	
-	
-	This way, every box lies on the outerface of $\mathcal{B}_{G'}$ and every vertex lies on the outerface in the resulting polyline drawing $\Gamma_{G'}$. The runtime, area consumption and ratio stay the same.
+This way, every box lies on the outerface of $\mathcal{B}_{G'}$ and every vertex lies on the outerface in the resulting polyline drawing $\Gamma_{G'}$. The runtime, area consumption and ratio stay the same.
 \end{proof}
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=7,width=0.7\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+	\end{subfigure}
+	\caption{Alternate box drawing of example illustrated at \ref{im:example_drawing_box_G}}
+\end{figure}

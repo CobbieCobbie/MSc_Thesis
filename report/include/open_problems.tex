@@ -1,2 +1,17 @@
-\section{Future Work}
-% TODO What is this section about?
+\section{Future Work}\label{section:future_work}
+
+\subsection*{Sharpness Of Ratio Upper Bound For Maximal SP Graphs}
+
+As shown in section \ref{s:maximal_outerplanar}, the amount of simultaneously active vertices during a DFS graph traversal through a maximal outerplanar graphs tree decomposition lies in $\mathcal{O}(\log^2 n)$. One question is whether this upper bound is sharp. It might be possible to deduce the amount of active vertices of $G$ for a path from the root of the tree decomposition to any leaf. The consequence would be a significantally smaller area bound and ratio of any polyline drawing.
+
+\subsection*{Polyline Drawing Implementation For Maximal SP Graphs}
+
+An implementation of the drawing algorithm \ref{al:DrawMaximalSPGraph} would help evaluating the readability, aesthetics and the ratio of polyline drawings for large-scale maximal SP graphs. In order to implement the algorithm, it is necessary to guarantee consistent data structure representations regarding \emph{undirected graphs} and \emph{$SPQR$ trees} in a programming language of choice. Then, implementing the pseudocodes described in section \ref{s:maximal_outerplanar} and \ref{section:SP-graphs} would be straight-forward.
+
+\subsection*{Drawing Approach For 3-trees}
+
+Since in section \ref{section:related_work} it was illustrated that the layering approach based on a tree decomposition is not suitable for a ratio optimization for the class of 3-trees, a new approach for a polyline drawing algorithm is desirable.
+
+\subsection*{General Drawing Algorithm For $k$-ary Trees}
+
+The drawing algorithm \ref{al:complete_k-ary_tree} considers a $k$-ary tree to be complete in order to produce a straight-line drawing. While any $k$-ary tree admits a straight-line drawing with nearly-optimal ratio, the area consumption might behave exponentially if the $k$-ary tree is of height $\mathcal{O}(n)$. It would be desirable to construct a drawing algorithm for any input $k$-ary tree so that the area consumption of the resulting drawing stays reasonable and compact while not increasing the nearly-optimal ratio.

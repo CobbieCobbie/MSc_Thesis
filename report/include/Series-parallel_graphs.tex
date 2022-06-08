@@ -1,162 +1,142 @@
-\section{Series-Parallel Graphs}
+\section{Maximal Series-Parallel Graphs}\label{section:SP-graphs}
 
-This thesis addresses approaches of ratio minimization for drawings of series parallel graphs. \\
-Properties:
-\begin{itemize}
-	\item Biconnected only, there is no $R$ node in any SPQR tree
-	\item Suitable class of interest for fundamental research
-	\item \NP-hardness of drawing existance problem for given edge lengths
-	\item \NP-hardness of uniform edge length drawing existance problem
-\end{itemize}
+Creating a compact layered polyline drawing for maximal outerplanar graphs will prove to be useful when drawing maximal SP-graphs. Every maximal SP-graph contains a maximal outerplanar subgraph. 
 
-\subsection{Outerplanar Graphs}
+\subsection{Properties Of Maximal Series Parallel Graphs}
 
-At first, the attention is drawn to \emph{outerplanar graphs} as they are a subclass of SP graphs. There will be two polyline drawing algorithms presented for this class of SP graphs. The first drawing algorithm will take advantage of the already existing drawing algorithm \ref{al:k-ary_trees} for $k$-ary trees, since the weak dual graph of a maximal outerplanar graph inheits a tree structure. The second drawing algorithm for outerplanar graphs will be suited to be extended for $2$-trees, since every maximal SP graph contains a maximal outerplanar graph as a subgraph.
+% 2-tree stuff
 
-\subsubsection{Properties Of Outerplanar Graphs}
 \begin{lemma}
-	A maximal outerplanar graph $G$ inherits triangles as inner faces, except for the outerface.
-\end{lemma}
-\begin{lemma}\label{l:outerplanar-dual-tree-degree-3}
-	The weak dual graph $G^*$ of a maximal outerplanar graph $G$ is a simple tree with maximum degree 3 for any vertex.
+	For every maximal SP-graph $G$, there exists a maximal outerplanar subgraph $G'$ that is larger than every other maximal outerplanar subgraph.
 \end{lemma}
 \begin{proof}
-	The weak dual graph $G^*$ is connected since $G$ is maximal outerplanar. Suppose, that $G^*$ contains a cycle $\mathcal{C}$. Then, there exists a vertex in $G$ which is enclosed from the outerface by faces according to $\mathcal{C}$ in $G^*$ and $G$ is not outerplanar. This implies that $G^*$ must be acyclic and considering the connectedness, $G^*$ is a tree. Since any face $f$ is a triangle, the degree of $v_f$ in $G^*$ values at most three. The simplicity is derived from the maximal outerplanarity property. If there were multiple edges between vertex $v_f$ and $v_{f'}$ in $G^*$, then there would be at least one vertex in $G$ which does not lie on the outerface.
+	Consider the tree decomposition $(T,W)$ of $G$. Add the root of $T$ to $T'$ and its bag to $W'$. From the root of $T$, pick the three children which root the subtrees with the maximum height and size and their respective bags. Then, recursively pick the two children which root the subtrees with the maximum height and size and add them to $T'$ with their respective bags to $W'$. This procedure terminates some leaves of $T$.\\
+	Every vertex of the resulting $T'$ is of degree maximum 3 and by Lemma \ref{l:outerplanar_tree_decomposition}, the graph $G'$ induced by $T$ is maximal outerplanar. Since during this procedure, the nodes with the maximum subtrees are chosen and the properties described in Lemma \ref{l:outerplanar_TD_properties} hold, there exists no other maximal outerplanar subgraph of $G$ which is larger. 
 \end{proof}
+
 \begin{lemma}
-	Let $G$ be a maximal outerplanar graph with $n$ vertices and $G^*$ the dual graph excluding the outerface, a rooted tree with degree up to three for every vertex $v_f$. Then, the height of $G^*$ ranges between $\Omega(\log n)$ and $\mathcal{O}(n)$.
-\end{lemma}
-\begin{proof}
-	Since $G$ is a planar graph, it contains $\mathcal{O}(n)$ faces. The rooted tree $G^*$ inherits the following property:
+	Let $G$ be a maximal SP-graph with tree decomposition $(T,W)$ and $G'$ any maximal SP subgraph of $G$ with tree decomposition $(T',W')$. Then, it holds:
 	\begin{enumerate}
-		\item The root has at most three children
-		\item The subtrees rooted at the children of the root are binary
+		\item $(T',W') \subseteq (T,W)$
+		\item There exists a vertex in $T\setminus T'$ whose bag shares exactly two vertices of $G$ with the bag of the root of $T'$
 	\end{enumerate}
-	Placing $\mathcal{O}(n)$ vertices in three binary trees connected to a root vertex results in a height of at least $\Omega(\log n)$ due to the $k$-ary tree height property from Lemma \ref{l:k-ary-tree_log_height}. In the worst case, the dual graph will be a chain of vertices, therefore a rooted tree with height $\mathcal{O}(n)$.
-\end{proof}
-\begin{lemma}
-	A maximal outerplanar graph $G$ can be extended to a maximal outerplanar supergraph $G'$.\label{l:outerplanar-supergraph}
 \end{lemma}
 \begin{proof}
-	A new vertex can be added to $G$ by adding a new vertex $v_f$ in the dual graph $G^*$ so that the degree of $G^*$ is still at most 3. The newly created face $f$ must lie on the outerface and must be a triangle. Otherwise, the outerplanarity property is destroyed.
+	\begin{itemize}
+		\item Since the tree decomposition of a maximal SP-graph is unique, any maximal SP subgraph $G'$ of $G$ is represented in $T$ by $T'$.
+		\item Let $t$ be the root of $T'$. Consider the parent of $t$ in $T$. This property holds between those bags by Lemma \ref{l:outerplanar_two_vertices_subtree_TD_2}.
+	\end{itemize}
 \end{proof}
 
-% One Bend, maximal complete outerplanar graph
-When $G^*$ inherits a height of $\mathcal{O}(\log n)$, a new problem emerges. When starting drawing the root of $G^*$, new vertices are added in all directions, enclosing more and more area along the iterative drawing. 
+% drawing stuff
 
-Figure bla illustrates this problem. 
-% TODO Figure of area problem
-This results in short euclidian distances relative to the longest edge, increasing the ratio.\\
-\begin{definition}
-A maximal outerplanar graph is called \emph{complete} if its weak dual graph $G^*$ fulfills these properties:
-\begin{enumerate}
-	\item The root vertex has exactly three children
-	\item Every other inner node has exactly two children. In other words, the subtrees adjacent to the root vertex are complete binary trees of height $h-1$
-\end{enumerate}
-\end{definition}
+\subsection{Drawing Algorithm For Maximal Series Parallel Graphs With Two Bends}
 
-\subsubsection{Drawing A Complete Outerplanar Graph With One Bend}
+A maximal SP-graph $G$ with its tree decomposition $(T,W)$ will be evaluated for its largest maximal outerplanar subgraph $G'$ with tree decomposition $(T',W')$. $\tilde{T}$ describes the difference of $T$ and $T'$ and is a set of subtrees of $T$.\\
+In order to create a polyline drawing similarily as described in section \ref{s:maximal_outerplanar}, it is crucial to find a suiting $SPQR$ tree derivation of a maximal SP-graphs for the box drawing algorithm \ref{al:draw_SPQR} to function. Fortunately, the function deriving a $SPQR$ tree of a tree decomposition of a maximal outerplanar graph $G'$ is also applicable for maximal SP-graphs.
+\begin{lemma}
+	The function deriving a $SPQR$ tree from a tree decomposition defined in Lemma \ref{l:tree_decomp_to_SPQR} is applicable to any maximal SP-graph $G$.
+\end{lemma}
+\begin{proof}
+	Let $G$ be a maximal SP-graph with its tree decomposition $(T,W)$. Contrary to a tree decomposition of a maximal outerplanar graph, any node $T$ can have arbitrary many children. Inserting a new vertex described with a vertex in $T$ works analogously to the prior scheme. For a maximal SP-graph, the resulting $SPQR$ tree can inherit arbitrary many serial nodes attached to a parallel node.
+\end{proof}
 
-A given maximal outerplanar graph can be drawn by using a drawing algorithm for its weak dual graph. In section \ref{s:k-ary_trees}, the $k$-ary tree drawing algorithm produces a straight-line drawing in $\mathcal{O}(n^2 \log n)$ area with a ratio of $1+\varepsilon,\varepsilon>0$. The drawing algorithm \ref{al:k-ary_trees} can be used with a minor modification to draw the weak dual graph of any complete maximal outerplanar graph $G$, since $G^*$ is a subtree of a $3$-ary tree with the same height.\\
+After $(T',W')$ is drawn into a box drawing $B'$, the remaining subtrees in $\tilde{T}$ will be inserted accordingly, resulting in a box drawing $B$ for $G$. Finally, a polyline drawing will be derived from $B$.
 
-\begin{algorithm}[H]
-	\KwIn{A complete maximal outerplanar graph $G$}
-	\KwOut{Straight-line drawing $\Gamma_{G^*}$ with nearly optimal ratio}
-	\caption{\texttt{DrawOuterWeakDual($G$)}}\label{al:drawouterweakdual}
-	$G^* \gets$ weak dual graph of $G$ with minimal height\\
-	$h \gets$ \texttt{height($G^*$)}\\
-	\texttt{root} $\gets$ $G^*$.\texttt{root}\\
-	\texttt{Draw(root)}\\
-	\texttt{Draw\_$3$-ary\_Children(\texttt{root},$3^h$,1)}\\
-	\For{\texttt{$v \in$ root.children}}{
-		\texttt{Draw\_$2$-ary\_Children($v$,$2^{h-1}$,$h-1$)}
-	}
-	\Return $\Gamma$
-\end{algorithm}
-
-Algorithm \ref{al:drawouterweakdual} produces a nearly optimal straight-line drawing for the weak dual graph of a complete outerplanar graph $G$. The resulting drawing $\Gamma_{G^*}$ provides assistance to draw the complete outerplanar graph $G$. Every vertex of $\Gamma_{G^*}$ serves as an anchor point for the drawing of its corresponding face in $G$.\\
-Starting at the root of $G^*$, a triangle is drawn around the root in a way, that each edge of $G^*$ from the root to its three children crosses exactly one edge of the corresponding triangle face in $G$. The vertices for the triangle are placed as follows. The first vertex lies above the already drawn root with an euclidian distance to the root sufficiently high in order to preserve planarity for the remaining drawing. The other two vertices are placed inbetween the two triangles defined by the root, its $\{\text{left, right}\}$ and middle children.\\
-In order to guarantee a valid vertex and bend placement at every inner node $v^*$, the drawing is stretched horizontally by a factor of three.\\
-Then, the drawing algorithm iterates over the height of $G^*$. For every vertex $v^*$ of height $i\in \{1,...,h\}$ in $G^*$, two bend points are placed 1 \UL left and right from $\Gamma_{G^*}(v^*)$, and the new vertex $v$ is placed 1 \UL below from $\Gamma_{G^*}(v^*)$.\\
-$v^*$ is adjacent to an edge $e^*$ defined in $G^*$ that is crossing exactly one edge $e = (v_1,v_2)$ of $G$. This crossing corresponds to the vertices defining the new face, $\{v, v_1, v_2\}$. Since $G^*$ consists of three complete binary subtrees connected to the root, using the bends to draw the new face will preserve planarity since the coordinate of every inner node inherits its unique $x$ value by construction of algorithm \ref{al:k-ary_trees}. This drawing approach is summarized in the following algorithm.\\
-\begin{algorithm}[H]
-	\KwIn{Complete outerplanar graph $G$}
-	\KwOut{Polyline drawing $\Gamma_G$ with one bend per edge and ratio $\mathcal{O}(\log n)$}
-	\caption{\texttt{DrawCompleteOuterplanar($G$)}}\label{al:complete_outerplanar}
-	$\Gamma \gets $ \texttt{DrawOuterWeakDual($G$)}\\
-	$h \gets$ \texttt{height($G^*$)}\\
-	\For{$v^* \in G^*$}{
-		$x(v^*) \gets 3\cdot x(v^*)$
-	}
-	\tcc{Draw the triangle face around the root of ${G^*}$}
-	$root \gets$ $\Gamma(G^*.\texttt{root})$\\
-	$l \gets$ $\Gamma(G^*.\texttt{root.leftChild})$\\
-	$m \gets$ $\Gamma(G^*.\texttt{root.middleChild})$\\
-	$r \gets$ $\Gamma(G^*.\texttt{root.rightChild})$\\
-	$v_1 \gets$ $\Gamma$.\texttt{PlaceVertex($x(root),y(root)+h\cdot 3^h$)}\\
-	$v_2 \gets$ $\Gamma$.\texttt{PlaceVertex($\frac{x(root)+x(l)+x(m)}{3},\frac{y(root)+y(l)+y(m)}{3}$)}\\
-	$v_3 \gets$ $\Gamma$.\texttt{PlaceVertex($\frac{x(root)+x(m)+x(r)}{3},\frac{y(root)+y(m)+y(r )}{3}$)}\\
-	$\Gamma$.\texttt{DrawLineSegment($v_1,v_2$)}\\
-	$\Gamma$.\texttt{DrawLineSegment($v_1,v_3$)}\\
-	$\Gamma$.\texttt{DrawLineSegment($v_3,v_2$)}\\
+\begin{lemma}
+	Let $G$ be a maximal SP-graph and $G'$ its largest maximal outerplanar graph with its box drawing $\mathcal{B}_{G'}$ created by Algorithm \ref{al:maximal_outerplanar_box_two_bends}. For every tree $t$ in $\tilde{t}$ there exists a column in $\mathcal{B}_{G'}$ where $t$ can be inserted into without destroying planarity. 
+\end{lemma}
+\begin{proof}
+	Consider the two shared vertices $u,l \in G$ of the root of $t$ with its parent. Since the parent of $t$ is part of $G'$, $u$ and $l$ are placed on their respective layers in $\mathcal{B}_{G'}$ and connected by an edge at column $x$ with its content drawn from $G'$. Insert $t$ by slicing the box drawing so that there are sufficient free columns beginning at $x+1$ and draw $t$. This way, planarity is preserved. 
 	
-	\tcc{Iterate over the height to draw the remaining vertices of $G$}
-	\For{$i \in [1..h]$}{
-		\For{$v^* \in G^*$ with height $i$}{
-			$b_l \gets$ $\Gamma$.\texttt{PlaceBendPoint($x(v^*) - 1,y(v^*)$)}\\
-			$b_r \gets$ $\Gamma$.\texttt{PlaceBendPoint($x(v^*) + 1,y(v^*)$)}\\
-			$v \gets$ $\Gamma$.\texttt{PlaceVertex($x(v^*),y(v^*)-1$)}\\
-			$e^* \gets (v^*,\texttt{parent}(v^*))$\\
-			$e \gets (v_1, v_2)$ edge intersecting $e^*$
-			\tcp{w.l.o.g. $v_1$ ordered left of $v_2$}
-			$\Gamma.$\texttt{DrawLineSegment($v,b_l$)}\\
-			$\Gamma.$\texttt{DrawLineSegment($b_l,v_1$)}\\
-			$\Gamma.$\texttt{DrawLineSegment($v,b_r$)}\\
-			$\Gamma.$\texttt{DrawLineSegment($b_r,v_2$)}
-		}
+	\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=2,width=0.6\linewidth]{graphics/t_insertion_into_maximal_outerplanar.pdf}
+		\caption{$t$ inserted inbetween upper and lower layer $u$ and $l$ (colored in orange)}
+	\end{subfigure}
+	
+\end{figure}
+	
+\end{proof}
+
+\begin{algorithm}[H]
+	\KwIn{Maximal Series Parallel Graph $G$}
+	\KwOut{Polyline Drawing $\Gamma_G$ with two bends per edge}
+	\caption{\texttt{DrawMaximalSPGraph}$(G)$}\label{al:DrawMaximalSPGraph}
+	$(T,W) \gets$ tree decomposition of $G$\\
+	$G' \gets$ largest maximal outerplanar subgraph of $G$\\
+	$(T',W') \gets$ tree decomposition of $G'$\\
+	$\tilde{T} \gets T\setminus T'$\\
+	$\Gamma_{G'} \gets \texttt{DrawMaximalOuterplanar}(G')$\\
+	\For{$t\in \tilde{T}$}{
+		 $p \gets \texttt{parent}(t\texttt{.root})$\\
+		 $u \gets \Gamma_{G'}\texttt{.upperLayer}(p)$\\
+		 $l \gets \Gamma_{G'}\texttt{.lowerLayer}(p)$\\
+		 $\Gamma_{G'}\texttt{.Insert}(t, u, l)$
 	}
-	$\Gamma$\texttt{.delete($G^*$)}\\
-	\Return $\Gamma$
+	\Return $\Gamma_{G'}$
 \end{algorithm}
 
-% TODO illustration of the approach
-
-\subsubsection{Analysis Of Algorithm \ref{al:complete_outerplanar}}
+\subsubsection{Analysis}
 
 \begin{lemma}
-	Every complete outerplanar graph $G$ admits a polyline drawing $\Gamma_G$ on $\mathcal{O}(n^2 \log n)$ area with one bend per edge. The drawing is constructed in linear time and the ratio lies in $\mathcal{O}(\log n)$.
+	When the remaining subtrees of $\tilde{t}$ are inserted into a box drawing $\mathcal{B}_{G'}$, the area bounds do not increase asymptotically.\label{l:SP_not_increasing_area}
 \end{lemma}
-
 \begin{proof}
-The triangle around the root of $G^*$ consists of a vertex $v_1$ placed atop of the root vertex with distance $h\cdot r^h$ and two vertices $v_2,v_3$ placed at the centroids of the triangles defined by $\{\texttt{root,root.leftChild,root.middleChild}\}$ and $\{\texttt{root,root.middleChild,root.rightChild}\}$. By construction it holds, that $v_2$ and $v_3$ partition three binary subtrees rooted at the children of the root of $G^*$ by their $x$ coordinate. The placement of the vertices $v_1,v_2$ and $v_3$ guarantee exactly one intersection between an edge of $G$ and an edge of $G^*$ in $\Gamma$.\\
-After stretching the drawing horizontally by a factor of three, there exist free grid points next to every vertex of $G^*$ which guarantees a grid point placement left and right of any vertex $v^*$. During the iteration over the height starting at height 1, every intersection between an edge of $G^*$ and $G$ refer to vertices on the outerface and a new face of $G$ is attached on the outerface, preserving the outerplanarity of the drawing.\\
-Since $v_1$ is placed with a distance of $h\cdot r^h$ atop of the root of $G^*$ and $v_2$ and $v_3$ partition the $x$ coordinate of the binary subtrees rooted at the children of the root of $G^*$, planarity is preserved.\\
-The total height of the drawing is doubled and the width is tripled compared to a drawing of a $3$-ary tree, therefore the area consumption lies still in $\mathcal{O}(n^2 \log n)$.\\
-The construction of $G^*$ with minimal height lies in $\mathcal{O}(n)$ since there are $\mathcal{O}(n)$ faces for any maximal outerplanar graph. Drawing $G^*$ and $G$ lies in $\mathcal{O}(n)$. The runtime of this algorithm is therefore in linear time.\\
-The minimal euclidian distance values at least $2^h$ by construction of algorithm \ref{al:k-ary_trees} and lies in $\mathcal{O}(n)$. The length of the longest polyline spans the whole height of the drawing and lies in $\mathcal{O}(n \log n)$. The ratio lies therefore in $\mathcal{O}(\log n)$.
+	Let $G$ be a maximal SP-graph with $\mathcal{B}_{G'}$ a box drawing from the largest maximal outerplanar graph of $G$ created by Algorithm \ref{al:maximal_outerplanar_box_two_bends}. For the insertion of $t\in \tilde{t}$ into $\mathcal{B}_{G'}$, consider the subtrees adjacent to the parent $p$ of $t$ in $T$. Since $t$ is not in $T'$, there exists subtree $t'$ of $T'$ adjacent to $p$ which was already drawn.\\
+	If the insertion of a tree $t$ would create more layers than drawing $t'$ in the first place resulting in a new upper bound for the height of the drawing, then there would be a maximal outerplanar subgraph of $G$ containing $t'$ which is contradicting the assumption. In the width of the drawing, there are still as many columns as there are edges in $G$. The area bounds do not increase asymptotically.
 \end{proof}
-\subsubsection{Example Drawing}
 
-% TODO example drawing of complete outerplanar graph
+% Results
+
+\begin{theorem}
+	Any maximal SP-graph admits a polyline drawing in $\mathcal{O}(n^2 \log^2 n)$ area with two bends per edge and a ratio bound by $\mathcal{O}(\log^2 n)$, when the minimal distance between two layers is set to $n$.
+\end{theorem}
+\begin{proof}
+	Let $\mathcal{B}_{G'}$ be the box drawing of the largest maximal outerplanar subgraph $G'$ of a maximal SP-graph $G$. The width of $\mathcal{B}_{G'}$ lies in $\mathcal{O}(n')$. Inserting the remaining subtrees of $\tilde{t}$ increases the width asymptotically to $\mathcal{O}(n)$ since there is at most one column per edge of $G$. Lemma \ref{l:SP_not_increasing_area} states that the height bound is asymptotically not altered and analogously to the proof of theorem \ref{th:maximal_outerplanar_log2_n_ratio}, the ratio of the resulting polyline drawing $\Gamma_G$ is bound by the amount of total layers, when the minimal distance is set to $n$.
+\end{proof}
+\begin{theorem}
+	Any maximal SP-graph admits a polyline drawing in $\mathcal{O}(n \log^2 n)$ area with two bends per edge.
+\end{theorem}
+\begin{proof}
+	When the minimal distance between two layers is set to a constant, the resulting height is bound by the amount of simultaneously active vertices. The resulting drawing 
+\end{proof}
+
+\subsection{Example drawing}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=10,width=0.8\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+			\caption{Maximal SP-graph $G$ with its largest maximal outerplanar subgraph from example \ref{im:maximal_outerplanar_example_straight-line}. The differential subtrees are colored in orange}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+	\centering
+	\includegraphics[page=11,width=0.5\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+		\caption{$T$ of the tree decomposition of $G$}
+\end{subfigure}
+
+\end{figure}
 
 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=12,width=0.8\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+	\end{subfigure}
+	\caption{The first differential subtree (encircled in magenta) is inserted between vertices 1 and 5 right next to the edge of $(1,5)$ (colored in cyan). Since 1 is not finished during the insertion, creating a new layer is mandatory}
+\end{figure}
 
 
-\subsubsection{Suitable For 2-trees?}
-No.
-
-\subsection{Series Parallel Graphs}
-
-\subsubsection{Properties Of Series Parallel Graphs}
-
-\subsubsection{Drawing An Outerplanar Graph With Two Bends}
-
-\subsubsection{Analysis}
-
-\subsubsection{Drawing A $2$-Tree With Two Bends}
-
-\subsubsection{Analysis}
-
-% TODO What is this section about?
-
-% TODO sei vorsichtig bezüglich multigraph / simple graph, wenn es um die zeichnung laut SPQR tree geht. Erst, definieren, was bei Q, dann bei S, dann bei P, dann bei R. 
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=13,width=0.9\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+	\end{subfigure}
+	\caption{The second differential subtree (encircled in magenta) is inserted between vertices 13 and 3 right next to the edge of $(13,3)$ (colored in cyan)}
+\end{figure}

@@ -1,20 +1,14 @@
 \section{Introduction}
 
-Thoughts:
-\begin{enumerate}
-	\item General graph drawing introduction
-	\item Graph Drawing Symposium introduction
-	\item why is maximizing distances between vertices of interest?
-	\item Figures of readability
-	\item Thesis structure
-\end{enumerate}
+The topic of visualization of information relationships occur in various areas of work. Examples of the fields include circuit design, architecture, web science, social sciences, biology, geography, information security and software engineering.
+% TODO cites for this examples
+Over the last decades, many different efficient algorithms were developed for graph drawings in the Euclidean plane.\\
+Different quality measures for graph drawings have been considered, including area consumption, angular resolution, slope number, average edge length, and total edge length, addressing the readability and aesthetics \cite{edge-length-ratio-2tree}.
 
-% 1.
-
-
-The topic of visualization of information relationships occur in various areas of work. Examples of the fields include circuit design, architecture, web science, social sciences, biology, geography, information security and software engineering. Over the last decades, many different efficient algorithms were developed for graph drawings in the Euclidean plane.\\
-Different quality measures for graph drawings have been considered, including area, angular resolution, slope number, average edge length, and total edge length \cite{edge-length-ratio-2tree}, addressing the readability and aesthetics 
+\bigskip
+In context of this thesis, drawings with prescribed edge lengths is of particular interest. Its relevance addresses aspects of computational geometry, rigidity theory, structural analysis of molecules and sensor networks \cite[P. 1]{straight-line_2-trees}. In general, it is hard to decide \cite[P. 2]{straight-line_2-trees} whether a given graph admits a drawing with prescribed edge lengths under the condition that any edge is drawn with a straight-line and no two edges cross each other, even in the case of uniform lengths for all edges.
 % Readability
+
 \bigskip
 
 % 3. Symposium
@@ -25,7 +19,7 @@ On the other hand, the Live Challenge is held similar to a programming contest. 
 
 \bigskip
 
-In 2021, the Live Challenge during the 29th International Symposium on Graph Drawing and Network Visualization held in Tübingen, Germany addressed the optimization of graph drawing edge lengths. An \emph{edge length ratio} of a drawing describes the proportion between the \emph{minimal and maximal edge lengths}. The size of the total area of a drawing affects the maximum edge length. When considering \emph{straight line drawings}, where edges are a single straight line segment, the ratio scales in proportion of the total area size.\\
+In 2021, the Live Challenge during the 29th International Symposium on Graph Drawing and Network Visualization held in Tübingen, Germany addressed the optimization of graph drawing edge lengths. An \emph{edge length ratio} of a drawing describes the proportion between the \emph{minimal and maximal edge lengths}. The size of the total area of a drawing affects the maximum edge length. When considering \emph{straight-line drawings}, where edges are a single straight line segment, the ratio scales in proportion of the total area size.\\
 For the \emph{Live Challenge}, the goal was to produce a \emph{polyline graph drawing}, where edges are line segments joined together, with uniform edge lengths. 
 The difficulty of this challenge was intensified by constraints on the drawing area and the amount of line segments per edge \cite{GD:2021_Challenge}.
 
@@ -39,58 +33,10 @@ In 2022, the 30th International Symposium of Graph Drawing and Network Visualiza
 
 % 3. What is this Thesis about
 
-This thesis contains the examination of maximization of the \emph{Euclidian distance} between two adjacent vertices in small area drawings of certain graph classes.
-In Section 1, the preliminaries and terminology are defined. 
-In Section 2, the general problem considering the edge length ratio is formalized. Furthermore, the potential for ratio improvement is illustrated by allowing polyline edges. 
-Section 3 describes a drawing algorithm for the graph class of \emph{$k$-ary trees} which guarantees a satisfying edge length ratio.
-Section 4 contains drawing algorithms for the graph class of \emph{series parallel graphs}. The subclass of \emph{outerplanar} graphs and \emph{$2$-trees} are of particular interest. Those drawings will improve the worst case ratio behaviour described in Section 2.
-Section 5 
-
-% Research Project
-
-
-
-%\section{Introduction}
-%The topic of visualization of information relationships occur in various areas of work. Examples of the fields include circuit design, architecture, web science, social sciences, biology, geography, information security and software engineering. Over the last decades, many different efficient algorithms were developed for graph drawings in the Euclidean plane.\\
-
-%Among others, one classic question is to test whether a given network can be visualized with straight lines and prescribed edge lengths. This study is also related to several other topics like rigidity theory, structural analysis of molecules and sensor networks [\cite{DBLP:journals/corr/abs-2108-12628}, Page 1].
-
-%For over 25 years, an international symposium of Graph Drawing and Network Visualization takes place annually. $28^{\text{th}}$ International Symposium of Graph Drawing and Network Visualization will be held from September $15^{\text{th}}$ to $17^{\text{th}}$ in Tübingen. 
-
-%\newline Part of the symposium is a traditional Graph Drawing Contest. The contest consists of two parts - the \textit{Creative Topics} and the \textit{Live Challenge}. The main focus for the Creative Topics lies on the creation of drawings of two given graphs. Aspects to consider for the visualization are clarity, aesthetic appeal and readability.
-% \newline On the other hand, the Live Challenge is held similar to a programming contest. Participants, usually teams, will get a theme and a set of graphs and will have one hour of processing. The results will be ranked and the team with the highest score wins the competition. The teams will be allowed to use any combination of software and human interaction systems in order to produce the best results. Usually, the challenge is derived from a theoretical optimization problem.\bigskip\\
-
-% On the occasion of the Graph Drawing contest held this year in Tübingen, this report covers the topic of drawing various graph classes with connections of approximately equal length.
-
-
-
-% BSc Thesis
-
-%Metro maps, circuits, networks, construction plans and many more - they all can be visualized with a corresponding \textit{graph drawing}. Over the last decades, many different efficient algorithms were developed for graph drawings in the Euclidean plane. Especially, orthogonal graph drawings are of interest as they are applicable in various fields.
-%\\In order to work with graph drawings efficiently, one has to consider the \textit{quality} of a graph drawing. There is a huge variety of aspects to consider when we want to examine the quality of a drawing. The readability of the illustrated information, the size of the drawing - measured with the pair of vertices with the farthest distance in the drawing, and the \textit{edge complexity} - the amount of consecutive line segments for an edge illustration are only a few aspects how to measure the drawing quality. Naturally, we try to create drawings as clearly as possible meaning to avoid drawings with a high edge complexity. If a given graph admits a \textit{crossing-free}, or in other words \textit{planar} drawing, we want to preserve this property in further processing approaches.
-%\\The American abstract artist \textit{Mark Lombardi} gained approval for his aesthetic illustration of political-economic structures. The diagrams included \textit{circular arcs} of different sizes and their even distribution around a vertex in order to vizualize connections adequately. It seems that the circular arcs emphasize the connection between components in sense of direction.
-%\begin{figure}[H]
-%	\centering
-%	\begin{subfigure}{\textwidth}
-	%		\centering
-	%		\includegraphics[width=0.8\linewidth]{includegraphics/Introduction_Lombardi-example}
-	%	\end{subfigure}
-%\caption{Work of Mark Lombardi \cite{lombardi_ex}}\label{im:lombardi_ex}
-%\end{figure}
-%\textit{Orthogonal drawings} arise among others in VLSI design where quite many cables are following a similar path. The smallest angle between axis-aligned line segment is at most $\pi/2$ and their angular resolution is quite pleasing for the eye of the viewer. One fundamental, reliable model is the \textit{Kandinsky model} which is based on a \textit{grid embedding}. The vertices lie on a \textit{coarse} grid while the edges lie on a \textit{fine} grid extending the coarse grid. It may appear that an orthogonal drawing may convey some structural information, so \textit{smoothening} those edges is of interest. In this thesis, we focus on the smoothening of Kandinsky drawings by introducing circular arcs, inspired by \textit{Lombardi drawings} as illustrated in Figure \ref{im:lombardi_ex}\cite{lombardi_src1}\cite{lombardi_src2}. 
-%\begin{figure}[H]
-%	\centering
-%	\begin{subfigure}{0.45\textwidth}
-	%		\centering
-	%		\includegraphics[width=0.4\linewidth,page=1]{includegraphics/introduction-example}
-	%		\caption{Orthogonal drawing}\label{im:introduction_ex1}
-	%	\end{subfigure}
-%	\begin{subfigure}{0.45\textwidth}
-	%		\centering
-	%		\includegraphics[width=0.4\linewidth,page=2]{includegraphics/introduction-example}
-	%		\caption{Smoothened drawing}\label{im:introduction_ex2}
-	%	\end{subfigure}
-%	\caption{Smoothening a drawing for aesthetic appeal}
-%\end{figure}
-%By postprocessing an input drawing like illustrated in Figure \ref{im:introduction_ex1} and \ref{im:introduction_ex2}, we also have to consider possible shape alternations. It is desirable that the orientation of the vertices is preserved, meaning that e.g. a metro map can still be read reasonably after the smoothening process\cite{metro1}.\\
-%However, it is a priori not guaranteed that there is a smoothening for every input Kandinsky drawing with a reasonable complexity increase. The introduction of circular arcs might arise some conflicts in sense of planarity. Dealing with postprocessing algorithms, we have to focus on new area bounds and the behaviour of the edge complexity in order to quantify the resulting quality of the smoothened drawing.
+This thesis will address the topic of minimizing the difference between the longest and shortest edge length for certain graph classes. The main goal is to maximize the distances between two adjacent vertices while keeping the area consumption of the resulting drawing at a low level. Allowing to reroute edges through so-called \emph{bend points} in a drawing without causing crossings between edges increases the flexibility of finding an approach for the edge length difference minimization approach.\\
+In Section \ref{section:preliminaries}, the preliminaries and terminology are defined. 
+In Section \ref{section:initial_situation}, the general problem considering the edge length ratio is formalized. Furthermore, the potential for ratio improvement is illustrated by allowing polyline edges. 
+Section \ref{s:k-ary_trees} describes a drawing algorithm for the graph class of \emph{$k$-ary trees} which guarantees a satisfying edge length ratio.
+Section \ref{s:maximal_outerplanar} examines the properties of \emph{maximal outerplanar} graphs, a subclass of \emph{maximal SP-graphs}, and demonstrates two drawing algorithms.
+Section \ref{section:SP-graphs} contains an extension of a drawing algorithm for maximal outerplanar graphs in order to draw a \emph{maximal series-parallel graphs} with a reasonable ratio. 
+In section \ref{section:related_work}, it is demonstrated that the approach for maximal series-parallel graphs does not suffice for a more restriced class of graphs, the \emph{3-trees}.

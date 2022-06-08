@@ -8,22 +8,22 @@ It was shown, that the \emph{FEPR} problem is generally \NP-hard for triconnecte
 
 \subsection{Formalization Of The Problem}
 \subsubsection{The edge-length ratio}
-Let $\Gamma_G$ be a given planar polyline drawing. The length of an edge is defined as the sum of $k+1$ line segments, induced by $k$ bends. $l_{\max}$ is the length of the longest edge in $\Gamma_G$, $l_{\min}$ is the minimal Euclidian distance between two adjacent vertices in $\Gamma_G$. Then, the edge-length ratio $r$ of $\Gamma_G$ is defined as:
+Let $\Gamma_G$ be a given planar polyline drawing. The length of an edge is defined as the sum of $k+1$ line segments, induced by $k$ bends. $l_{\max}$ is the length of the longest edge in $\Gamma_G$, $\delta_{\min}$ is the minimal Euclidian distance between two adjacent vertices in $\Gamma_G$. Then, the edge-length ratio $r$ of $\Gamma_G$ is defined as:
 \begin{align}
-	r_{\Gamma_G} = \frac{l_{\max}}{l_{\min}} 
+	r_{\Gamma_G} = \frac{l_{\max}}{\delta_{\min}} 
 \end{align}
 It trivially holds, that $r\geq1$, since the length of every polyline with at least one bend between two vertices is naturally longer than their respective Euclidian distance. $r$ is said to be \emph{optimal} if $r=1$. Then, all the edges in a drawing are straight-lines and of the same length. This corresponds to the \emph{FEPR} problem with $\lambda$ being a constant function.
 \subsubsection{Upper bound of the ratio}
 There exist multiple straight-line drawing algorithms which produce a drawing for a planar graph in area $\mathcal{O}(n)\times\mathcal{O}(n)$. Prominent examples are the Shift Method by Fraysseix, Pach and Pollack \cite [P. 202ff]{Planar_straight_line_drawing_algorithms} and Schnyder drawings \cite[P. 3]{Schnyder_drawings}.\\
-The area consumption of a straight-line drawing directly induces the bounds for the ratio. Let $k\times k$ be the area consumption of a bounding square $\Gamma_G$ is drawn on, $k\in \mathcal{O}(n)$. The maximal length of a straight-line is then bound by $\sqrt{2}k$, from one corner of the grid to the diagonal opposing one, while $l_{\min}$ might value 1 \UL. The ratio therefore values $\sqrt{2}k \in \mathcal{O}(n)$ in the worst case.\\
-This automatically gives an upper bound for any poly-line drawing $\Omega_G$ since a straight-line drawing can be seen as a polyline drawing with zero bends. Including bends in a straight-line drawing enables the possibility to reposition vertices in order to maximize the Euclidian distances.
+The area consumption of a straight-line drawing directly induces the bounds for the ratio. Let $k\times k$ be the area consumption of a square bounding $\Gamma_G$, $k\in \mathcal{O}(n)$. The maximal length of a straight-line is then bound by $\sqrt{2}k$, from one corner of the grid to the diagonal opposing one, while $l_{\min}$ might value 1 \UL. The ratio therefore values $\sqrt{2}k \in \mathcal{O}(n)$ in the worst case.\\
+This automatically gives an upper bound for any poly-line drawing $\Gamma_G$ since a straight-line drawing can be seen as a polyline drawing with zero bends. Including bends in a straight-line drawing enables the possibility to reposition vertices in order to maximize the Euclidian distances even further.
 
 % 2-trees state of the art
 
-\subsection{On the edge-length ratio of 2-trees}
+\subsection{On the edge-length ratio of maximal series-parallel graphs}
 
-The class of $2$-trees is of particular interest in this thesis due to their balance in restricted properties on the one hand, and having non-trivial approaches and results for general problems on the other hand. $2$-trees are biconnected, but not triconnected. This property implies a high amount of possible embeddings for a given $2$-tree $G$, since parallel subgraphs can be permuted and flipped. Therefore, finding drawings with an optimization regarding a specific problem require combinatorial and algorithmic approches. This effect is pointed out by previous results regarding the edge-length ratio. It was shown that the \emph{FEPR} problem is \NP-hard for straight-line drawings for 2-trees with up to four distinct edge lengths while it is solvable in linear time for uniform edge lengths \cite[P. 1]{straight-line_2-trees}.\\
-Also, it was proven that the ratio of straight-line drawings of 2-trees is unbounded, meaning, that for a given constant $r$, there exists a sufficiently large 2-tree $G$ with $r_G > r$ over all its straight-line drawings. One result states that the ratio lies in the gap between the lower bound $\Omega(\log n)$ and the upper bound $\mathcal{O}(n^{0.695})$ \cite[P. 2]{edge-length-ratio-2tree}.
+The class of maximal SP-graphs is of particular interest in this thesis due to their balance in restricted properties on the one hand, and having non-trivial approaches and results for general problems on the other hand. Maximal SP-graphs are biconnected, but not triconnected. This property implies a high amount of possible embeddings for a given maximal SP-graph $G$, since parallel subgraphs can be permuted and flipped. Therefore, finding drawings with an optimization regarding a specific problem require combinatorial and algorithmic approches. This effect is pointed out by previous results regarding the edge-length ratio. It was shown that the \emph{FEPR} problem is \NP-hard for straight-line drawings for maximal SP-graphs with up to four distinct edge lengths while it is solvable in linear time for uniform edge lengths \cite[P. 1]{straight-line_2-trees}.\\
+Also, it was proven that the ratio of straight-line drawings of maximal SP-graphs is unbounded, meaning, that for a given constant $r$, there exists a sufficiently large maximal SP-graph $G$ with $r_G > r$ over all its straight-line drawings. One result states that the ratio lies in the gap between the lower bound $\Omega(\log n)$ and the upper bound $\mathcal{O}(n^{0.695})$ \cite[P. 2]{edge-length-ratio-2tree}.
 
 % symposium challenge
 
@@ -41,30 +41,4 @@ For the automatic section of the Live Challenge, the input consists of a JSON fi
 \end{description}
 The results of the optimization are also JSON files. The planarity of the graph shall be preserved and the ratio minimized by relocation of the nodes and using suitable bend points.
 \bigskip
-While the Live Challenge during the Graph Drawing Symposium addresses the practical aspects regarding the task of optimization, this thesis concerns approaches to guarantee an asymptotic behaviour of the ratio for certain graph classes. The grid 
-% TODO difference between the practical aspect and the theoretical bounds
-% TODO neues beispiel
-
-\subsubsection{A small example}
-
-This example will illustrate the issue of optimizing a drawing with respect to its edge-length ratio. 
- 
-% TODO example: only serial, only parallel?
-
-%\begin{figure}[H]
-%	\centering
-%	\begin{subfigure}{0.6\linewidth}
-%		\centering
-%		\includegraphics[width=0.7\textwidth,page=1]{drawings/small_example.pdf}
-%	\end{subfigure}
-%	\caption{There is no grid point for an optimal drawing without any bends}
-%\end{figure}
-%But, when introducing one bend per edge, there exists a drawing with an optimal ratio. 
-%\begin{figure}[H]
-%	\centering
-%	\begin{subfigure}{0.6\linewidth}
-%		\centering
-%		\includegraphics[width=0.7\textwidth,page=2]{drawings/small_example.pdf}
-%	\end{subfigure}
-%	\caption{With one bend, $K_3$ admits an optimal drawing}
-%\end{figure}
+While the Live Challenge during the Graph Drawing Symposium addresses the practical aspects regarding the task of optimization, this thesis concerns approaches to guarantee an asymptotic behaviour of the ratio for certain graph classes. For the Live Challenge, the grid is fixed in order to keep a specific area consumption for given planar graphs while maximizing the Euclidian distance between adjacent vertices. However, in this thesis the area consumption will be investigated in asymptotic behaviour while maximizing the distances between vertices and is a theoretical piece of work.

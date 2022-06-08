@@ -1,9 +1,9 @@
 \section{$k$-ary Trees}\label{s:k-ary_trees}
-When analyzing a general problem of graph drawings, considering trees may come in handy due to their assessable properties. The first graph class considered for minimizing the ratio in a drawing is therefore the class of $k$-ary trees. This section describes a drawing algorithm for a $k$-ary tree $T$, guaranteeing a nearly optimal euclidian ratio in the resulting drawing $\Gamma_T$. The total area of $\Gamma_T$ will depend on the height of $T$.\\
+When analyzing a general problem of graph drawings, considering trees may come in handy due to their assessable properties. The first graph class considered for minimizing the ratio in a drawing is therefore the class of $k$-ary trees. This section describes a drawing algorithm for a $k$-ary tree $T$, guaranteeing a nearly optimal Euclidian ratio in the resulting drawing $\Gamma_T$. The total area of $\Gamma_T$ will depend on the height of $T$.\\
 % properties of complete k-ary trees
 Since any $k$-ary tree is acyclic per definition, $T$ is connected, but not biconnected and the treewidth of $T$ equals 1. Having $n$ vertices, $T$ inherits exactly $n-1$ edges. The small bags in a tree decomposition and the low amount of edges makes $k$-ary trees accessible for a straightforward solution for a given problem.\\
 % context for outerplanar graphs
-When working on other graph classes, it may be possible to find an approach by reducing a graph $G$ to an instance of a tree. In fact, this effect will occur in the subsequent section of this thesis.
+When working on other graph classes, it may be possible to find an approach by reducing a graph $G$ to an instance of a tree. In fact, the resulting drawing algorithm for $k$-ary trees in this section will come in handy for a first approach for maximal outerplanar graphs in the succeeding section.
 \subsection{Properties Of Complete $k$-ary Trees}
 % The height 
 \begin{lemma}The \emph{height $h$} of a complete $k$-ary tree $T$ is in $\mathcal{O}(\log n)$.\label{l:k-ary-tree_log_height}

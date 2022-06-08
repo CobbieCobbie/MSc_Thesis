@@ -119,7 +119,7 @@ A \emph{2-terminal series-parallel graph} with terminals $s,t$ is a recursively 
 \end{enumerate}
 A \emph{series-parallel graph}, \emph{SP-graph} in short, is a graph for which every biconnected component is a 2-terminal series-parallel graph. A SP-graph is \emph{maximal} if no edge can be further added while maintaining a SP-graph. \cite[P. 143ff]{Biedl_SP}\\
 % 2-tree
-A \emph{$k$-tree} is a recursively defined graph with at least $k+1$ vertices. If $n = k+1$, then the $k$-tree is the complete graph $K_{k+1}$. If $n>{k+1}$, start with a $K_{k+1}$ and every vertex added is adjacent to exactly $k$ adjacent neighbours. For a $2$-tree, it holds that $k=2$. The class of 2-trees correspond to the class of maximal SP-graphs \cite[Page 2]{straight-line_2-trees}.
+A \emph{$k$-tree} is a recursively defined graph with at least $k+1$ vertices. If $n = k+1$, then the $k$-tree is the complete graph $K_{k+1}$. If $n>{k+1}$, start with a $K_{k+1}$ and every vertex added is adjacent to exactly $k$ adjacent neighbours. The class of \emph{2-trees} correspond to the class of maximal SP-graphs \cite[Page 2]{straight-line_2-trees}.
 \subsection{Tools}
 % SPQR Tree
 \subsubsection{SPQR Tree}
@@ -148,4 +148,4 @@ The \emph{width} of a tree decomposition is defined as
 \begin{align}
 	tw((T,W)) = \max\{ |W_t|,t\in V_T \} -1
 \end{align}
-The \emph{treewidth} of a graph is the least width of any tree decomposition of $G$ \cite[P. 321]{Diestel_GraphTheory}.
+The \emph{treewidth} of a graph is the least width of any tree decomposition of $G$ \cite[P. 321]{Diestel_GraphTheory}. A graph with a treewidth bound by $k$ is a $k$-tree \cite[P. 5]{k-tree_bounded-treewidth}.

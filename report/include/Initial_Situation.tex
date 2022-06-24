@@ -2,7 +2,7 @@
 
 \subsection{The Fixed Edge-Length Planar Realization Problem}
 
-The \emph{Fixed Edge-Length Planar Realization Problem}, \emph{FEPR} problem in short, asks whether there exists a planar straight-line drawing of a given graph where the euclidian length of an edge is given by a function $\lambda: E(G) \to \mathbb{R}^+$.
+The \emph{Fixed Edge-Length Planar Realization Problem}, \emph{FEPR} problem in short, asks whether there exists a planar straight-line drawing of a given graph where the Euclidian length of an edge is given by a function $\lambda: E(G) \to \mathbb{R}^+$.
 \\
 It was shown, that the \emph{FEPR} problem is generally \NP-hard for triconnected graphs with unit lengths as well as biconnected graphs with unit lengths, with $\lambda$ as a constant function. \cite[P. 2]{straight-line_2-trees}
 
@@ -39,6 +39,5 @@ For the automatic section of the Live Challenge, the input consists of a JSON fi
 	\item[height (optional)] The maximum $y$ coordinate of the grid. If unspecified, the height is set to 1,000,000.
 	\item[bends] The maximum number of bends allowed per edge
 \end{description}
-The results of the optimization are also JSON files. The planarity of the graph shall be preserved and the ratio minimized by relocation of the nodes and using suitable bend points.
-\bigskip
-While the Live Challenge during the Graph Drawing Symposium addresses the practical aspects regarding the task of optimization, this thesis concerns approaches to guarantee an asymptotic behaviour of the ratio for certain graph classes. For the Live Challenge, the grid is fixed in order to keep a specific area consumption for given planar graphs while maximizing the Euclidian distance between adjacent vertices. However, in this thesis the area consumption will be investigated in asymptotic behaviour while maximizing the distances between vertices and is a theoretical piece of work.
+The results of the optimization are also JSON files. The planarity of the graph shall be preserved and the ratio minimized by relocation of the nodes and using suitable bend points.\\\\
+The Live Challenge addresses the practical aspects of a specific optimization task, including implementing heuristics and testing them beforehand. For the task at hand, the grid is fixed in order to keep a specific area consumption for given planar graphs while maximizing the Euclidian distance between adjacent vertices. In contrast to the Live Challenge, this thesis as a theoretical piece of work addresses approaches to guarantee asymptotic upper bounds for the ratio of drawings regarding certain graph classes. The area consumption will be investigated in asymptotic behaviour while maximizing the Euclidian distances between vertices.

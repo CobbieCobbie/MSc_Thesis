@@ -51,7 +51,7 @@ When $G'^*$ inherits a height of $\mathcal{O}(\log n)$, a new problem for a draw
 	\end{subfigure}
 	\caption{Illustration of area restriction for dense maximal outerplanar graphs}
 \end{figure}
-This results in short euclidian distances relative to the longest edge, increasing the ratio.\\
+This results in short Euclidian distances relative to the longest edge, increasing the ratio.\\
 
 \subsection{Drawing Algorithm For Complete Outerplanar Graphs With One Bend}
 The first approach of a drawing algorithm addresses a ratio optimization for dense outerplanar graphs. These class of maximal outerplanar graphs are described with help of properties regarding the weak dual graph in the following way.
@@ -80,7 +80,7 @@ A given maximal outerplanar graph can be drawn by using a drawing algorithm for 
 \end{algorithm}
 
 Algorithm \ref{al:drawouterweakdual} produces a nearly optimal straight-line drawing for the weak dual graph of a complete outerplanar graph $G'$. The resulting drawing $\Gamma_{G'^*}$ provides assistance to draw the complete outerplanar graph $G'$. Every vertex of $\Gamma_{G'^*}$ serves as an anchor point for the drawing of its corresponding face in $G'$.\\
-Starting at the root of $G^*$, a triangle is drawn around the root in a way, that each edge of $G^*$ from the root to its three children crosses exactly one edge of the corresponding triangle face in $G'$. The vertices for the triangle are placed as follows. The first vertex lies above the already drawn root with an euclidian distance to the root sufficiently high in order to preserve planarity for the remaining drawing. The other two vertices are placed inbetween the two triangles defined by the root, its $\{\text{left, right}\}$ and middle children.\\
+Starting at the root of $G^*$, a triangle is drawn around the root in a way, that each edge of $G^*$ from the root to its three children crosses exactly one edge of the corresponding triangle face in $G'$. The vertices for the triangle are placed as follows. The first vertex lies above the already drawn root with an Euclidian distance to the root sufficiently high in order to preserve planarity for the remaining drawing. The other two vertices are placed inbetween the two triangles defined by the root, its $\{\text{left, right}\}$ and middle children.\\
 In order to guarantee a valid vertex and bend placement at every inner node $v^*$, the drawing is stretched horizontally and vertically by a factor of three.\\
 Then, the drawing algorithm iterates over the height of $G'^*$. For every vertex $v^*$ of height $i\in \{1,...,h\}$ in $G'^*$, two bend points are placed 1 \UL left and right from $\Gamma_{G'^*}(v^*)$, and the new vertex $v$ is placed 1 \UL below from $\Gamma_{G'^*}(v^*)$.\\
 $v^*$ is adjacent to an edge $e^*$ defined in $G^*$ that is crossing exactly one edge $e = (v_1,v_2)$ of $G'$. This crossing corresponds to the vertices defining the new face, $\{v, v_1, v_2\}$. Since $G'^*$ consists of three complete binary subtrees connected to the root, using the bends to draw the new face will preserve planarity since the coordinate of every inner node inherits its unique $x$ value by construction of algorithm \ref{al:complete_k-ary_tree}.
@@ -138,7 +138,7 @@ This drawing approach is summarized in the following algorithm.\\
 	Since $v_1$ is placed with a distance of $h\cdot r^h$ atop of the root of $G^*$ and $v_2$ and $v_3$ partition the $x$ coordinate of the binary subtrees rooted at the children of the root of $G^*$, planarity is preserved.\\
 	The resulting area bounds are asymptotically the same compared to a drawing of a $3$-ary tree since the width and the height are multiplied by a constant. The area consumption lies still in $\mathcal{O}(n^2 \log n)$.\\
 	The construction of $G'^*$ with minimal height lies in $\mathcal{O}(n)$ since there are $\mathcal{O}(n)$ faces for any maximal outerplanar graph. Drawing $G'^*$ and $G'$ lies in $\mathcal{O}(n)$. The runtime of this algorithm is therefore in linear time.\\
-	The minimal euclidian distance values at least $2^h$ by construction of algorithm \ref{al:k-ary_trees} and lies in $\mathcal{O}(n)$. The length of the longest polyline spans the whole height of the drawing and lies in $\mathcal{O}(n \log n)$. The ratio lies therefore in $\mathcal{O}(\log n)$ since the height of $G^*$ lies in $\mathcal{O}(\log n)$.
+	The minimal Euclidian distance values at least $2^h$ by construction of algorithm \ref{al:k-ary_trees} and lies in $\mathcal{O}(n)$. The length of the longest polyline spans the whole height of the drawing and lies in $\mathcal{O}(n \log n)$. The ratio lies therefore in $\mathcal{O}(\log n)$ since the height of $G^*$ lies in $\mathcal{O}(\log n)$.
 \end{proof}
 \subsubsection{Example Drawing}
 

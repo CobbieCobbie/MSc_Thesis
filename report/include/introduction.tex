@@ -2,9 +2,8 @@
 
 The topic of visualization of information relationships occur in various areas of work. Examples of the fields include circuit design, architecture, web science, social sciences, biology, geography, information security and software engineering.
 % TODO cites for this examples
-Over the last decades, many different efficient algorithms were developed for graph drawings in the Euclidean plane.\\
-Different quality measures for graph drawings have been considered, including area consumption, angular resolution, slope number, average edge length, and total edge length, addressing the readability and aesthetics \cite{edge-length-ratio-2tree}.
-
+Over the last decades, many different efficient algorithms were developed for graph drawings in the Euclidean plane. Different quality measures for graph drawings have been considered, including area consumption, angular resolution, slope number, average edge length, and total edge length, addressing the readability and aesthetics \cite{edge-length-ratio-2tree}.\\
+Graphs admitting a \emph{crossing-free} drawing are called \emph{planar} graphs and have a long history in graph theory. This well-developed theory can be used to simplify topological concepts that otherwise would prove cumbersome \cite[P. 9]{battista_1999}.
 \bigskip
 In context of this thesis, drawings with prescribed edge lengths is of particular interest. Its relevance addresses aspects of computational geometry, rigidity theory, structural analysis of molecules and sensor networks \cite[P. 1]{straight-line_2-trees}. In general, it is hard to decide \cite[P. 2]{straight-line_2-trees} whether a given graph admits a drawing with prescribed edge lengths under the condition that any edge is drawn with a straight-line and no two edges cross each other, even in the case of uniform lengths for all edges.
 % Readability
@@ -15,7 +14,7 @@ In context of this thesis, drawings with prescribed edge lengths is of particula
 
 Starting from a workshop in 1994, the first international conference for \emph{Graph Drawing} was held in Passau in 1995 \cite{GD:Symposium}. The annual symposium covers topics of combinatorical and algorithmic aspects of graph drawing as well as the design of network visualization systems and interfaces.\\
 One part of the symposium is the \emph{Graph Drawing Contest}. The contest consists of two parts - the \emph{Creative Topics} and the \emph{Live Challenge}. The main focus for the Creative Topics lies on the creation of drawings of two given graphs. Aspects to consider for the visualization are clarity, aesthetic appeal and readability.\\
-On the other hand, the Live Challenge is held similar to a programming contest. Participants, usually teams, will get a theme and a set of graphs and will have one hour of processing. The results will be ranked and the team with highest score wins the competition. The teams will be allowed to use any combination of software and human interaction systems in order to produce the best results. Usually, the challenge is derived from a theoretical optimization problem \cite{GD:2021}.
+On the other hand, the Live Challenge is held similar to a programming contest. Participants, usually teams, will get a task and will have one hour of processing a set of exemplary graphs. The results will be ranked and the team with highest score wins the competition. The teams will be allowed to use any combination of software and human interaction systems in order to produce the best results. Usually, the challenge is derived from a theoretical optimization problem \cite{GD:2021}.
 
 \bigskip
 
@@ -39,4 +38,4 @@ In Section \ref{section:initial_situation}, the general problem considering the 
 Section \ref{s:k-ary_trees} describes a drawing algorithm for the graph class of \emph{$k$-ary trees} which guarantees a satisfying edge length ratio.
 Section \ref{s:maximal_outerplanar} examines the properties of \emph{maximal outerplanar} graphs, a subclass of \emph{maximal SP-graphs}, and demonstrates two drawing algorithms.
 Section \ref{section:SP-graphs} contains an extension of a drawing algorithm for maximal outerplanar graphs in order to draw a \emph{maximal series-parallel graphs} with a reasonable ratio. 
-In section \ref{section:related_work}, it is demonstrated that the approach for maximal series-parallel graphs does not suffice for a more restriced class of graphs, the \emph{3-trees}.
+Section \ref{section:related_work} addresses the applicability of the main approach for other classes of planar graphs. It will be demonstrated that the approach for maximal series-parallel graphs does not suffice for a more restriced class of planar graphs, the planar \emph{3-trees}.

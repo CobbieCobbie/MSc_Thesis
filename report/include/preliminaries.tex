@@ -18,9 +18,19 @@ A graph is \emph{biconnected} if the removal of any vertex still leaves the grap
 % simple / multigraph
 A graph is \emph{simple} if it does contain neighter multiple edges nor self loops. On the other hand, if a graph contains multiple edges or self loops, it is called a \emph{multigraph} \cite[P. 1172]{DBLP:cormen_intro_to_algorithms}. Unless otherwise mentioned, a graph is presumed to be simple.\\
 % Planarity
-A graph is \emph{planar} if and only if there exists a crossing-free representation in the plane \cite[Page 100]{DBLP:cormen_intro_to_algorithms}.
+The \emph{depth-first search, DFS} in short, is a strategy to explore edges out of the most recently discovered vertex $v$ that still has unexplored edges leaving it. Once of all $v$'s edges have been explored, the DFS backtracks in order to explore edges leaving the vertex from which $v$ was discovered. The DFS terminates when all the reachable vertices from the original source vertex were discovered \cite[P.603]{DBLP:cormen_intro_to_algorithms}.
+
+% Graph Drawings
+
+\subsection{Graph Drawing Models And Representations}
+% Grid
+An $h \times w$ \emph{grid} is a graph consisting of $h$ rows and $w$ columns of vertices. The vertex in the $i$-th row and $j$-th column is denoted as $(i,j)$ and is called a \emph{grid point}. All vertices in a grid have exactly four neighbours, except for the boundary vertices \cite[P. 760]{DBLP:cormen_intro_to_algorithms}. One \emph{unit length} values the distance between two adjacent vertices on the grid and is denoted as \UL.
+% Drawing
+A \emph{drawing} $\Gamma$ of a graph $G$ is a function, where each vertex is mapped on a unique point $\Gamma(v)$ in the plane and each edge is mapped on an open Jordan curve $\Gamma(e)$ ending in its vertices \cite[P. 225]{Duncan_planar_polyline_drawings}. In this context, a graph will be drawn on an underlying grid.\\
+A drawing is called \emph{planar} if no two distinct edges intersect. 
+A graph is \emph{planar} if it admits a planar drawing\cite[Page 100]{DBLP:cormen_intro_to_algorithms}.
 % Face
-A \emph{face} is a maximal open region of the plane bounded by edges. The \emph{outer face} is the unbounded face. A bounded face is called \emph{inner face} \cite[S. 86]{Diestel_GraphTheory}.\\
+A drawing partitions the plane into topologically connected regions \cite[P. 7]{battista_1999}. A \emph{face} is a maximal open region of the plane bounded by edges. The \emph{outer face} is the unbounded face. A bounded face is called \emph{inner face} \cite[S. 86]{Diestel_GraphTheory}.\\
 % Dual graph
 A multigraph $G^*$ is the \emph{dual graph of $G$} if and only if there exists a bijective function between $G^*$ and $G$ such that:
 \begin{enumerate}
@@ -29,21 +39,13 @@ A multigraph $G^*$ is the \emph{dual graph of $G$} if and only if there exists a
 	\item If $e$ is incident to only one face, a loop is attached to the corresponding vertex in $G^*$
 \end{enumerate}\cite[P. 103]{Diestel_GraphTheory}
 The \emph{weak dual graph} of $G$ is the dual graph of $G$ without considering the outer face.\\
-The \emph{depth-first search, DFS} in short, is a strategy to explore edges out of the most recently discovered vertex $v$ that still has unexplored edges leaving it. Once of all $v$'s edges have been explored, the DFS backtracks in order to explore edges leaving the vertex from which $v$ was discovered. The DFS terminates when all the reachable vertices from the original source vertex were discovered \cite[P.603]{DBLP:cormen_intro_to_algorithms}.
 
-% Graph Drawings
-
-\subsection{Graph Drawing Models And Representations}
-% Grid
-An $n \times n$ \emph{grid} is a graph consisting of $n$ rows and $n$ columns of vertices. The vertex in the $i$-th row and $j$-th column is denoted as $(i,j)$ and is called a \emph{grid point}. All vertices in a grid have exactly four neighbours, except for the boundary vertices \cite[P. 760]{DBLP:cormen_intro_to_algorithms}. One \emph{unit length} values the distance between two adjacent vertices on the grid and is denoted as \UL.
-% Drawing
-A \emph{drawing} $\Gamma$ of a graph $G$ is a function, where each vertex is mapped on a unique point $\Gamma(v)$ in the plane and each edge is mapped on an open Jordan curve $\Gamma(e)$ ending in its vertices \cite[P. 225]{Duncan_planar_polyline_drawings}. In this context, a graph will be drawn on an underlying grid.
 % Embedding
 An \emph{embedding} of $G$ is the collection of counter-clockwise circular orderings of edges around each vertex of $V$, denoted as a sequence of edges.\\
 % Straight-line drawing
 In a \emph{straight-line drawing}, verticees are points on the grid and edges are straight-line segments.\\
 % Polyline drawing
-In a \emph{polyline drawing}, vertices are points on the grid, edges are sequences of contiguous straight-line segments. The transition point between two edge segments is called a \emph{bend}. Like vertices, bends are placed on points on the underlying grid.\\
+In a \emph{polyline drawing}, vertices are points on the grid, edges are sequences of contiguous straight-line segments. The transition point between two edge segments with different slopes is called a \emph{bend}. Like vertices, bends are placed on points on the underlying grid.\\
 % Box
 A \emph{box} is an axis-parallel rectangle, overlapping vertical and horizontal grid lines. The \emph{width} of a box is one unit smaller than the number of vertical grid lines that are overlapped by it. The \emph{height} of a box is one unit smaller than the number of horizontal grid lines that are overlapped by it.
 % Box drawing
@@ -88,28 +90,28 @@ A box drawing can be transferred to a polyline drawing with asymptotically the s
 \subsubsection{Tree}
 A graph $T$ is called \emph{tree} if and only if it is connected, acyclic and undirected \cite[P. 1172]{DBLP:cormen_intro_to_algorithms}.\\
 % rooted
-A tree is \emph{rooted} if one of its vertices is distinguished from the other ones, called the \emph{root}.
+A tree is \emph{rooted} if one of its vertices is distinguished from the other ones, called the \emph{root}. Unless otherwise mentioned, it is assumed that every tree is rooted at the root vertex $r$. 
+
 % path ancestor parent sibling
-When considering a path from the root to any other vertex $w$, then, the following holds:
+When considering a path $(r,v_1,...,v_k)$ from $r$ to any other vertex $v_k$, then, the following holds:
 \begin{enumerate}
 	\item Besides $w$, every vertex of this path is an \emph{ancestor} of $w$
 	\item For an edge $(v_i,v_{i+1})$, $v_i$ is called the \emph{parent} of $v_{i+1}$, and $v_{i+1}$ is a child of $v_i$.
+	\item The \emph{height} of the root $r$ is set to 0. For a vertex $v$ of $T$ it holds that its height is larger by one unit than its parent.
 \end{enumerate}
 % leaves, internal nodes
 A vertex with no children is called a \emph{leaf}. Any vertex which is not a leaf is called an \emph{internal node}.
-% depth
-The length of the simple path from the root to any vertex $v$ denotes the \emph{depth} of $v$ in $T$.
 % level
-A \emph{level} of $T$ consists of all vertices of the same depth.
+A \emph{level} of $T$ consists of all vertices of the same height.
 % height
-The \emph{height} of $T$ is equal to the largest depth of any vertex of $T$. \cite[P. 1176ff]{DBLP:cormen_intro_to_algorithms}
+The \emph{height} of $T$ is equal to the largest height of any vertex of $T$. \cite[P. 1176ff]{DBLP:cormen_intro_to_algorithms}
 \subsubsection{$k$-ary Tree}
 % complete k-ary tree
 A \emph{$k$-ary tree} is a rooted tree in which for every vertex has at most $k$ children.
-A \emph{complete $k$-ary tree} is a $k$-ary tree in which all leaves have the same depth and all internal nodes have $k$ children.
+A \emph{complete $k$-ary tree} is a $k$-ary tree in which all leaves have the same height and all internal nodes have $k$ children.
 \subsubsection{Outerplanar Graphs, Series Parallel Graphs and 2-Trees}
 % outerplanar graph
-An \emph{outerplanar graph} is a planar graph that can be drawn such that all vertices are on the outer face. A \emph{maximal outerplanar graph} is an outerplanar graph to which it is not possible to add an edge without destroying the simplicity, planarity or outerplanarity property. 
+An \emph{outerplanar graph} is a planar graph that can be drawn without crossing in a way so that all vertices are on the outer face. A \emph{maximal outerplanar graph} is an outerplanar graph to which it is not possible to add an edge without destroying the simplicity, planarity or outerplanarity property. 
 % series parallel graph
 A \emph{2-terminal series-parallel graph} with terminals $s,t$ is a recursively defined graph with one of the following three rules:
 \begin{enumerate}
@@ -123,7 +125,7 @@ A \emph{$k$-tree} is a recursively defined graph with at least $k+1$ vertices. I
 \subsection{Tools}
 % SPQR Tree
 \subsubsection{SPQR Tree}
-A \emph{cut vertex} in a graph $G$ is a vertex whose removal disconnects $G$. A \emph{separation pair} in $G$ is a pair of vertices whose removal disconnects $G$. A \emph{biconnected component} of $G$ is a maximal (in terms of vertices and edges) biconnected subgraph of $G$. If $G$ contains vertices $s,t$, then $G$ is \emph{$st$-biconnectable} if $G \cup \{s,t\}$ is biconnected. A \emph{split pair} of $G$ is either a separation pair or a pair of adjacent vertices of $G$. A \emph{maximal split component} of $G$ in regard to a split pair $\{u,v\}$ is either an edge $(u,v)$ or a maximal subgraph $G'$ of $G$ such that $G'$ contains $u$ and $v$ and $\{u,v\}$ is not a split pair of $G'$. A vertex $w$ aside from $u$ and $v$ belongs to exactly one maximal split component. a \emph{split component} of $\{u,v\}$ is defined as the union of any number of maximal split components of $\{u,v\}$. A split pair $\{u,v\}$ is \emph{maximal}, if there is no split pair $\{w,z\}$ in $G$ such that $\{u,v\}$ is contained in a split component of $\{w,z\}$.\\
+A \emph{cut vertex} in a graph $G$ is a vertex whose removal disconnects $G$. A \emph{separation pair} in $G$ is a pair of vertices whose removal disconnects $G$. A \emph{biconnected component} of $G$ is a maximal (in terms of vertices and edges) biconnected subgraph of $G$. If $G$ contains vertices $s,t$, then $G$ is \emph{$st$-biconnectable} if $G \cup \{s,t\}$ is biconnected. A \emph{split pair} of $G$ is either a separation pair or a pair of adjacent vertices of $G$. A \emph{maximal split component} of $G$ in regard to a split pair $\{u,v\}$ is either an edge $(u,v)$ or a maximal subgraph $G'$ of $G$ such that $G'$ contains $u$ and $v$ and $\{u,v\}$ is not a split pair of $G'$. A vertex $w$ aside from $u$ and $v$ belongs to exactly one maximal split component. A \emph{split component} of $\{u,v\}$ is defined as the union of any number of maximal split components of $\{u,v\}$. A split pair $\{u,v\}$ is \emph{maximal}, if there is no split pair $\{w,z\}$ in $G$ such that $\{u,v\}$ is contained in a split component of $\{w,z\}$.\\
 The \emph{SPQR-Tree} $\mathcal{T}$ of $G$ is a recursively defined composition of $G$ with respect to its split pairs. $\mathcal{T}$ is a rooted tree with four types of nodes: $S,P,Q$ and $R$. Any node $\mu$ of $\mathcal{T}$ is related to a planar $uv$-biconnectible multigraph, the so-called \emph{skeleton} of $\mu$, denoted as $sk(\mu)$. $\mathcal{T}$ is recursively defined - Let $(s,t)$ be an edge of $G$, called the \emph{reference edge}. $\mathcal{T}$ is initialized with a $Q$ node $\phi$ as root, representing the edge $(s,t)$. The skeleton of $\phi$ consists of two parallel edges $(s,t)$. One is a \emph{real }edge, one is a \emph{virtual }edge.\\
 After the initialization of $\mathcal{T}$ with an arbitrary reference edge, consider a node $\psi$ of $\mathcal{T}$, $G_\psi=\left(V(G),E(G)\setminus\left\{(s,t)\right\}\right)$ and a pair of vertices $\{u,v\}$ of $G_\psi$, called the \emph{poles} of $\psi$.
 

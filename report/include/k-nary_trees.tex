@@ -1,9 +1,9 @@
 \section{$k$-ary Trees}\label{s:k-ary_trees}
-When analyzing a general problem of graph drawings, the class of trees are of interest due to their assessable properties. The first graph class considered for minimizing the ratio in a drawing is therefore the class of $k$-ary trees. This section describes a drawing algorithm for a $k$-ary tree $T$, guaranteeing a nearly optimal Euclidian ratio in the resulting drawing $\Gamma_T$. The total area of $\Gamma_T$ will depend on the height of $T$.\\
+When analyzing a general problem of graph drawings, the class of trees is of interest due to their assessable properties. The first graph class considered for minimizing the ratio in a drawing is therefore the class of $k$-ary trees. This section describes a drawing algorithm for a $k$-ary tree $T$, guaranteeing a nearly optimal Euclidian ratio in the resulting drawing $\Gamma_T$. The total area of $\Gamma_T$ will depend on the height of $T$.\\
 % properties of complete k-ary trees
 Since any $k$-ary tree is acyclic per definition, $T$ is connected, but not biconnected and the treewidth of $T$ equals 1. Having $n$ vertices, $T$ inherits exactly $n-1$ edges. The small bags in a tree decomposition and the low amount of edges makes $k$-ary trees accessible for a straightforward solution for a given problem.\\
 % context for outerplanar graphs
-When working on other graph classes, it may be possible to find an approach by reducing a graph $G$ to an instance of a tree. In fact, the resulting drawing algorithm for $k$-ary trees in this section will come in handy for a first approach for maximal outerplanar graphs in the succeeding section.
+When working on other graph classes, it may be possible to find an approach by reducing a graph $G$ to an instance of a tree. In fact, the resulting drawing algorithm for $k$-ary trees in this section will serve as a first approach for drawing maximal outerplanar graphs in the succeeding section.
 \subsection{Properties Of Complete $k$-ary Trees}
 % The height 
 \begin{lemma}The \emph{height $h$} of a complete $k$-ary tree $T$ is in $\mathcal{O}(\log n)$.\label{l:k-ary-tree_log_height}
@@ -41,8 +41,8 @@ When working on other graph classes, it may be possible to find an approach by r
 		&= 2\cdot\frac{k^{h-i}-1}{k-1} < 2\cdot k^{h-i}
 	\end{align}
 	The height of the drawing is bound by $h\cdot r = h\cdot k^h \in \mathcal{O}(n\cdot \log n)$. 
-	The width is bound by $2\cdot\sum_{i = 0}^{h} k^i = 2\cdot \frac{k^{h+1}-1}{k-1} \in \mathcal{O}(n)$, resulting in $\mathcal{O}(n^2\log n)$ area.\\ 
-	Since the algorithm works from top to bottom and for height $i$, the area for every subtree is disjointedly reserved, the resulting drawing is planar. Furthermore, all straight-line edges inherit a length of approximately $k^h$, no bends were used and the ratio is bound by $1+\varepsilon, 0\leq \varepsilon<1$.
+	The width is bounded by $2\cdot\sum_{i = 0}^{h} k^i = 2\cdot \frac{k^{h+1}-1}{k-1} \in \mathcal{O}(n)$, resulting in $\mathcal{O}(n^2\log n)$ area.\\ 
+	Since the algorithm works from top to bottom and for height $i$, the area for every subtree is disjointedly reserved, the resulting drawing is planar. Furthermore, all straight-line edges inherit a length of approximately $k^h$. A rounding error bound by $\varepsilon, 0\leq \varepsilon<1$ occurs when placing the vertices on grid points. The rounding error does not accumulate since the length $r$ is fixed and the vertices are placed in the grid independently from each other. No bends were used and the ratio is bound by $1+\varepsilon$.
 \end{proof}
 \bigskip
 The following drawing algorithm sums up the approach described above.\\
@@ -87,7 +87,7 @@ The following drawing algorithm sums up the approach described above.\\
 		\centering
 		\includegraphics[page=1,width=0.6\linewidth]{graphics/k-ary_tree_example_drawings.pdf}
 	\end{subfigure}
-	\caption{Tertiary tree with height 3}\label{im:3-ary_tree}
+	\caption{Ternary tree with height 3}\label{im:3-ary_tree}
 \end{figure}
 \begin{figure}[H]
 	\centering
@@ -100,7 +100,7 @@ The following drawing algorithm sums up the approach described above.\\
 
 \subsection{Implementation}
 
-The drawing algorithm for complete $k$-ary trees as described in thie section got implemented as a script in \texttt{Python}. The \texttt{networkx} library was used to represent the graph structure. For creating a drawing, the \texttt{matplotlib} library came in handy since it allows explicite coordinate placements of vertices and a fixed aspect ratio of the resulting drawing.\\
+The drawing algorithm for complete $k$-ary trees as described in this section got implemented as a script in \texttt{Python}. The \texttt{networkx} library was used to represent the graph structure. For creating a drawing, the \texttt{matplotlib} library came in handy since it allows explicite coordinate placements of vertices and a fixed aspect ratio of the resulting drawing.\\
 The script consists of a \texttt{main} function and the drawing implementation of algorithm \ref{al:complete_k-ary_tree}. It is possible to set the $k$ and the height when calling the script by command-line arguments. The \texttt{main }function evaluates those command-line arguments and calls the recursive coordinate calculations starting from the root vertex with its coordinate $(0,0)$. All coordinates are rounded to integers in order to produce a straight-line drawing on a grid by default. Afterwards, the map between vertices and their coordinates are forwarded to an instance of the \texttt{matplotlib} plot. The output of the script consists of a straight-line drawing, the length of the shortest and longest edge and the ratio of the drawing.
 \bigskip\\
 For a full documentation of the implementation, the reader is invited to checkout the \texttt{git} repository found on $\text{GitHub}^{\copyright}$\cite{repository}.

@@ -7,7 +7,7 @@ Creating a compact layered polyline drawing for maximal outerplanar graphs will 
 % 2-tree stuff
 
 \begin{lemma}
-	For every maximal SP-graph $G$, there exists a maximal outerplanar subgraph $G'$ that is larger than every other maximal outerplanar subgraph.
+	There exists a linear time algorithm which computes the largest maximal outerplanar subgraph for any maximal SP-graph.
 \end{lemma}
 \begin{proof}
 	Consider the tree decomposition $(T,W)$ of $G$. Add the root of $T$ to $T'$ and its bag to $W'$. From the root of $T$, pick the three children which root the subtrees with the maximum height and size and their respective bags. Then, recursively pick the two children which root the subtrees with the maximum height and size and add them to $T'$ with their respective bags to $W'$. This procedure terminates some leaves of $T$.\\

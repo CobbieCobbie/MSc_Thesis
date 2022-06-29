@@ -1,7 +1,7 @@
 \section{Maximal Outerplanar Graphs}\label{s:maximal_outerplanar}
 
 This section will address two main approaches of ratio minimization for drawings of series-parallel graphs. Maximal series-parallel graphs correspond to the class of 2-trees \cite[P. 2]{straight-line_2-trees} and are a suitable class of interest for fundamental research since any 2-tree is biconnected, but not triconnected and inherits a constant treewidth. Furthermore, any maximal outerplanar graph is a 2-tree, therefore the class of maximal outerplanar graphs is a strict subclass of the 2-trees.\\
-At first, the approaches will address the maximal outerplanar graphs. After the analysis regarding the properties of the resulting drawings it will be discussed whether the approach will be suitable to be extended for maximal SP-graphs. This section will present two polyline drawing algorithms. The first drawing algorithm takes advantage of the already existing drawing algorithm \ref{al:complete_k-ary_tree} for $k$-ary trees, since the weak dual graph of a maximal outerplanar graph inheits a tree structure. The second drawing algorithm for outerplanar graphs will be suited to be extended for more general maximal SP-graphs, since every maximal SP-graph contains a maximal outerplanar graph as a subgraph.
+At first, the approaches will address the maximal outerplanar graphs. After the analysis regarding the properties of the resulting drawings it will be discussed whether the approach will be suitable to be extended for maximal SP-graphs. This section will present two polyline drawing algorithms. The first drawing algorithm takes advantage of the already existing drawing algorithm \ref{al:complete_k-ary_tree} for $k$-ary trees, since the weak dual graph of a maximal outerplanar graph inherits a tree structure. The second drawing algorithm for outerplanar graphs will be suited to be extended for more general maximal SP-graphs, since every maximal SP-graph contains a maximal outerplanar graph as a subgraph.
 
 \subsection{Properties Of Maximal Outerplanar Graphs}
 \begin{lemma}
@@ -11,7 +11,7 @@ At first, the approaches will address the maximal outerplanar graphs. After the 
 	The \emph{weak dual graph} $G'^*$ of a maximal outerplanar graph $G'$ is a simple tree with maximum degree 3 for any vertex.
 \end{lemma}
 \begin{proof}
-	The weak dual graph $G'^*$ is connected since $G'$ is maximal outerplanar. Suppose, that $G^*$ contains a cycle $\mathcal{C}$. Then, there exists a vertex in $G'$ which is enclosed from the outerface by faces according to $\mathcal{C}$ in $G'^*$ and $G'$ is not outerplanar. This implies that $G^*$ must be acyclic and considering the connectedness, $G^*$ is a tree. Since any face $f$ is a triangle, the degree of $v_f$ in $G'^*$ values at most three. The simplicity is derived from the maximal outerplanarity property. If there were multiple edges between vertex $v_f$ and $v_{f'}$ in $G^*$, then there would be at least one vertex in $G'$ which does not lie on the outerface.
+	The weak dual graph $G'^*$ is connected since $G'$ is maximal outerplanar. Suppose, that $G^*$ contains a cycle $\mathcal{C}$. Then, there exists a vertex in $G'$ which is enclosed from the outerface by faces according to $\mathcal{C}$ in $G'^*$ and $G'$ is not outerplanar. This implies that $G^*$ must be acyclic and considering the connectedness, $G^*$ is a tree. Since any face $f$ is a triangle, the degree of $v_f$ in $G'^*$ is at most three. The simplicity is derived from the maximal outerplanarity property. If there were multiple edges between vertex $v_f$ and $v_{f'}$ in $G^*$, then there would be at least one vertex in $G'$ which does not lie on the outerface.
 \end{proof}
 \begin{lemma}
 	Let $G'$ be a maximal outerplanar graph with $n$ vertices and $G^*$ the dual graph excluding the outerface, a rooted tree with degree up to three for every vertex $v_f$. Then, the height of $G'^*$ ranges between $\Omega(\log n)$ and $\mathcal{O}(n)$.
@@ -29,7 +29,7 @@ At first, the approaches will address the maximal outerplanar graphs. After the 
 	A maximal outerplanar graph $G'$ can be extended to a maximal outerplanar supergraph $G^+$.\label{l:outerplanar-supergraph}
 \end{lemma}
 \begin{proof}
-	The vertex insertion works analougously to the recursive definition of a 2-tree. A new vertex can be added to  by adding a new vertex $v_f$ in the dual graph $G^*$ so that the degree of $G^*$ is still at most 3. The newly created face $f$ must lie on the outerface and must be a triangle. Otherwise, the outerplanarity property is destroyed. 
+	The vertex insertion works analogously to the recursive definition of a 2-tree. A new vertex can be added to  by adding a new vertex $v_f$ in the dual graph $G^*$ so that the degree of $G^*$ is still at most 3. The newly created face $f$ must lie on the outerface and must be a triangle. Otherwise, the outerplanarity property is destroyed. 
 \end{proof}
 
 % One Bend, maximal complete outerplanar graph
@@ -62,7 +62,7 @@ The first approach of a drawing algorithm addresses a ratio optimization for den
 		\item Every other inner node has exactly two children. In other words, the subtrees adjacent to the root vertex are complete binary trees of height $h-1$
 	\end{enumerate}
 \end{definition}
-A given maximal outerplanar graph can be drawn by using a drawing algorithm for its weak dual graph. In section \ref{s:k-ary_trees}, the $k$-ary tree drawing algorithm produces a straight-line drawing in $\mathcal{O}(n^2 \log n)$ area with a ratio of $1+\varepsilon,\varepsilon>0$. The drawing algorithm \ref{al:k-ary_trees} can be used with a minor modification to draw the weak dual graph of any complete maximal outerplanar graph $G$, since $G'^*$ is a subtree of a $3$-ary tree with the same height.\\
+A given maximal outerplanar graph can be drawn by using a drawing algorithm for its weak dual graph. In section \ref{s:k-ary_trees}, we describe a drawing algorithm for $k$-ary trees that produces a nearly-optimal straight-line drawing. The drawing algorithm \ref{al:complete_k-ary_tree} can be used with a minor modification to draw the weak dual graph of any complete maximal outerplanar graph $G$, since $G'^*$ is a subtree of a ternary tree with the same height.\\
 
 \begin{algorithm}[H]
 	\KwIn{A complete maximal outerplanar graph $G'$}
@@ -81,6 +81,7 @@ A given maximal outerplanar graph can be drawn by using a drawing algorithm for 
 
 Algorithm \ref{al:drawouterweakdual} produces a nearly optimal straight-line drawing for the weak dual graph of a complete outerplanar graph $G'$. The resulting drawing $\Gamma_{G'^*}$ provides assistance to draw the complete outerplanar graph $G'$. Every vertex of $\Gamma_{G'^*}$ serves as an anchor point for the drawing of its corresponding face in $G'$.\\
 Starting at the root of $G^*$, a triangle is drawn around the root in a way, that each edge of $G^*$ from the root to its three children crosses exactly one edge of the corresponding triangle face in $G'$. The vertices for the triangle are placed as follows. The first vertex lies above the already drawn root with an Euclidian distance to the root sufficiently high in order to preserve planarity for the remaining drawing. The other two vertices are placed inbetween the two triangles defined by the root, its $\{\text{left, right}\}$ and middle children.\\
+% TODO Bild!
 In order to guarantee a valid vertex and bend placement at every inner node $v^*$, the drawing is stretched horizontally and vertically by a factor of three.\\
 Then, the drawing algorithm iterates over the height of $G'^*$. For every vertex $v^*$ of height $i\in \{1,...,h\}$ in $G'^*$, two bend points are placed 1 \UL left and right from $\Gamma_{G'^*}(v^*)$, and the new vertex $v$ is placed 1 \UL below from $\Gamma_{G'^*}(v^*)$.\\
 $v^*$ is adjacent to an edge $e^*$ defined in $G^*$ that is crossing exactly one edge $e = (v_1,v_2)$ of $G'$. This crossing corresponds to the vertices defining the new face, $\{v, v_1, v_2\}$. Since $G'^*$ consists of three complete binary subtrees connected to the root, using the bends to draw the new face will preserve planarity since the coordinate of every inner node inherits its unique $x$ value by construction of algorithm \ref{al:complete_k-ary_tree}.
@@ -133,12 +134,12 @@ This drawing approach is summarized in the following algorithm.\\
 \end{theorem}
 
 \begin{proof}
-	The triangle around the root of $G^*$ consists of a vertex $v_1$ placed atop of the root vertex with distance $h\cdot r^h$ and two vertices $v_2,v_3$ placed at the centroids of the triangles defined by $\{\texttt{root,root.leftChild,root.middleChild}\}$ and $\{\texttt{root,root.middleChild,root.rightChild}\}$. By construction it holds, that $v_2$ and $v_3$ partition three binary subtrees rooted at the children of the root of $G'^*$ by their $x$ coordinate. The placement of the vertices $v_1,v_2$ and $v_3$ guarantee exactly one intersection between an edge of $G'$ and an edge of $G'^*$ in $\Gamma$.\\
+	The triangle around the root of $G^*$ consists of a vertex $v_1$ placed atop of the root vertex with distance $h\cdot r^h$ and two vertices $v_2,v_3$ placed at the centroids of the triangles defined by $\{\texttt{root,root.leftChild,root.middleChild}\}$ and $\{\texttt{root,root.middleChild,root.rightChild}\}$. The placement of the vertices $v_1,v_2$ and $v_3$ guarantee exactly one intersection between an edge of $G'$ and an edge of $G'^*$ in $\Gamma$.\\
 	After stretching the drawing horizontally by a factor of three, there exist free grid points next to every vertex of $G^*$ which guarantees a grid point placement left and right of any vertex $v^*$. During the iteration over the height starting at height 1, every intersection between an edge of $G'^*$ and $G'$ refer to vertices on the outerface and a new face of $G'$ is attached on the outerface, preserving the outerplanarity of the drawing.\\
 	Since $v_1$ is placed with a distance of $h\cdot r^h$ atop of the root of $G^*$ and $v_2$ and $v_3$ partition the $x$ coordinate of the binary subtrees rooted at the children of the root of $G^*$, planarity is preserved.\\
-	The resulting area bounds are asymptotically the same compared to a drawing of a $3$-ary tree since the width and the height are multiplied by a constant. The area consumption lies still in $\mathcal{O}(n^2 \log n)$.\\
+	The resulting area bounds are asymptotically the same compared to a drawing of a ternary tree since the width and the height are multiplied by a constant. The area consumption lies still in $\mathcal{O}(n^2 \log n)$.\\
 	The construction of $G'^*$ with minimal height lies in $\mathcal{O}(n)$ since there are $\mathcal{O}(n)$ faces for any maximal outerplanar graph. Drawing $G'^*$ and $G'$ lies in $\mathcal{O}(n)$. The runtime of this algorithm is therefore in linear time.\\
-	The minimal Euclidian distance values at least $2^h$ by construction of algorithm \ref{al:k-ary_trees} and lies in $\mathcal{O}(n)$. The length of the longest polyline spans the whole height of the drawing and lies in $\mathcal{O}(n \log n)$. The ratio lies therefore in $\mathcal{O}(\log n)$ since the height of $G^*$ lies in $\mathcal{O}(\log n)$.
+	The minimal Euclidian distance values at least $2^h$ by construction of algorithm  \ref{al:complete_k-ary_tree} and lies in $\mathcal{O}(n)$. The length of the longest polyline spans the whole height of the drawing and lies in $\mathcal{O}(n \log n)$. The ratio lies therefore in $\mathcal{O}(\log n)$ since the height of $G^*$ lies in $\mathcal{O}(\log n)$.
 \end{proof}
 \subsubsection{Example Drawing}
 
@@ -154,7 +155,7 @@ This drawing approach is summarized in the following algorithm.\\
 
 \subsubsection{Limitations}
 
-As addressed by Observation \ref{ob:area_leads_to_ratio_increase}, this algorithm works fine for a complete maximal outerplanar graph $G'$ since then, the height of $G'^*$ is bound by $\mathcal{O}(\log n)$. On the other hand, when $G'$ is a loose maximal outerplanar graph, a height of $G^*$ might be of linear size and therefore, the drawing algorithm is not improving the ratio contrary to a straight-line drawing. In addition, the drawing algorithm will only work for simple weak dual graphs. The weak dual graph of a maximal SP graph is a multigraph.
+As addressed by Observation \ref{ob:area_leads_to_ratio_increase}, this algorithm works fine for a complete maximal outerplanar graph $G'$ since then, the height of $G'^*$ is bound by $\mathcal{O}(\log n)$. On the other hand, when $G'$ is a not a complete maximal outerplanar graph, the height of $G^*$ might be of linear size. This would worsen the area bounds and the ratio of the resulting drawing drastically since the resulting height is determined by the height of $G'^*$ multiplied by a factor of $n$. The ratio will become linear in the worst case on $\mathcal{O}(n^3)$ area, which is worse compared to any well-established straight-line drawing algorithm producing a drawing on $\mathcal{O}(n^2)$ area with a ratio of $\mathcal{O}(n)$. In addition, the drawing algorithm will only work for simple weak dual graphs. The weak dual graph of a maximal SP graph is a multigraph.
 	\begin{figure}[H]
 	\centering
 	\begin{subfigure}{\textwidth}
@@ -176,14 +177,7 @@ When analyzing upper bounds for the ratio of a drawing for a maximal outerplanar
 	\end{itemize}
 	A \emph{partition} is a pair consisting of a vertex of $\mathcal{P}$ and its corresponding bag $\mathcal{W}$. A partitioning $P$ is \emph{minimal} if every other partitioning $P'$ of $T$ contains a higher amount of partitions.
 \end{definition}
-Let $T$ be a $k$-ary tree with $n$ vertices. Then, for a partitioning $P$ covering all the vertices of $T$, the following holds:
-\begin{enumerate}
-	\item The amount of partitions of size $\mathcal{O}(1)$ is bound by $\mathcal{O}(n)$
-	\item The amount of partitions of size $\mathcal{O}(\log n)$ is bound by $\mathcal{O}\left(\frac{n}{\log n}\right)$
-	\item The amount of partitions of size $\mathcal{O}(\sqrt{n})$ is bound by $\mathcal{O}(\sqrt{n})$
-	\item The amount of partitions of size $\mathcal{O}(n)$ is bound by $\mathcal{O}(1)$
-\end{enumerate}
-Also, any combination of partitions are possible. Presuming that a partitioning covers $\mathcal{O}(n)$ vertices of a graph, any combination of multiple partitionings of constant amount is possible. For example, let $|V(G')| = 2n$. One chain of $\mathcal{O}(n)$ vertices followed by a complete $k$-ary tree with $n$ vertices results in a legitimate $k$-ary tree with height $\mathcal{O}(n)$. The minimal partitioning of this example consists of $\mathcal{O}(n)$ partitions in total.
+Let $T$ be a $k$-ary tree with $n$ vertices. For a partitioning $P$ covering all the vertices of $T$, the amount of bags of size $\mathcal{O}(K)$ is bounded by $\mathcal{O}(\frac{n}{K})$, whereas $K$ is bounded by $n$. Also, any combination of partitions are possible. Presuming that a partitioning covers $\mathcal{O}(n)$ vertices of a graph, any combination of multiple partitionings of constant amount is possible. For example, let $|V(G')| = 2n$. One chain of $\mathcal{O}(n)$ vertices followed by a complete $k$-ary tree with $n$ vertices results in a legitimate $k$-ary tree with height $\mathcal{O}(n)$. The minimal partitioning of this example consists of $\mathcal{O}(n)$ partitions in total.
 	\begin{figure}[H]
 	\centering
 	\begin{subfigure}{\textwidth}
@@ -444,7 +438,7 @@ Transferring a box drawing to a polyline drawing includes the substitution of $\
 \end{theorem}
 \begin{proof}
 	Consider the drawing algorithm \ref{al:maximal_outerplanar_box_two_bends}, producing a box drawing $\mathcal{B}_{G'}$. The algorithm first creates a tree decomposition of $G'$, $(T',W')$, and then uses DFS on $T'$ in its iteration to explore new active vertices which will be drawn in a potentially new layer. An active vertex $v$ blocks a layer of $\mathcal{B}_{G'}$ for further vertex insertions. When the DFS finished exploring the subtree $T'_{v}$ of $T'$, the layer of $v$ is availiable for new vertex insertions.\\
-	Let $p$ be a path from the root of $T'$ to a leaf which creates the highest amount of layers. By Lemma \ref{l:complete_maximal_outerplanar_log_n_active}, there are up to $\mathcal{O}(\log n)$ vertices active during the DFS graph traversal of the tree decomposition of $G'$. Since $T'_{v}$ is a chain of vertices for any vertex $v\in V(G')$, there exists a subtree of $T'$ of asymptotically the same height as $T'_{v}$ which does not contain $v$ in its bags. After drawing $\mathcal{O}(\log n)$ vertices defined by $p$ on separate layers, the amount of layers created in $\mathcal{B}_{G'}$ suffice for the remaining drawing and is asympotitcally bound by $\mathcal{O}(\log n)$.\\
+	Let $p$ be a path from the root of $T'$ to a leaf which creates the highest amount of layers. By Lemma \ref{l:complete_maximal_outerplanar_log_n_active}, there are at most $\mathcal{O}(\log n)$ vertices active during the DFS graph traversal of the tree decomposition of $G'$. Since $T'_{v}$ is a chain of vertices for any vertex $v\in V(G')$, there exists a subtree of $T'$ of asymptotically the same height as $T'_{v}$ which does not contain $v$ in its bags. After drawing $\mathcal{O}(\log n)$ vertices defined by $p$ on separate layers, the amount of layers created in $\mathcal{B}_{G'}$ suffice for the remaining drawing and is asympotitcally bound by $\mathcal{O}(\log n)$.\\
 	The resulting box drawing therefore inherits $\mathcal{O}(\log n)$ layers with a pairwise distance of $n$. The height of the drawing is bound by $\mathcal{O}(n \log n)$. Since for every edge of $G'$ there exists a column in $\mathcal{B}_{G'}$, the width is bound by $O(n)$. The total area consumption therefore lies in $\mathcal{O}(n^2 \log n)$.\\
 	When transferring the box drawing $\mathcal{B}_{G'}$ to a polyline drawing $\Gamma_{G'}$, every box $b_v$ is substituted with a grid point $v$ inside of $b_v$ and every edge incident to $b_v$ is rerouted by a bend point to the grid point for $v$. The polyline drawing produced by algorithm \ref{al:maximal_outerplanar_two_bends} inherits two bends per edge and has asymptotically the same area bound as the box drawing of algorithm \ref{al:maximal_outerplanar_box_two_bends}. The longest edge $l_{\max}$ spans the width and the height and its length is bound by $\mathcal{O}(n \log n) + \mathcal{O}(n) = \mathcal{O}(n \log n)$. The minimal Euclidian distance between to adjacent vertices values $n$ implied by the layering with its distance and the ratio therefore lies in $\mathcal{O}(\log n)$.
 \end{proof}

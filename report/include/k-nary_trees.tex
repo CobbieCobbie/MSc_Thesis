@@ -1,10 +1,14 @@
-\section{$k$-ary Trees}\label{s:k-ary_trees}
-When analyzing a general problem of graph drawings, the class of trees is of interest due to their assessable properties. The first graph class considered for minimizing the ratio in a drawing is therefore the class of $k$-ary trees. This section describes a drawing algorithm for a $k$-ary tree $T$, guaranteeing a nearly optimal Euclidian ratio in the resulting drawing $\Gamma_T$. The total area of $\Gamma_T$ will depend on the height of $T$.\\
+\section{Trees}\label{s:k-ary_trees}
+When analyzing a general problem of graph drawings, the class of trees is of interest due to their assessable properties. The first graph class considered for minimizing the ratio in a drawing is therefore the class of $k$-ary trees. The results of this class of trees will be applicable to any rooted tree. This section describes a drawing algorithm for a $k$-ary tree $T$, guaranteeing a nearly optimal Euclidian ratio in the resulting drawing $\Gamma_T$. The total area of $\Gamma_T$ will depend on the height of $T$.\\
 % properties of complete k-ary trees
-Since any $k$-ary tree is acyclic per definition, $T$ is connected, but not biconnected and the treewidth of $T$ equals 1. Having $n$ vertices, $T$ inherits exactly $n-1$ edges. The small bags in a tree decomposition and the low amount of edges makes $k$-ary trees accessible for a straightforward solution for a given problem.\\
+Trees are connected and acyclic per definition, inheriting exactly $n-1$ edges. These properties make trees accessible for a straightforward solution for a given problem.\\
 % context for outerplanar graphs
 When working on other graph classes, it may be possible to find an approach by reducing a graph $G$ to an instance of a tree. In fact, the resulting drawing algorithm for $k$-ary trees in this section will serve as a first approach for drawing maximal outerplanar graphs in the succeeding section.
 \subsection{Properties Of Complete $k$-ary Trees}
+\begin{lemma}\label{l:tree_to_k-ary}
+	Any tree $T$ can be interpreted as a $k$-ary tree.
+\end{lemma}
+A tree $T$ does not necessarily inherit a root but any vertex of $T$ can be flagged as such. The height of any vertex is then described as the path length starting from the root and $k$ is set to the maximum amount of children of all the inner nodes. $T$ is now rooted and $k$ fixed, hence a $k$-ary tree. When describing a tree $T$ as a $k$-ary tree, the root will be chosen so the resulting height is minimal.
 % The height 
 \begin{lemma}The \emph{height $h$} of a complete $k$-ary tree $T$ is in $\mathcal{O}(\log n)$.\label{l:k-ary-tree_log_height}
 \end{lemma}
@@ -13,7 +17,7 @@ When working on other graph classes, it may be possible to find an approach by r
 		n = \sum_{i=0}^{h}k^i &= \frac{k^{h+1}-1}{k-1}\\
 		\Leftrightarrow h &= \log_k((k-1)n+1)-1\\
 		&= \frac{\log((k-1)n+1)}{\log k}-1\\
-		\underbrace{\Rightarrow}_{k \text{ constant}}h &\in O(\log n)
+		\underbrace{\Rightarrow}_{k \text{ fixed}}h &\in O(\log n)
 	\end{align}
 \end{proof}
 
@@ -22,7 +26,7 @@ When working on other graph classes, it may be possible to find an approach by r
 % Drawing result
 
 \begin{theorem}
-	Every complete $k$-ary tree admits a planar straight-line drawing with a nearly optimal ratio, apart from a rounding error, on area $\mathcal{O}(n^2\log n)$.
+	There exists a linear-time drawing algorithm which produces a planar straight-line drawing for complete $k$-ary trees with a nearly optimal ratio, apart from a rounding error, on area $\mathcal{O}(n^2\log n)$.
 \end{theorem}
 \begin{proof}
 	The following drawing will be constructed from top to bottom, meaning that the $y$-coordinates of the children of any vertex $v$ are smaller than the $y$ coordinate of $v$.\\
@@ -40,8 +44,7 @@ When working on other graph classes, it may be possible to find an approach by r
 		\underbrace{2\cdot \sum_{j=i}^{h-1} k^{h-j-1}}_{\text{drawn from both columns}} &= 2\cdot\sum_{z = 0}^{h-i-1}h^z\\
 		&= 2\cdot\frac{k^{h-i}-1}{k-1} < 2\cdot k^{h-i}
 	\end{align}
-	The height of the drawing is bound by $h\cdot r = h\cdot k^h \in \mathcal{O}(n\cdot \log n)$. 
-	The width is bounded by $2\cdot\sum_{i = 0}^{h} k^i = 2\cdot \frac{k^{h+1}-1}{k-1} \in \mathcal{O}(n)$, resulting in $\mathcal{O}(n^2\log n)$ area.\\ 
+	The height of the drawing is bound by $h\cdot r = h\cdot k^h \in \mathcal{O}(n\cdot \log n)$. The width is bounded by $2\cdot\sum_{i = 0}^{h} k^i = 2\cdot \frac{k^{h+1}-1}{k-1} \in \mathcal{O}(n)$, resulting in $\mathcal{O}(n^2\log n)$ area.\\ 
 	Since the algorithm works from top to bottom and for height $i$, the area for every subtree is disjointedly reserved, the resulting drawing is planar. Furthermore, all straight-line edges inherit a length of approximately $k^h$. A rounding error bound by $\varepsilon, 0\leq \varepsilon<1$ occurs when placing the vertices on grid points. The rounding error does not accumulate since the length $r$ is fixed and the vertices are placed in the grid independently from each other. No bends were used and the ratio is bound by $1+\varepsilon$.
 \end{proof}
 \bigskip
@@ -49,7 +52,7 @@ The following drawing algorithm sums up the approach described above.\\
 \begin{algorithm}[H]
 	\KwIn{complete $k$-ary tree $T$, $h$}
 	\KwOut{Straight-line drawing of $T$ with nearly optimal ratio}
-	\caption{Draw\_$k$-ary\_tree($h$)}\label{al:complete_k-ary_tree}
+	\caption{Draw\_$k$-ary\_tree($T$)}\label{al:complete_k-ary_tree}
 	$h \gets $ \text{height of $T$}\\
 	$r \gets k^h$\\
 	Draw $root(T)$ on any grid point\\
@@ -79,6 +82,32 @@ The following drawing algorithm sums up the approach described above.\\
 		}
 	}		
 \end{algorithm}
+
+\begin{theorem}
+	Any tree $T$ admits a optimal straight-line drawing, apart from a rounding error.
+\end{theorem}
+\begin{proof}
+	By Lemma \ref{l:tree_to_k-ary}, any tree $T$ can be interpreted as a $k$-ary tree. The algorithm \ref{al:complete_k-ary_tree} can be reused in order to produce a nearly-optimal straight-line drawing. Set the root $r \in V(T)$ so that the height of $T$ is minimal. Set $k$ as the maximum amount of children of all inner nodes of $T$. The drawing algorithm \ref{al:complete_k-ary_tree} is slightly modified which checks the existence of any vertex since any $k$-ary subtree with height $h$ is a subtree of a complete $k$-ary subtree of the same height. The output will be a nearly-optimal straight-line drawing $\Gamma_{T'}$. Removing the marked vertices will not alter the ratio or area consumption and the result is a nearly-optimal straight-line drawing $\Gamma_T$.
+\end{proof}
+
+The following drawing algorithm sums up the approach for a general tree $T$.\\
+\begin{algorithm}[H]
+	\KwIn{A tree $T$}
+	\KwOut{Straight-line drawing $\Gamma_T$ with nearly-optimal ratio}
+	\caption{Drawing algorithm for a tree $T$}\label{al:general_tree}
+	$\texttt{root} \gets v\in V(T)$ with minimal height for $T$\\
+	$k \gets 0$
+	\For{inner node $v$ of $T$}{
+		\If{$v.\texttt{AmountOfChildren} > k$}{
+			$k\gets v.\texttt{AmountOfChildren}$
+		}
+	$T'\gets T.\texttt{ExtendToCompletenessWithMarkedVertices}(\texttt{root},k)$
+	}
+	$\Gamma_{T'} \gets \texttt{Draw\_$k$-ary\_tree($T'$)}$\\
+	$\Gamma_{T'}.\texttt{removeMarkedVertices}$\\
+	\Return $\Gamma_{T'}$
+\end{algorithm}
+
 
 \subsection{Example Drawings}
 \begin{figure}[H]

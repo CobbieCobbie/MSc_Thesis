@@ -21,7 +21,7 @@ A tree $T$ does not necessarily inherit a root but any vertex of $T$ can be flag
 	\end{align}
 \end{proof}
 
-\subsection{The Drawing Algorithm}
+\subsection{Drawing Algorithm For Complete $k$-ary Trees}
 
 % Drawing result
 
@@ -83,11 +83,17 @@ The following drawing algorithm sums up the approach described above.\\
 	}		
 \end{algorithm}
 
+\subsection{Drawing Algorithm For General Trees}
+
 \begin{theorem}
-	Any tree $T$ admits a optimal straight-line drawing, apart from a rounding error.
+	Any tree $T$ admits a optimal straight-line drawing, apart from a rounding error, on exponential area.
 \end{theorem}
 \begin{proof}
 	By Lemma \ref{l:tree_to_k-ary}, any tree $T$ can be interpreted as a $k$-ary tree. The algorithm \ref{al:complete_k-ary_tree} can be reused in order to produce a nearly-optimal straight-line drawing. Set the root $r \in V(T)$ so that the height of $T$ is minimal. Set $k$ as the maximum amount of children of all inner nodes of $T$. The drawing algorithm \ref{al:complete_k-ary_tree} is slightly modified which checks the existence of any vertex since any $k$-ary subtree with height $h$ is a subtree of a complete $k$-ary subtree of the same height. The output will be a nearly-optimal straight-line drawing $\Gamma_{T'}$. Removing the marked vertices will not alter the ratio or area consumption and the result is a nearly-optimal straight-line drawing $\Gamma_T$.
+	
+	% Consider the following illustration of a tree for the worst case area bounds.
+	% TODO figure of worst case tree
+	% For this tree, the maximum amount of children as well as the height of $T$ lie in $\mathcal{O}(n)$. The height of the resulting drawing is described as 
 \end{proof}
 
 The following drawing algorithm sums up the approach for a general tree $T$.\\
@@ -98,16 +104,42 @@ The following drawing algorithm sums up the approach for a general tree $T$.\\
 	$\texttt{root} \gets v\in V(T)$ with minimal height for $T$\\
 	$k \gets 0$
 	\For{inner node $v$ of $T$}{
-		\If{$v.\texttt{AmountOfChildren} > k$}{
-			$k\gets v.\texttt{AmountOfChildren}$
+		\If{$v.\texttt{Children.size()} > k$}{
+			$k\gets v.\texttt{Children.size()}$
 		}
-	$T'\gets T.\texttt{ExtendToCompletenessWithMarkedVertices}(\texttt{root},k)$
 	}
-	$\Gamma_{T'} \gets \texttt{Draw\_$k$-ary\_tree($T'$)}$\\
-	$\Gamma_{T'}.\texttt{removeMarkedVertices}$\\
-	\Return $\Gamma_{T'}$
+	$h \gets $ \text{height of $T$}\\
+	$r \gets k^h$\\
+	$\Gamma.\texttt{DrawVertex(root)}$\\
+	\tcc{Draw $root(T)$ on any grid point}
+	$\Gamma.\texttt{DrawChildren}(\texttt{root},r,h)$\\	
+	\Return $\Gamma$
 \end{algorithm}
 
+\begin{algorithm}[H]
+	\KwIn{Already drawn vertex $v$, radius and height $r,h \in \mathbb{N}$}
+	\KwOut{Coordinates of all the children of $v$}
+	\caption{\texttt{DrawChildren}$(v,r,h)$}
+	\If{$v$ leaf}{\Return}
+	\Else{
+		$h' \gets \texttt{height}(v)$\\
+		$d \gets 2\cdot k^{h-h'-1}$\\
+		$C \gets \Gamma.\texttt{DrawCircle}(r,v)$\\
+		$q \gets v.\texttt{Children.size()}$\\
+		\tcc{Draw circle with radius $r$ around $v$}
+		\For{$i \in [1..q]$}{
+			$x(v_i) \gets x(v) - \frac{(k-1)\cdot d}{2} + (i-1)\cdot d$\\
+			\tcc{$x$-coordinate of $i$-th child of $v$}
+			$X \gets \Gamma.\texttt{Column}(x(v_i))$\\
+			\tcc{Identify the column at position $x(v_i)$}
+			$s \gets \Gamma.\texttt{Intersection}(I,X)$\\
+			\tcc{Calculate the intersection of the circle $C$ and the column $X$}
+			$y(v_i) \gets round(y(s))$\\
+			$\Gamma.$\texttt{DrawStraightLine}$(v,v_i)$\\
+			$\Gamma.$\texttt{Draw\_Children}$(v_i,r,h)$
+		}
+	}		
+\end{algorithm}
 
 \subsection{Example Drawings}
 \begin{figure}[H]

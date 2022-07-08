@@ -1,5 +1,6 @@
 \section{Maximal Series-Parallel Graphs}\label{section:SP-graphs}
-Maximal series-parallel graphs correspond to the class of 2-trees \cite[P. 2]{straight-line_2-trees} and are a suitable class of interest for fundamental research since any 2-tree is biconnected, but not triconnected and inherits a constant treewidth. Creating a compact layered polyline drawing for maximal outerplanar graphs will prove to be useful when drawing maximal SP-graphs. Every maximal SP-graph contains a maximal outerplanar subgraph. 
+
+Maximal series-parallel graphs correspond to the class of 2-trees \cite[P. 2]{straight-line_2-trees} and are a suitable class of interest for fundamental research since any 2-tree is biconnected, but not triconnected and inherits a constant treewidth. Since maximal SP-graph contains a largest maximal outerplanar subgraph, creating a compact layered polyline drawing for maximal outerplanar graphs described in section \ref{s:maximal_outerplanar} will prove to be useful when drawing maximal SP-graphs. 
 
 \subsection{Properties Of Maximal Series Parallel Graphs}
 
@@ -32,12 +33,12 @@ Maximal series-parallel graphs correspond to the class of 2-trees \cite[P. 2]{st
 \subsection{Drawing Algorithm For Maximal Series Parallel Graphs With Two Bends}
 
 A maximal SP-graph $G$ with its tree decomposition $(T,W)$ will be evaluated for its largest maximal outerplanar subgraph $G'$ with tree decomposition $(T',W')$. $\tilde{T}$ describes the difference of $T$ and $T'$ and is a set of subtrees of $T$.\\
-In order to create a polyline drawing similarily as described in section \ref{s:maximal_outerplanar}, it is crucial to find a suiting $SPQR$ tree derivation of a maximal SP-graphs for the box drawing algorithm \ref{al:draw_SPQR} to function. Fortunately, the function deriving a $SPQR$ tree of a tree decomposition of a maximal outerplanar graph $G'$ is also applicable for maximal SP-graphs.
+In order to create a polyline drawing similarily as described in section \ref{s:maximal_outerplanar}, it is crucial to find a suiting $SPQR$-Tree derivation of a maximal SP-graphs for the box drawing algorithm \ref{al:draw_SPQR} to function. Fortunately, the function deriving a $SPQR$-Tree of a tree decomposition of a maximal outerplanar graph $G'$ is also applicable for maximal SP-graphs.
 \begin{lemma}
-	The function deriving a $SPQR$ tree from a tree decomposition defined in Lemma \ref{l:tree_decomp_to_SPQR} is applicable to any maximal SP-graph $G$.
+	The function deriving a $SPQR$-Tree from a tree decomposition defined in Lemma \ref{l:tree_decomp_to_SPQR} is applicable to any maximal SP-graph $G$.
 \end{lemma}
 \begin{proof}
-	Let $G$ be a maximal SP-graph with its tree decomposition $(T,W)$. Contrary to a tree decomposition of a maximal outerplanar graph, any node $T$ can have arbitrary many children. Inserting a new vertex described with a vertex in $T$ works analogously to the prior scheme. For a maximal SP-graph, the resulting $SPQR$ tree can inherit arbitrary many serial nodes attached to a parallel node.
+	Let $G$ be a maximal SP-graph with its tree decomposition $(T,W)$. Contrary to a tree decomposition of a maximal outerplanar graph, any node $T$ can have arbitrary many children. Inserting a new vertex described with a vertex in $T$ works analogously to the prior scheme. For a maximal SP-graph, the resulting $SPQR$-Tree can inherit arbitrary many serial nodes attached to a parallel node.
 \end{proof}
 
 After $(T',W')$ is drawn into a box drawing $B'$, the remaining subtrees in $\tilde{T}$ will be inserted accordingly, resulting in a box drawing $B$ for $G$. Finally, a polyline drawing will be derived from $B$.
@@ -91,17 +92,34 @@ After $(T',W')$ is drawn into a box drawing $B'$, the remaining subtrees in $\ti
 % Results
 
 \begin{theorem}
-	Any maximal SP-graph admits a polyline drawing in $\mathcal{O}(n^2 \log^2 n)$ area with two bends per edge and a ratio bound by $\mathcal{O}(\log^2 n)$, when the minimal distance between two layers is set to $n$.
+	Any maximal SP-graph admits a polyline drawing in $\mathcal{O}(n^2 \log^2 n)$ area with two bends per edge and a ratio bound by $\mathcal{O}(\log^2 n)$, when the minimal distance between two layers is set to $n$. \label{th:maximal_SP-n^2log^2n-area}
 \end{theorem}
 \begin{proof}
 	Let $\mathcal{B}_{G'}$ be the box drawing of the largest maximal outerplanar subgraph $G'$ of a maximal SP-graph $G$. The width of $\mathcal{B}_{G'}$ lies in $\mathcal{O}(n')$. Inserting the remaining subtrees of $\tilde{t}$ increases the width asymptotically to $\mathcal{O}(n)$ since there is at most one column per edge of $G$. Lemma \ref{l:SP_not_increasing_area} states that the height bound is asymptotically not altered and analogously to the proof of theorem \ref{th:maximal_outerplanar_log2_n_ratio}, the ratio of the resulting polyline drawing $\Gamma_G$ is bound by the amount of total layers, when the minimal distance is set to $n$.
 \end{proof}
 \begin{theorem}
+	Any SP-graph $G$ admits a polyline drawing in $\mathcal{O}(n^2 \log^2 n)$ area with two bends per edge and a ratio bound by $\mathcal{O}(\log^2 n)$, when the minimal distance between two layers is set to $n$.
+\end{theorem}
+\begin{proof}
+	Insert marked edges until $G$ is a maximal SP-graph. Draw $G$ with algorithm \ref{al:DrawMaximalSPGraph} and by theorem \ref{th:maximal_SP-n^2log^2n-area}, the area and ratio upper bounds hold. Removing the marked edges again does not alter any of the upper bounds.
+\end{proof}
+
+
+\begin{theorem}
 	Any maximal SP-graph admits a polyline drawing in $\mathcal{O}(n \log^2 n)$ area with two bends per edge.
 \end{theorem}
 \begin{proof}
-	When the minimal distance between two layers is set to a constant, the resulting height is bound by the amount of simultaneously active vertices. The resulting drawing 
+	When the minimal distance between two layers is set to a constant, the resulting height is bounded by the amount of simultaneously active vertices. By Lemma \ref{l:maximal_outerplanar_log2_n_vercies_active} and \ref{l:SP_not_increasing_area}, the height is bounded by $\mathcal{O}(\log^2 n)$. The width is still bounded by the amount of edges and the total area consumption lies in $\mathcal{O}(n \log^2 n)$.
 \end{proof}
+
+
+\begin{theorem}
+	Any maximal SP-graph admits a polyline drawing in $\mathcal{O}(n \log^2 n)$ area with two bends per edge.
+\end{theorem}
+\begin{proof}
+	Insert marked edges until $G$ is a maximal SP-graph. Draw $G$ with algorithm \ref{al:DrawMaximalSPGraph} and a constant distance between the layers. Afterwards, remove the marked edges from the drawing.
+\end{proof}
+
 
 \subsection{Example drawing}
 

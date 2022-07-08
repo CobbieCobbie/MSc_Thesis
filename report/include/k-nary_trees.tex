@@ -89,11 +89,7 @@ The following drawing algorithm sums up the approach described above.\\
 	Any tree $T$ admits a optimal straight-line drawing, apart from a rounding error, on exponential area.
 \end{theorem}
 \begin{proof}
-	By Lemma \ref{l:tree_to_k-ary}, any tree $T$ can be interpreted as a $k$-ary tree. The algorithm \ref{al:complete_k-ary_tree} can be reused in order to produce a nearly-optimal straight-line drawing. Set the root $r \in V(T)$ so that the height of $T$ is minimal. Set $k$ as the maximum amount of children of all inner nodes of $T$. The drawing algorithm \ref{al:complete_k-ary_tree} is slightly modified which checks the existence of any vertex since any $k$-ary subtree with height $h$ is a subtree of a complete $k$-ary subtree of the same height. The output will be a nearly-optimal straight-line drawing $\Gamma_{T'}$. Removing the marked vertices will not alter the ratio or area consumption and the result is a nearly-optimal straight-line drawing $\Gamma_T$.
-	
-	% Consider the following illustration of a tree for the worst case area bounds.
-	% TODO figure of worst case tree
-	% For this tree, the maximum amount of children as well as the height of $T$ lie in $\mathcal{O}(n)$. The height of the resulting drawing is described as 
+	By Lemma \ref{l:tree_to_k-ary}, any tree $T$ can be interpreted as a $k$-ary tree. The algorithm \ref{al:complete_k-ary_tree} can be reused in order to produce a nearly-optimal straight-line drawing. Set the root $r \in V(T)$ so that the height of $T$ is minimal. Set $k$ as the maximum amount of children of all inner nodes of $T$. The drawing algorithm \ref{al:complete_k-ary_tree} is slightly modified which checks the existence of any vertex since any $k$-ary tree with height $h$ is a subtree of a complete $k$-ary subtree of the same height. When the height is in $\mathcal{O}(n)$, then the radius and the area consumption gets exponential. The output will be a nearly-optimal straight-line drawing $\Gamma_{T'}$. Removing the marked vertices will not alter the ratio or area consumption and the result is a nearly-optimal straight-line drawing $\Gamma_T$.
 \end{proof}
 
 The following drawing algorithm sums up the approach for a general tree $T$.\\

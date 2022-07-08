@@ -1,6 +1,6 @@
 \section{Maximal Outerplanar Graphs}\label{s:maximal_outerplanar}
 
-This section will address two main approaches of ratio minimization for drawings of maximal outerplanar graphs. Every outerplanar graph can be extended to a maximal outerplanar by inserting edges and preserving the outerplanarity property. Any outerplanar graph can then be drawn using a drawing algorithm for maximal outerplanar graphs by inserting edges and removing those after the drawing has been computed. Since any maximal outerplanar graph is a maximal SP-graph, the class of maximal outerplanar graphs is a strict subclass of the maximal SP-graphs and it will be determined whether one of the approaches was suitable to be extended for maximal SP-graphs, which will be the case for the second approach.\\
+This section will address two main approaches of ratio minimization for drawings of maximal outerplanar graphs. Every outerplanar graph can be extended to a maximal outerplanar graph by inserting edges and preserving the outerplanarity property. Any outerplanar graph can then be drawn using a drawing algorithm for maximal outerplanar graphs by inserting edges and removing those after the drawing has been computed. Since any maximal outerplanar graph is a maximal SP-graph, the class of maximal outerplanar graphs is a strict subclass of the maximal SP-graphs and it will be determined whether one of the approaches was suitable to be extended for maximal SP-graphs, which will be the case for the second approach.\\
 The first approach will address drawing a maximal outerplanar graph based on drawing its weak dual graph. The weak dual graph of an outerplanar graph is a tree and it is already known that any tree admits a nearly-optimal straight-line drawing. The second approach will create a layered box drawing of a maximal outerplanar graph which will then be transferred to a polyline drawing. It will be exposed that the second approach will produce polyline drawings with reasonable area consumption and will be extendable for general SP-graphs.
 
 \subsection{Properties Of Maximal Outerplanar Graphs}
@@ -272,13 +272,14 @@ The tree decomposition of an outerplanar graph $G'$ will be traversed during the
 \begin{proof}
 	Let $t_p$ the parent of $t_1,t_2$ and $t_3$ and $v \in w_p$. Assume, that $v \in w_1,w_2,w_3$. Since the bags are of size three, there would be a vertex $v'\in w_p$ such that the subtree of $T$ containing $v,v'$ contains more than two vertices, contradicting Lemma \ref{l:outerplanar_two_vertices_subtree_TD_2}. Then, the subtree $T$ containing $v$ is of degree 2 and therefore a list.
 \end{proof}
-The following definition helps describing, for how long a vertex 
+The drawing algorithm will produce a box drawing $\Gamma_{G'}$ at first instance. Vertices are placed as boxes on a layer and edges are placed vertically between layers. Every new vertex or edge inserted into the box drawing will have a greater $x$ coordinate than the previous ones. The box drawing will emerge from left to right during the traversal of the tree decomposition.\\
+The following definition will help describing, for how long a vertex will occupy a layer for the subsequent vertices placed inside $\Gamma_{G'}$.
 \begin{definition}
 	When traversing a tree decomposition $(T,W)_G$ of a graph $G$ with DFS, a vertex $v\in V(G)$ is called \emph{active} as soon as a vertex of the connected subtree $T'$ of $T$ containing $v$ in its bags is explored during DFS. A vertex $v\in V(G)$ is called \emph{finished} if $T'$ has been fully explored by DFS.
 \end{definition}
 
 \begin{lemma}
-	Let $G'$ be a maximal outerplanar graph and $(T',W')$ its tree decomposition with $h_{T'}$ as height of $T'$. When using DFS as graph traversal for a drawing algorithm of $G'$, a vertex $v'$ of $G'$ is active for at least $\Omega(h_{t'})$ steps.\label{l:one_vertex_active_height}
+	Let $G'$ be a maximal outerplanar graph and $(T',W')$ its tree decomposition with height $h_{T'}$. When using DFS as graph traversal for a drawing algorithm of $G'$, a vertex $v'$ of $G'$ is active for at least $\Omega(h_{T'})$ steps.\label{l:one_vertex_active_height}
 \end{lemma}
 \begin{proof}
 	This follows directly by Lemma \ref{l:max_outerplanar_active_vertex_path}.
@@ -319,8 +320,7 @@ The following definition helps describing, for how long a vertex
 
 \subsection{Drawing Algorithm For Maximal Outerplanar Graphs With Two Bends}
 
-Based on the fact that a layering induced by the drawing algorithm \ref{algo:complete_outerplanar_graph_dual} did improve the ratio for maximal outerplanar graphs which , a new approach will create a box drawing with the layering property. Since every maximal outerplanar graph has triangles as interior faces, its treewidth is bound by 2.\\
-In order to draw a maximal outerplanar graph $G$, its tree decomposition will be transferred to an $SPQR$-Tree. 
+Based on the fact that the layering induced by the drawing algorithm \ref{algo:complete_outerplanar_graph_dual} did improve the ratio for maximal outerplanar graphs whose weak dual graph height is bounded by $\mathcal{O}(\log n)$, this new approach will create a box drawing with the layering property. In order to implement the drawing algorithm for a maximal outerplanar graph $G'$, its tree decomposition will be transferred to an $SPQR$-Tree. 
 
 \begin{lemma}
 	There exists a function $f: (T,W) \to \mathcal{T}$ which derives an $SPQR$-Tree out of a tree decomposition of a maximal SP-graph $G$ with the following properties:
@@ -369,7 +369,8 @@ In order to draw a maximal outerplanar graph $G$, its tree decomposition will be
 	Since $G$ is a maximal SP-graph, there is not any $R$ node in $\mathcal{T}$ by definition. The second property holds as an invariant during the process of creating $\mathcal{T}$ since it is true for any triangle and any new vertex insertion. Every vertex of $T$ is substituted with a constant amount of vertices in $\mathcal{T}$, so the height of $\mathcal{T}$ equals the height of $T$ asympotically.\\
 	So there exists a function $f$ which derives an $SPQR$-Tree from a given tree decomposition with the stated properties.
 \end{proof}
-The drawing algorithm will transfer a tree decomposition $(T',W')$ of a maximal outerplanar graph $G'$ to an $SPQR$-Tree $\mathcal{T}'$. Afterwards, the algorithm explores $\mathcal{T}'$ by DFS starting at the root node. This is achieved by a stack implementation in the pseudocode. For a vertex $t'\in V(\mathcal{T'})$, the child of $t'$ which roots the subtree of minimal height will always be prioritized during the DFS. This combined strategy of DFS and subtree priority will exclude unneccesarily inserted new layers in the resulting box drawing for $(T',W')$.\\
+The drawing algorithm will transfer a tree decomposition $(T',W')$ of a maximal outerplanar graph $G'$ to an $SPQR$-Tree $\mathcal{T}'$. Afterwards, the algorithm explores $\mathcal{T}'$ by DFS starting at the root node. This is achieved by a stack implementation in the pseudocode. Every edge insertion will correspond to a trivial case and every vertex insertion to a serial case regarding $\mathcal{T'}$. The parallel case will elongate already existing boxes.\\\\
+For a vertex $t'\in V(\mathcal{T'})$, the child of $t'$ which roots the subtree of minimal height will always be prioritized during the DFS. This combined strategy of DFS and subtree priority will exclude unneccesarily inserted new layers in the resulting box drawing for $(T',W')$. \\
 The following pseudocode creates a box drawing for a given $SPQR$-Tree:\\
 \begin{algorithm}[H]
 	\caption{\texttt{DrawSPQR}$(\mathcal{T})$}\label{al:maximal_outerplanar_box_two_bends}
@@ -473,6 +474,13 @@ Transferring a box drawing to a polyline drawing includes the substitution of $\
 	Let $G'$ be a maximal outerplanar graph with its partitioning $P = (\mathcal{P},\mathcal{W})$. Let $c$ be a constant so that for every partition $p_i \in \mathcal{P}$ it holds that $|w_i|\leq c, w_i \in \mathcal{W}$ and $\mathcal{P}$ be a chain of vertices of height $\mathcal{O}(n)$. Since the size of every partition is bound by $c$, the height of the regarding complete binary tree is bound by $\mathcal{O}(1)$.\\
 	When $\mathcal{P}$ is a chain of vertices, the drawing algorithm \ref{al:maximal_outerplanar_two_bends} finishes a partition before proceeding to the next element of $\mathcal{P}$ due to the combined strategy of DFS and subtree priority. Since the amount of layers inserted into $\mathcal{B}_{G'}$ are determined by the amount of simultaneously active vertices, $\mathcal{B}$ inherits a constant amount of layers, resulting in a box drawing of $\mathcal{O}(n^2)$ area and a constant ratio.
 \end{proof}
+
+\begin{theorem}
+	Any outerplanar graph $G'$ with $n'$ vertices admits a polyline drawing with two bends per edge and a ratio $r\in \mathcal{O}(\log^2 n')$ on $\mathcal{O}(n'^2 \log^2 n')$ area.
+\end{theorem}
+\begin{proof}
+	Insert marked edges into an outerplanar graph $G'$ without destroying the outerplanarity until $G'$ is maximal. Draw $G'$ according to algorithm \ref{al:maximal_outerplanar_two_bends} into a polyline drawing $\Gamma_{G'}$ with ratio $r\in \mathcal{O}(\log^2 n')$ on $\mathcal{O}(n'^2 \log^2 n')$ area, according to theorem \ref{th:maximal_outerplanar_log2_n_ratio}. Removing the marked edges from $G'$ again does not alter the properties of $\Gamma_{G'}$. 
+\end{proof}
 \newpage
 \subsubsection{Example Drawing}
 
@@ -535,6 +543,7 @@ In order to illustrate an example drawing properly, the distance between layers 
 	\end{subfigure}
 	\caption{The resulting polyline drawing $\Gamma_{G'}$ derived from $\mathcal{B}_{G'}$, with two bends per edge}\label{im:example_drawing_gamma_G}
 \end{figure}
+
 \subsubsection{Preserving Outerplanarity}
 
 \begin{theorem}

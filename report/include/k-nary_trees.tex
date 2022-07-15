@@ -8,7 +8,7 @@ When working on other graph classes, it may be possible to find an approach by r
 \begin{lemma}\label{l:tree_to_k-ary}
 	Any tree $T$ can be interpreted as a $k$-ary tree.
 \end{lemma}
-A tree $T$ does not necessarily inherit a root but any vertex of $T$ can be flagged as such. The height of any vertex is then described as the path length starting from the root and $k$ is set to the maximum amount of children of all the inner nodes. $T$ is now rooted and $k$ fixed, hence a $k$-ary tree. When describing a tree $T$ as a $k$-ary tree, the root will be chosen so the resulting height is minimal.
+A tree $T$ does not necessarily inherit a root but any vertex of $T$ can be flagged as such. The height of any vertex is then described as the path length starting from the root and $k$ is set to the maximum amount of children of all the inner nodes. $T$ is now rooted and $k$ fixed, hence a $k$-ary tree. When describing a tree $T$ as a $k$-ary tree, the root will be chosen so that the resulting height of $T$ is minimal.
 % The height 
 \begin{lemma}The \emph{height $h$} of a complete $k$-ary tree $T$ is in $\mathcal{O}(\log n)$.\label{l:k-ary-tree_log_height}
 \end{lemma}
@@ -30,7 +30,7 @@ A tree $T$ does not necessarily inherit a root but any vertex of $T$ can be flag
 \end{theorem}
 \begin{proof}
 	The following drawing will be constructed from top to bottom, meaning that the $y$-coordinates of the children of any vertex $v$ are smaller than the $y$ coordinate of $v$.\\
-	Let $r := k^h$. For a vertex $v$ in height $i$, consider $k$ equidistant columns with $x$-coordinates between $x(v) - (k-1)\cdot  k^{h-h'-1}$ and $x(v) + (k-1)\cdot  k^{h-h'-1}$. These are integer coordinates since the distance between two columns next to each other equals $2\cdot \frac{k^{h-i}}{k}$. Draw a circle around $v$ with radius $r$. Choose the grid points $v_i$ on the column closest to the resulting intersections with the constraint that $y(v_i) \leq y(v)$ and connect $v$ with its $k$ children with a straight-line.
+	Let $r := k^h$. For a vertex $v$ in height $i$, consider $k$ equidistant columns with $x$-coordinates between $x(v) - (k-1)\cdot  k^{h-h'-1}$ and $x(v) + (k-1)\cdot  k^{h-h'-1}$. These are integer coordinates since the distance between two columns next to each other equals $2\cdot \frac{k^{h-i}}{k}$. Draw a circle around $v$ with radius $r$. Choose the grid points $v_i$ on the column closest to the resulting intersections with the constraint that $y(v_i) \leq y(v)$ and connect $v$ with its $k$ children with a straight-line, as illustrated in figure \ref{im:k-ary_trees_algorithm_illustration}. 
 \begin{figure}[H]
 	\centering
 		\begin{subfigure}{\textwidth}
@@ -89,7 +89,7 @@ The following drawing algorithm sums up the approach described above.\\
 	Any tree $T$ admits a optimal straight-line drawing, apart from a rounding error, on exponential area.
 \end{theorem}
 \begin{proof}
-	By Lemma \ref{l:tree_to_k-ary}, any tree $T$ can be interpreted as a $k$-ary tree. The algorithm \ref{al:complete_k-ary_tree} can be reused in order to produce a nearly-optimal straight-line drawing. Set the root $r \in V(T)$ so that the height of $T$ is minimal. Set $k$ as the maximum amount of children of all inner nodes of $T$. The drawing algorithm \ref{al:complete_k-ary_tree} is slightly modified which checks the existence of any vertex since any $k$-ary tree with height $h$ is a subtree of a complete $k$-ary subtree of the same height. When the height is in $\mathcal{O}(n)$, then the radius and the area consumption gets exponential. The output will be a nearly-optimal straight-line drawing $\Gamma_{T'}$. Removing the marked vertices will not alter the ratio or area consumption and the result is a nearly-optimal straight-line drawing $\Gamma_T$.
+	By Lemma \ref{l:tree_to_k-ary}, any tree $T$ can be interpreted as a $k$-ary tree. The algorithm \ref{al:complete_k-ary_tree} can be reused in order to produce a nearly-optimal straight-line drawing. Set the root $r \in V(T)$ so that the height of $T$ is minimal. Set $k$ as the maximum amount of children of all inner nodes of $T$. The drawing algorithm \ref{al:complete_k-ary_tree} is slightly modified which checks the existence of any vertex since any $k$-ary tree with height $h$ is a subtree of a complete $k$-ary subtree of the same height. The height of the drawing is computed by $h\cdot r = h\cdot k^h$. When the height of the tree is in $\mathcal{O}(n)$, then the radius and the area consumption get exponential. The output will be a nearly-optimal straight-line drawing $\Gamma_{T'}$. The width lies in $\mathcal{O}(n). $Removing the marked vertices will not alter the ratio or area consumption and the result is a nearly-optimal straight-line drawing $\Gamma_T$.
 \end{proof}
 
 The following drawing algorithm sums up the approach for a general tree $T$.\\

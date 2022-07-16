@@ -1,6 +1,6 @@
 \section{Preliminaries}\label{section:preliminaries}
 
-\subsection{Definitions And Terminology}
+\subsection{Definitions and Terminology}
 %A graph is a 2-tuple consisting of a vertex set and an edge set. The visualization, however, has to be drawn in some kind of way. Investigating the drawing of a graph needs to include several constraints, for example, \emph{how} we want the drawing and \emph{where} we want to draw on. These constraints can be described mathematically.\\
 A \emph{graph} $G=(V,E)$ is a tuple consisting of two sets - the set of vertices $V=V(G)$ and the set of edges $E=E(G)$. An \emph{edge} $e = (v,w), v,w \in V$ is a tuple and describes a connectivity relation between two vertices.
 % subgraph
@@ -22,7 +22,7 @@ The \emph{depth-first search, DFS} in short, is a strategy to explore edges out 
 
 % Graph Drawings
 
-\subsection{Graph Drawing Models And Representations}
+\subsection{Graph Drawing Models and Representations}
 % Grid
 An $h \times w$ \emph{grid} is a graph consisting of $h$ rows and $w$ columns of vertices. The vertex in the $i$-th row and $j$-th column is denoted as $(i,j)$ and is called a \emph{grid point}. All vertices in a grid have exactly four neighbours, except for the boundary vertices \cite[P. 760]{DBLP:cormen_intro_to_algorithms}. One \emph{unit length} values the distance between two adjacent vertices on the grid and is denoted as \UL.
 % Drawing
@@ -59,7 +59,7 @@ The \emph{euclidian distance} between two grid points $(x_1,y_1)$ and $(x_2,y_2)
 % Edge length
 The \emph{length of a line segment} is defined as the euclidian distance between the end points. The \emph{length of a polyline} is defined as the sum of the individual line segment lengths.
 
-\subsection{The Relationship Between Drawing Models}
+\subsection{The Relationship between Drawing Models}
 
 Box drawings, straight-line and polyline drawings are the drawings of interest in this thesis. They stand in relation to each other in the following way:\\
 A straight-line drawing is a polyline drawing with no bends by definition. Every sequence of line segments is of length 1.\\
@@ -105,7 +105,6 @@ A vertex with no children is called a \emph{leaf}. Any vertex which is not a lea
 A \emph{level} of $T$ consists of all vertices of the same height.
 % height
 The \emph{height} of $T$ is equal to the largest height of any vertex of $T$. \cite[P. 1176ff]{DBLP:cormen_intro_to_algorithms}
-\subsubsection{$k$-ary Tree}
 % complete k-ary tree
 A \emph{$k$-ary tree} is a rooted tree in which for every vertex has at most $k$ children.
 A \emph{complete $k$-ary tree} is a $k$-ary tree in which all leaves have the same height and all internal nodes have $k$ children.

@@ -1,8 +1,13 @@
 \section{Maximal Series-Parallel Graphs}\label{section:SP-graphs}
 
-Maximal series-parallel graphs correspond to the class of 2-trees \cite[P. 2]{straight-line_2-trees} and are a suitable class of interest for fundamental research since any 2-tree is biconnected, but not triconnected and inherits a constant treewidth. Since maximal SP-graph contains a largest maximal outerplanar subgraph, creating a compact layered polyline drawing for maximal outerplanar graphs described in section \ref{s:maximal_outerplanar} will prove to be useful when drawing maximal SP-graphs. 
+Maximal series-parallel graphs correspond to the class of 2-trees \cite[P. 2]{straight-line_2-trees} and are a suitable class of interest for fundamental research since any 2-tree is biconnected, but not triconnected and inherits a constant treewidth. Since maximal SP-graph contains a largest maximal outerplanar subgraph, creating a compact layered polyline drawing for maximal outerplanar graphs described in section \ref{s:maximal_outerplanar} will prove to be useful when drawing maximal SP-graphs.\\
+At the very end of this section, it will be investigated whether the same approach will improve the ratio for drawings of a even more restricted subclass of planar graphs, the so-called \emph{planar 3-trees}.
 
-\subsection{Properties Of Maximal Series Parallel Graphs}
+\subsection{Drawing Algorithm for Maximal Series-Parallel Graphs with two Bends}
+
+This approach will extend the drawing algorithm for maximal outerplanar graphs to be suitable for any maximal SP-graph. At first, the largest maximal outerplanar subgraph of a maximal SP-graph is found and a box drawing is drawn according to the second drawing algorithm as described in section \ref{s:maximal_outerplanar}. The difference will then be inserted at suitable columns. It will be shown that the insertion of the remaining maximal SP-graph in the box drawing will not raise the area bounds significantally and the similar results apply.
+
+\subsubsection{Properties of Maximal Series-Parallel Graphs}
 
 % 2-tree stuff
 
@@ -30,7 +35,7 @@ Maximal series-parallel graphs correspond to the class of 2-trees \cite[P. 2]{st
 
 % drawing stuff
 
-\subsection{Drawing Algorithm For Maximal Series Parallel Graphs With Two Bends}
+\subsubsection{The Algorithm}
 
 A maximal SP-graph $G$ with its tree decomposition $(T,W)$ will be evaluated for its largest maximal outerplanar subgraph $G'$ with tree decomposition $(T',W')$. $\tilde{T}$ describes the difference of $T$ and $T'$ and is a set of subtrees of $T$.\\
 In order to create a polyline drawing similarily as described in section \ref{s:maximal_outerplanar}, it is crucial to find a suiting $SPQR$-Tree derivation of a maximal SP-graphs for the box drawing algorithm \ref{al:draw_SPQR} to function. Fortunately, the function deriving a $SPQR$-Tree of a tree decomposition of a maximal outerplanar graph $G'$ is also applicable for maximal SP-graphs.
@@ -120,7 +125,44 @@ After $(T',W')$ is drawn into a box drawing $B'$, the remaining subtrees in $\ti
 	Insert marked edges until $G$ is a maximal SP-graph. Draw $G$ with algorithm \ref{al:DrawMaximalSPGraph} and a constant distance between the layers. Afterwards, remove the marked edges from the drawing.
 \end{proof}
 
-\subsubsection{Generalization To Planar 3-trees?}
+\subsubsection{Example drawing}
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=10,width=0.8\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+			\caption{Maximal SP-graph $G$ with its largest maximal outerplanar subgraph from example \ref{im:maximal_outerplanar_example_straight-line}. The differential subtrees are colored in orange}
+	\end{subfigure}
+	\begin{subfigure}{\textwidth}
+	\centering
+	\includegraphics[page=11,width=0.5\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+		\caption{$T$ of the tree decomposition of $G$}
+\end{subfigure}
+
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=12,width=0.8\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+	\end{subfigure}
+	\caption{The first differential subtree (encircled in magenta) is inserted between vertices 1 and 5 right next to the edge of $(1,5)$ (colored in cyan). Since 1 is not finished during the insertion, creating a new layer is mandatory}
+\end{figure}
+
+
+\begin{figure}[H]
+	\centering
+	\begin{subfigure}{\textwidth}
+		\centering
+		\includegraphics[page=13,width=0.9\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
+	\end{subfigure}
+	\caption{The second differential subtree (encircled in magenta) is inserted between vertices 13 and 3 right next to the edge of $(13,3)$ (colored in cyan)}
+\end{figure}
+
+\subsection{Generalization To Planar 3-trees?}
 Following the recursive definition of $k$-trees, 3-trees start with a $K_4$ and every new added vertex is connected to three adjacent vertices. 3-trees inherit a treewidth of 3 and $R$ nodes in the respective $SPQR$ tree since they are triconnected. The box drawing algorithm \ref{al:draw_SPQR} does not suffice for this class of planar graphs since the algorithm does not handle the $R$ node case. Still, it is of interest how the idea of a layered box drawing approach will work out based on the tree decomposition of a 3-tree.
 
 \begin{definition}
@@ -172,40 +214,3 @@ For a complete 3-tree with height $h$ in its tree decomposition, the total amoun
 	&\sum_{i=0}^{h} 2^i = 2^{h+1}-1 \underbrace{\in}_{h\in \mathcal{O}(\log n)} \mathcal{O}(n)
 \end{align*}
 The resulting box drawing will therefore consume at least $\mathcal{O}(n^2)$ area, when the minimal distance between two layers values a constant. In conclusion, no ratio optimization is possible with this layering approach.
-
-\subsection{Example drawing}
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}{\textwidth}
-		\centering
-		\includegraphics[page=10,width=0.8\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
-			\caption{Maximal SP-graph $G$ with its largest maximal outerplanar subgraph from example \ref{im:maximal_outerplanar_example_straight-line}. The differential subtrees are colored in orange}
-	\end{subfigure}
-	\begin{subfigure}{\textwidth}
-	\centering
-	\includegraphics[page=11,width=0.5\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
-		\caption{$T$ of the tree decomposition of $G$}
-\end{subfigure}
-
-\end{figure}
-
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}{\textwidth}
-		\centering
-		\includegraphics[page=12,width=0.8\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
-	\end{subfigure}
-	\caption{The first differential subtree (encircled in magenta) is inserted between vertices 1 and 5 right next to the edge of $(1,5)$ (colored in cyan). Since 1 is not finished during the insertion, creating a new layer is mandatory}
-\end{figure}
-
-
-\begin{figure}[H]
-	\centering
-	\begin{subfigure}{\textwidth}
-		\centering
-		\includegraphics[page=13,width=0.9\linewidth]{graphics/maximal_outerplanar_example_drawings.pdf}
-	\end{subfigure}
-	\caption{The second differential subtree (encircled in magenta) is inserted between vertices 13 and 3 right next to the edge of $(13,3)$ (colored in cyan)}
-\end{figure}

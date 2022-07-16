@@ -2,10 +2,10 @@
 
 This section will address two main approaches of ratio minimization for drawings of maximal outerplanar graphs. Every outerplanar graph can be extended to a maximal outerplanar graph by inserting edges and preserving the outerplanarity property. Any outerplanar graph can then be drawn using a drawing algorithm for maximal outerplanar graphs by inserting edges and removing those after the drawing has been computed. Since any maximal outerplanar graph is a maximal SP-graph, the class of maximal outerplanar graphs is a strict subclass of the maximal SP-graphs and it will be determined whether one of the approaches was suitable to be extended for maximal SP-graphs, which will be the case for the second approach.\\
 
-\subsection{Drawing Algorithm For Complete Outerplanar Graphs With One Bend}
+\subsection{Drawing Algorithm for Complete Outerplanar Graphs with one Bend}
 After emphasizing general properties of maximal outerplanar graphs, the first approach will address drawing a maximal outerplanar graph based on drawing its weak dual graph. The weak dual graph of an outerplanar graph is a tree and it is already known that any tree admits a nearly-optimal straight-line drawing. Then, the limitations of this approach regarding applying it on maximal SP-graphs are of topic.
 
-\subsubsection{Properties Of Maximal Outerplanar Graphs}
+\subsubsection{Properties of Maximal Outerplanar Graphs}
 \begin{lemma}
 	A maximal outerplanar graph $G$ inherits triangles as inner faces.
 \end{lemma}
@@ -179,10 +179,10 @@ As addressed by Observation \ref{ob:area_leads_to_ratio_increase}, this algorith
 \end{figure}
 The approach of drawing the weak dual graph at first followed by the outerplanar graph serves as an idea for a drawing with the \emph{layering property}. The resulting drawings are valid layerings since the vertices of $G$ added on a fixed height of $G^*$ are not adjacent. As already observed, a layered drawing algorithm might guarantee a reasonable ratio by defining a minimal distance between two layers and therefore between two adjacent vertices. Since drawing the weak dual graph is not applicable for SP-graphs, the \emph{tree decomposition} of an SP-graph will serve as a guidance tool for the sequence of vertices drawn by a layering algorithm. The implementation of the drawing algorithm will use the \emph{$SPQR$-Tree} derived from a tree decomposition.
 
-\subsection{Drawing Algorithm For Maximal Outerplanar Graphs With Two Bends}
+\subsection{Drawing Algorithm for Maximal Outerplanar Graphs with two Bends}
 The second approach will create a box drawing of a maximal outerplanar graph at first instance. Based on the layering idea acquired by the first approach, the box drawing will inherit the layering property, meaning that no two boxes of adjacent vertices will have the same $y$ coordinate. This layering property will come in handy when maximizing the Euclidian distance between adjacent vertices. The resulting box drawing will then be transfered to polyline drawings as described in section \ref{section:preliminaries}. Finally, it will be exposed that this second approach will produce polyline drawings with reasonable area consumption and therefore a reasonable ratio.\\
 Before the drawing algorithm is presented, the \emph{partitioning of binary trees} will be defined, followed by more maximal outerplanar graph properties of interest. The partitioning will prove to be useful to examine upper bounds of the resulting drawings, while the properties will justify the steps of the drawing algorithm.
-\subsubsection{Partitioning A Binary Tree In Complete Binary Subtrees}
+\subsubsection{Partitioning a Binary Tree in Complete Binary Subtrees}
 When analyzing upper bounds for the ratio of a drawing for a maximal outerplanar graph $G$, it is mandatory to take a look at the structure of its tree decomposition. Like the weak dual graph of any maximal outerplanar graph, the tree decomposition consists of three binary trees connected to the root. The following definition of a \emph{partitioning} describes the difference of a tree $T$ to being a complete binary tree. This definition of tree partitionings is very similar to a tree decomposition and will help during the analysis of the resulting drawing algorithm for any maximal outerplanar graph $G$.
 \begin{definition}
 	A \emph{partitioning} $P = (\mathcal{P},\mathcal{W})$ of a binary tree $T$ is defined with the following properties:
@@ -242,7 +242,7 @@ The analysis of the amount of layers created in a box drawing for an outerplanar
 
 After defining a partitioning for binary trees, the next section will address properties of an outerplanar graph $G$ regarding its tree decomposition. It will be shown that the tree decomposition of $G$ consists of up to three binary trees connected to the root and why DFS for traversal of the tree decomposition will be a good approach for a drawing algorithm.
 
-\subsubsection{More Properties Of Maximal Outerplanar Graphs}
+\subsubsection{More Properties of Maximal Outerplanar Graphs}
 
 \begin{lemma}\label{l:outerplanar_tree_decomposition}
 	Any outerplanar graph $G$ has a tree decomposition $(T,W)$ such that $T$ is of degree at most 3. $T$ is isomorphic to the weak dual graph $G^*$.

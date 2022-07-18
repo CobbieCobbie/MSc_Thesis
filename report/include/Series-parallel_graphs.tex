@@ -109,14 +109,7 @@ After $(T',W')$ is drawn into a box drawing $B'$, the remaining subtrees in $\ti
 	Insert marked edges until $G$ is a maximal SP-graph. Draw $G$ with algorithm \ref{al:DrawMaximalSPGraph} and by theorem \ref{th:maximal_SP-n^2log^2n-area}, the area and ratio upper bounds hold. Removing the marked edges again does not alter any of the upper bounds.
 \end{proof}
 
-
-\begin{theorem}
-	Any maximal SP-graph admits a polyline drawing in $\mathcal{O}(n \log^2 n)$ area with two bends per edge.
-\end{theorem}
-\begin{proof}
-	When the minimal distance between two layers is set to a constant, the resulting height is bounded by the amount of simultaneously active vertices. By Lemma \ref{l:maximal_outerplanar_log2_n_vercies_active} and \ref{l:SP_not_increasing_area}, the height is bounded by $\mathcal{O}(\log^2 n)$. The width is still bounded by the amount of edges and the total area consumption lies in $\mathcal{O}(n \log^2 n)$.
-\end{proof}
-
+The last theorem emphasizes the result of a planar small-area drawing for series-parallel graphs, regardless of ratio.
 
 \begin{theorem}
 	Any SP-graph admits a polyline drawing in $\mathcal{O}(n \log^2 n)$ area with two bends per edge.

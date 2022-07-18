@@ -260,7 +260,7 @@ The tree decomposition of an outerplanar graph $G$ will be traversed during the 
 		\centering
 		\begin{subfigure}{0.45\textwidth}
 			\centering
-			\includegraphics[page=1,width=0.8\linewidth]{graphics/maximal_outerplanar_tree_decomposition.pdf}
+			\includegraphics[page=1,width=0.6\linewidth]{graphics/maximal_outerplanar_tree_decomposition.pdf}
 			\caption{Tree decomposition $T$ consisting of three vertices. Its bags share two vertices of $G$}
 		\end{subfigure}
 	\begin{subfigure}{0.45\textwidth}
@@ -390,8 +390,57 @@ Based on the fact that the layering induced by the drawing algorithm \ref{algo:c
 	Since $G$ is a maximal SP-graph, there is not any $R$ node in $\mathcal{T}$ by definition. The second property holds as an invariant during the process of creating $\mathcal{T}$ since it is true for any triangle and any new vertex insertion. Every vertex of $T$ is substituted with a constant amount of vertices in $\mathcal{T}$, so the height of $\mathcal{T}$ equals the height of $T$ asympotically.\\
 	So there exists a function $f$ which derives an $SPQR$-Tree from a given tree decomposition with the stated properties.
 \end{proof}
-The drawing algorithm will transfer a tree decomposition $(T,W)$ of a maximal outerplanar graph $G$ to an $SPQR$-Tree $\mathcal{T}'$. Afterwards, the algorithm explores $\mathcal{T}'$ by DFS starting at the root node. This is achieved by a stack implementation in the pseudocode. Every edge insertion will correspond to a trivial case and every vertex insertion to a serial case regarding $\mathcal{T}$. The parallel case will elongate already existing boxes.\\\\
-For a vertex $T\in V(\mathcal{T})$, the child of $T$ which roots the subtree of minimal height will always be prioritized during the DFS. This combined strategy of DFS and subtree priority will exclude unneccesarily inserted new layers in the resulting box drawing for $(T,W)$. \\
+The drawing algorithm will transfer a tree decomposition $(T,W)$ of a maximal outerplanar graph $G$ to an $SPQR$-Tree $\mathcal{T}'$. At first, the triangle represented by the root $r$ of $T$ is drawn, initializing a box drawing with three layers.\\
+Afterwards, the algorithm explores $\mathcal{T}'$ by DFS starting at the root node. This is achieved by a stack implementation in the pseudocode. Every edge insertion will correspond to a trivial case. The parallel case will elongate already existing boxes. Vertex insertions into a box drawing occur when the DFS hits a serial node.\\
+During the serial phase, a new vertex $v$ is placed inside the box drawing and connected to its adjacent vertices $a$ and $b$. Without loss of generality, let the layer of $a$ be atop the layer of $b$. It will be checked, if there is a layer available for the box of $v$ to be placed on. If there exists such a layer so that edges $(v,a)$ and $(v,b)$ are drawable without destroying planarity, the layer is called \emph{reachable}.
+There are three cases to consider regarding the reachability of a layer.
+\begin{description}
+	\item[Case 1] The reachable layer is inbetween the layer of $a$ and $b$.\\
+	In this case, place the box representing $v$ on a layer inbetween the layers of $a$ and $b$ and draw the edges accordingly.
+	\item[Case 2] The reachable layer is either atop $a$ or below $b$.\\
+	Without loss of generality, assume that there is a reachable layer atop of $a$. The other subcase is symmetrical to this case. Place $v$ on the reachable layer above $a$ and insert edges accordingly. See figure \ref{im:reachable_layer_atop_vertex_placement} for an illustration.
+	\begin{figure}[H]
+		\centering
+	\begin{subfigure}{0.4\textwidth}
+	\centering
+	\includegraphics[page=2,width=\linewidth]{graphics/maximal_outerplanar_reachable_layers.pdf}
+\end{subfigure}
+		\caption{the box $v$ is placed atop the layer of $a$ and edges inserted to $a$ and $b$}\label{im:reachable_layer_atop_vertex_placement}
+	\end{figure}
+	Subsequent vertex insertions inbetween the pairs $(v,a)$ or $(v,b)$ are still possible as illustrated in figure \ref{im:reachable_layer_atop_vertex_placement_2}. Notice that insertions inbetween $(v,a)$ destroys the outerplanarity property.
+		\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.7\textwidth}
+			\centering
+			\includegraphics[page=3,width=0.6\linewidth]{graphics/maximal_outerplanar_reachable_layers.pdf}
+			\caption{Inserting subsequent vertices between $v$ and $a$, destroying outerplanarity}\label{im:reachable_layer_atop_vertex_placement_2a}
+		\end{subfigure}
+		\begin{subfigure}{0.7\textwidth}
+			\centering
+			\includegraphics[page=4,width=0.55\linewidth]{graphics/maximal_outerplanar_reachable_layers.pdf}
+			\caption{Inserting subsequent vertices between $v$ and $b$}\label{im:reachable_layer_atop_vertex_placement_2b}
+		\end{subfigure}
+		\caption{Placements for the remaining drawing}\label{im:reachable_layer_atop_vertex_placement_2}
+	\end{figure}
+	\item[Case 3] A layer becomes reachable according to case 1 or 2 by layer reassignments of already drawn boxes.\\
+	Moving relevant components of the box drawing to a free area might make a layer reachable for $v$. See figure \ref{im:reachable_layer_atop_vertex_placement_3} for an illustration.
+			\begin{figure}[H]
+		\centering
+		\begin{subfigure}{0.4\textwidth}
+			\centering
+			\includegraphics[page=5,width=0.4\linewidth]{graphics/maximal_outerplanar_reachable_layers.pdf}
+			\caption{}\label{im:reachable_layer_atop_vertex_placement_3a}
+		\end{subfigure}
+		\begin{subfigure}{0.4\textwidth}
+			\centering
+			\includegraphics[page=6,width=0.4\linewidth]{graphics/maximal_outerplanar_reachable_layers.pdf}
+			\caption{}\label{im:reachable_layer_atop_vertex_placement_3b}
+		\end{subfigure}
+		\caption{Reassigning $b$ creates a reachable layer for $v$}\label{im:reachable_layer_atop_vertex_placement_3}
+		\end{figure}
+\end{description}
+If there is no reachable layer available, a new layer is created inbetween $a$ and $b$.\\
+For a vertex $T\in V(\mathcal{T})$, the child of $T$ which roots the subtree of minimal height or size will always be prioritized during the DFS. If the heights and size of the subtrees are the same, prioritize the subtree with the longest active vertex. This combined strategy of DFS and subtree priority will exclude unneccesarily inserted new layers in the resulting box drawing for $(T,W)$. \\
 The following pseudocode creates a box drawing for a given $SPQR$-Tree:\\
 \begin{algorithm}[H]
 	\caption{\texttt{DrawSPQR}$(\mathcal{T})$}\label{al:maximal_outerplanar_box_two_bends}
@@ -443,8 +492,8 @@ The following pseudocode creates a box drawing for a given $SPQR$-Tree:\\
 			\For{$v\in \texttt{ActiveVertices}$}{
 				$B\texttt{.extendBox}(v)$
 			}
-			\If{$\nexists$ free layer between $layer(s_1)$ and $layer(s_3)$}{$l \gets B$\texttt.{addLayer}$(l_{up},l_{low})$}
-			\Else{$l \gets $ free layer between $layer(s_1)$ and $layer(s_3)$}
+			\If{$\nexists$ reachable layer}{$l \gets B$\texttt.{addLayer}$(l_{up},l_{low})$}
+			\Else{$l \gets $ reachable layer either atop, below or inbetween $l(s_1)$ and $l(s_3)$}
 			$B\texttt{.DrawBox}(s_2, l)$\\
 			$\texttt{ActiveVertices.add}(s_2)$
 		}
@@ -583,7 +632,8 @@ Since $G$ is maximal outerplanar, by Lemma \ref{l:outerplanar_TD_properties} the
 	\end{subfigure}
 	\caption{Preserving outerplanarity scheme for a maximal outerplanar graph $G$}\label{im:maximal_outerplanar_preserving_outerplanartiy_scheme}
 \end{figure}
-Since every box of $\mathcal{B}_{G}$ lies on the outerface, every vertex lies on the outerface in the resulting polyline drawing $\Gamma_{G}$. The runtime, area consumption and ratio do not alter asymptotically.
+Consider the second case during a serial phase of algorithm \ref{al:draw_SPQR}. When a reachable layer is atop or below the already drawn vertices, there might be the possibility of destroying the outerplanarity property. So in order to preserve the outerplanarity property, the reachable layer atop or below is used if there are no subsequent vertex insertions destroying the outerplanartiy property. Otherwise, a new layer is inserted.\\
+Since every box of $\mathcal{B}_{G}$ lies on the outerface, every vertex lies on the outerface in the resulting polyline drawing $\Gamma_{G}$. The runtime does not alter asymptotically. 
 \end{proof}
 \begin{figure}[H]
 	\centering

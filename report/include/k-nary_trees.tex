@@ -44,6 +44,7 @@ A tree $T$ does not necessarily inherit a root but any vertex of $T$ can be flag
 		\underbrace{2\cdot \sum_{j=i}^{h-1} k^{h-j-1}}_{\text{drawn from both columns}} &= 2\cdot\sum_{z = 0}^{h-i-1}h^z\\
 		&= 2\cdot\frac{k^{h-i}-1}{k-1} < 2\cdot k^{h-i}
 	\end{align}
+	Since for a complete $k$-ary tree, $k^{h-1}$ leafs have to be assigned to a distinct $x$ coordinate, thus the radius of the circles used lies in $\Omega(k^h)$ and therefore in $\Omega(n)$.
 	The height of the drawing is bound by $h\cdot r = h\cdot k^h \in \mathcal{O}(n\cdot \log n)$. The width is bounded by $2\cdot\sum_{i = 0}^{h} k^i = 2\cdot \frac{k^{h+1}-1}{k-1} \in \mathcal{O}(n)$, resulting in $\mathcal{O}(n^2\log n)$ area.\\ 
 	Since the algorithm works from top to bottom and for height $i$, the area for every subtree is disjointedly reserved, the resulting drawing is planar. Furthermore, all straight-line edges inherit a length of approximately $k^h$. A rounding error bound by $\varepsilon, 0\leq \varepsilon<1$ occurs when placing the vertices on grid points. The rounding error does not accumulate since the length $r$ is fixed and the vertices are placed in the grid independently from each other. No bends were used and the ratio is bound by $1+\varepsilon$.
 \end{proof}
@@ -89,7 +90,18 @@ The following drawing algorithm sums up the approach described above.\\
 	Any tree $T$ admits a optimal straight-line drawing, apart from a rounding error, on exponential area.
 \end{theorem}
 \begin{proof}
-	By Lemma \ref{l:tree_to_k-ary}, any tree $T$ can be interpreted as a $k$-ary tree. The algorithm \ref{al:complete_k-ary_tree} can be reused in order to produce a nearly-optimal straight-line drawing. Set the root $r \in V(T)$ so that the height of $T$ is minimal. Set $k$ as the maximum amount of children of all inner nodes of $T$. The drawing algorithm \ref{al:complete_k-ary_tree} is slightly modified which checks the existence of any vertex since any $k$-ary tree with height $h$ is a subtree of a complete $k$-ary subtree of the same height. The height of the drawing is computed by $h\cdot r = h\cdot k^h$. When the height of the tree is in $\mathcal{O}(n)$, then the radius and the area consumption get exponential. The output will be a nearly-optimal straight-line drawing $\Gamma_{T'}$. The width lies in $\mathcal{O}(n). $Removing the marked vertices will not alter the ratio or area consumption and the result is a nearly-optimal straight-line drawing $\Gamma_T$.
+	By Lemma \ref{l:tree_to_k-ary}, any tree $T$ can be interpreted as a $k$-ary tree. The algorithm \ref{al:complete_k-ary_tree} can be reused in order to produce a nearly-optimal straight-line drawing. Set the root $r \in V(T)$ so that the height of $T$ is minimal. Set $k$ as the maximum amount of children of all inner nodes of $T$. The drawing algorithm \ref{al:complete_k-ary_tree} is slightly modified which checks the existence of any vertex since any $k$-ary tree with height $h$ is a subtree of a complete $k$-ary subtree of the same height.\\
+	For a smaller radius than $k^h$, consider the following figure of a tree.\\
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}{\textwidth}
+			\centering
+			\includegraphics[page=1,width=0.6\linewidth]{graphics/tree_worst_case.pdf}
+		\end{subfigure}
+		\caption{A tree $T$ consisting of three complete binary trees $T'$ in total. Two complete binary trees $T'$ were added to leaves $l_1$ and $l_2$ of $T'$.}\label{im:tree_worst_case}
+	\end{figure}
+	In figure \ref{im:tree_worst_case} a tree consisting of three connected complete binary trees is illustrated. Consider algorithm \ref{al:general_tree} to create a straight-line drawing of $T$ with nearly-optimal ratio. The distance between $l_1$ and $l_2$ is a constant since they share the same parent. Thus with a radius of $k^{h'}$ it is not possible to draw $T$ since there are not enough grid points for the placements of all the leaves of $T$ availiable. The radius must value $k^{2\cdot h'}$.\\	
+	The height of the drawing is computed by $h\cdot r = h\cdot k^h$. When the height of the tree is in $\mathcal{O}(n)$, then the radius and the area consumption get exponential. The output will be a nearly-optimal straight-line drawing $\Gamma_{T'}$. The width lies in $\mathcal{O}(n)$. Removing marked vertices will not alter the ratio or area consumption and the result is a nearly-optimal straight-line drawing $\Gamma_T$.
 \end{proof}
 
 The following drawing algorithm sums up the approach for a general tree $T$.\\
@@ -134,7 +146,7 @@ The following drawing algorithm sums up the approach for a general tree $T$.\\
 			$\Gamma.$\texttt{DrawStraightLine}$(v,v_i)$\\
 			$\Gamma.$\texttt{Draw\_Children}$(v_i,r,h)$
 		}
-	}		
+	}
 \end{algorithm}
 
 \subsection{Example Drawings}

@@ -28,8 +28,9 @@ The thesis develops and analyzes algorithms for four graph classes, in increasin
 
 | Graph class | Drawing type | Ratio | Grid area | Bends/edge |
 |---|---|---|---|---|
-| Rooted *k*-ary trees | Straight-line | Nearly optimal | O(n² log n) | 0 |
-| Maximal outerplanar graphs | Polyline | **Unbounded** (proven) | — | — |
+| Rooted *k*-ary trees | Straight-line | 1+ε | O(n² log n) | 0 |
+| General trees | Straight-line | 1+ε | Exponential | 0 |
+| Maximal outerplanar graphs | Polyline | O(log² n) | O(n² log² n) | 2 |
 | Maximal SP-graphs (2-trees) | Polyline | O(log² n) | O(n² log² n) | ≤ 2 |
 | Planar 3-trees | — | Open | — | — |
 
@@ -74,7 +75,7 @@ python ./k-ary_tree_drawer.py -k 3 -he 4 -c -i
 
 ## Maximal Outerplanar Graphs
 
-A maximal outerplanar graph is a triangulation of a convex polygon — all vertices lie on the outer face and every interior face is a triangle. An attempt to extend the tree approach to outerplanar graphs yields a **polyline drawing**, but the ratio is proven to be unbounded in the worst case: no algorithm can guarantee a constant or polylogarithmic ratio for all maximal outerplanar graphs.
+A maximal outerplanar graph is a triangulation of a convex polygon — all vertices lie on the outer face and every interior face is a triangle. A naive extension of the tree approach (Approach I) yields a polyline drawing whose ratio is unbounded in the worst case. A second approach based on a tree decomposition of the outerplanar graph (Approach II) achieves a ratio of **O(log² n)** with grid area **O(n² log² n)** and at most **2 bends per edge**.
 
 ![Outerplanar graph — box drawing construction with tree decomposition overlay](figures/fig11_outerplanar_polyline.png)
 
